@@ -1,0 +1,9 @@
+<mvc:View controllerName="testui.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Text text="Teat App Suchit!!!"></Text>
+        </content>
+    </Page>
+</mvc:View>
