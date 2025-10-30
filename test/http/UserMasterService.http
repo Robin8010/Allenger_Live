@@ -1,0 +1,42 @@
+@server=http://localhost:4004
+@username=alice
+@password=
+
+
+### UserMasterHead
+# @name UserMasterHead_GET
+GET {{server}}/odata/v4/user-master/UserMasterHead
+Authorization: Basic {{username}}:{{password}}
+
+
+### UserMasterHead
+# @name UserMasterHead_POST
+POST {{server}}/odata/v4/user-master/UserMasterHead
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "10072388-065e-4855-af4b-b881467315d8",
+  "UserName": "UserName-10072388",
+  "Password": "Password-10072388"
+}
+
+
+### UserMasterHead
+# @name UserMasterHead_PATCH
+PATCH {{server}}/odata/v4/user-master/UserMasterHead/10072388-065e-4855-af4b-b881467315d8
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "10072388-065e-4855-af4b-b881467315d8",
+  "UserName": "UserName-10072388",
+  "Password": "Password-10072388"
+}
+
+
+### UserMasterHead
+# @name UserMasterHead_DELETE
+DELETE {{server}}/odata/v4/user-master/UserMasterHead/10072388-065e-4855-af4b-b881467315d8
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
