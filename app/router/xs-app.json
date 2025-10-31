@@ -1,12 +1,25 @@
 {
+  "welcomeFile": "/testui/index.html",
   "authenticationMethod": "none",
   "routes": [
+    {
+      "source": "^/testui/(.*)$",
+      "target": "$1",
+      "destination": "ui5",
+      "authenticationType": "none"
+    },
+     {
+      "source": "^/testui/(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "none"
+    },
     {
       "source": "^/(.*)$",
       "target": "$1",
       "destination": "srv-api",
-      "csrfProtection": true
+      "authenticationType": "none",
+      "csrfProtection": false
     }
-  ],
-  "welcomeFile": "/testui"
+  ]
 }

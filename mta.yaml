@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: TestCap2
 description: A simple CAP project.
-version: 1.0.0
+version: 1.0.6
 modules:
 - name: TestCap2-srv
   type: nodejs
@@ -32,7 +32,7 @@ modules:
   - name: srv-api
     group: destinations
     properties:
-      forwardAuthToken: true
+      forwardAuthToken: false
       name: srv-api
       url: ~{srv-url}
   - name: TestCap2-destination
