@@ -547,19 +547,19 @@ sap.ui.define([
                 }
                 
                 
-                var inspectionLot = oModel.getProperty("/InspectionLot");
+                var inspectionLot = viewModel.getProperty("/InspectionLot");
                 if (!inspectionLot || inspectionLot == "undefined" || inspectionLot == "") {
                     MessageToast.show("Select inspection lot");
                     return false;
                 }
-                var postDate = oModel.getProperty("/PostDate");
+                var postDate = viewModel.getProperty("/PostDate");
                 if (!postDate || postDate == "undefined" || postDate == "") {
                     MessageToast.show("Select Post date");
                     return false;
                 }
-                const quantity = oModel.getProperty(`/Quantity`);
-                const acceptedQuantity = oModel.getProperty(`/AcceptedQuantity`);
-                const rejectedQuantity = oModel.getProperty(`/RejectedQuantity`);
+                const quantity = viewModel.getProperty(`/Quantity`);
+                const acceptedQuantity = viewModel.getProperty(`/AcceptedQuantity`);
+                const rejectedQuantity = viewModel.getProperty(`/RejectedQuantity`);
                 const inputQuantity = this.ToDecimal(acceptedQuantity) + this.ToDecimal(rejectedQuantity);
                 // if (this.ToDecimal(inputQuantity) != this.ToDecimal(quantity)) {
                 //     MessageToast.show("Accepted quantity and rejected quantity should be equal to quantity.");
