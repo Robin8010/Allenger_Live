@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<List>
+		<items>
+		<StandardListItem  icon="sap-icon://home" title="Home" type="Active" press="onItemPress" />
+			<StandardListItem icon="sap-icon://log" title="Sign Out" type="Active" press="onListItemPress" />
+		</items>
+	</List>
+</core:FragmentDefinition>

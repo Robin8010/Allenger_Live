@@ -1,0 +1,143 @@
+@server=http://localhost:4004
+@username=alice
+@password=
+
+
+### InventoryTransferSAPHead
+# @name InventoryTransferSAPHead_GET
+GET {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSAPHead
+Authorization: Basic {{username}}:{{password}}
+
+
+### InventoryTransferSAPHead
+# @name InventoryTransferSAPHead_POST
+POST {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSAPHead
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "13322985-71d8-488c-883e-3cabdabd21de",
+  "RecordResultID": "RecordResultID-13322985",
+  "InspectionLot": "InspectionLot-13322985",
+  "Material": "Material-13322985",
+  "Plant": "Plant-13322985",
+  "ManagedBy": "ManagedBy-13322985",
+  "PostDate": "2016-03-08",
+  "EOI": "EOI-13322985",
+  "Quantity": 69.17,
+  "Status": "Status-13322985",
+  "SerialBatchDetails": [
+    {
+      "ID": "27529200-889a-45be-8ab4-f3ca8addfba2",
+      "SerialBatchNumberID": "SerialBatchNumberID-27529200",
+      "SerialBatchNumber": "SerialBatchNumber-27529200",
+      "Quantity": 92.22,
+      "Status": "Status-27529200",
+      "UsageDecisionStockType": "UsageDecisionStockType-27529200",
+      "StorageLocation": "StorageLocation-27529200"
+    },
+    {
+      "ID": "27529201-ab26-40df-9f10-2c9589db410e",
+      "SerialBatchNumberID": "SerialBatchNumberID-27529201",
+      "SerialBatchNumber": "SerialBatchNumber-27529201",
+      "Quantity": 21.16,
+      "Status": "Status-27529201",
+      "UsageDecisionStockType": "UsageDecisionStockType-27529201",
+      "StorageLocation": "StorageLocation-27529201"
+    }
+  ]
+}
+
+
+### InventoryTransferSAPHead
+# @name InventoryTransferSAPHead_PATCH
+PATCH {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSAPHead/13322985-71d8-488c-883e-3cabdabd21de
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "13322985-71d8-488c-883e-3cabdabd21de",
+  "RecordResultID": "RecordResultID-13322985",
+  "InspectionLot": "InspectionLot-13322985",
+  "Material": "Material-13322985",
+  "Plant": "Plant-13322985",
+  "ManagedBy": "ManagedBy-13322985",
+  "PostDate": "2016-03-08",
+  "EOI": "EOI-13322985",
+  "Quantity": 69.17,
+  "Status": "Status-13322985",
+  "SerialBatchDetails": [
+    {
+      "ID": "27529200-889a-45be-8ab4-f3ca8addfba2",
+      "SerialBatchNumberID": "SerialBatchNumberID-27529200",
+      "SerialBatchNumber": "SerialBatchNumber-27529200",
+      "Quantity": 92.22,
+      "Status": "Status-27529200",
+      "UsageDecisionStockType": "UsageDecisionStockType-27529200",
+      "StorageLocation": "StorageLocation-27529200"
+    },
+    {
+      "ID": "27529201-ab26-40df-9f10-2c9589db410e",
+      "SerialBatchNumberID": "SerialBatchNumberID-27529201",
+      "SerialBatchNumber": "SerialBatchNumber-27529201",
+      "Quantity": 21.16,
+      "Status": "Status-27529201",
+      "UsageDecisionStockType": "UsageDecisionStockType-27529201",
+      "StorageLocation": "StorageLocation-27529201"
+    }
+  ]
+}
+
+
+### InventoryTransferSAPHead
+# @name InventoryTransferSAPHead_DELETE
+DELETE {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSAPHead/13322985-71d8-488c-883e-3cabdabd21de
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+### InventoryTransferSerialBatchDetail
+# @name InventoryTransferSerialBatchDetail_GET
+GET {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSerialBatchDetail
+Authorization: Basic {{username}}:{{password}}
+
+
+### InventoryTransferSerialBatchDetail
+# @name InventoryTransferSerialBatchDetail_POST
+POST {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSerialBatchDetail
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "27529200-889a-45be-8ab4-f3ca8addfba2",
+  "SerialBatchNumberID": "SerialBatchNumberID-27529200",
+  "SerialBatchNumber": "SerialBatchNumber-27529200",
+  "Quantity": 92.22,
+  "Status": "Status-27529200",
+  "UsageDecisionStockType": "UsageDecisionStockType-27529200",
+  "StorageLocation": "StorageLocation-27529200"
+}
+
+
+### InventoryTransferSerialBatchDetail
+# @name InventoryTransferSerialBatchDetail_PATCH
+PATCH {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSerialBatchDetail/27529200-889a-45be-8ab4-f3ca8addfba2
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "27529200-889a-45be-8ab4-f3ca8addfba2",
+  "SerialBatchNumberID": "SerialBatchNumberID-27529200",
+  "SerialBatchNumber": "SerialBatchNumber-27529200",
+  "Quantity": 92.22,
+  "Status": "Status-27529200",
+  "UsageDecisionStockType": "UsageDecisionStockType-27529200",
+  "StorageLocation": "StorageLocation-27529200"
+}
+
+
+### InventoryTransferSerialBatchDetail
+# @name InventoryTransferSerialBatchDetail_DELETE
+DELETE {{server}}/odata/v4/inventory-transfer-sap/InventoryTransferSerialBatchDetail/27529200-889a-45be-8ab4-f3ca8addfba2
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}

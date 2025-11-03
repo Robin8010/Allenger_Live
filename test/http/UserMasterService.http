@@ -3,40 +3,42 @@
 @password=
 
 
-### UserMasterHead
-# @name UserMasterHead_GET
-GET {{server}}/odata/v4/user-master/UserMasterHead
+### userMaster
+# @name userMaster_GET
+GET {{server}}/odata/v4/user-master/userMaster
 Authorization: Basic {{username}}:{{password}}
 
 
-### UserMasterHead
-# @name UserMasterHead_POST
-POST {{server}}/odata/v4/user-master/UserMasterHead
+### userMaster
+# @name userMaster_POST
+POST {{server}}/odata/v4/user-master/userMaster
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "10072388-065e-4855-af4b-b881467315d8",
-  "UserName": "UserName-10072388",
-  "Password": "Password-10072388"
+  "ID": "10796021-9aae-41eb-881f-6ce9068b48b1",
+  "UserName": "UserName-10796021",
+  "Password": "Password-10796021",
+  "IsAdmin": false
 }
 
 
-### UserMasterHead
-# @name UserMasterHead_PATCH
-PATCH {{server}}/odata/v4/user-master/UserMasterHead/10072388-065e-4855-af4b-b881467315d8
+### userMaster
+# @name userMaster_PATCH
+PATCH {{server}}/odata/v4/user-master/userMaster/10796021-9aae-41eb-881f-6ce9068b48b1
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "10072388-065e-4855-af4b-b881467315d8",
-  "UserName": "UserName-10072388",
-  "Password": "Password-10072388"
+  "ID": "10796021-9aae-41eb-881f-6ce9068b48b1",
+  "UserName": "UserName-10796021",
+  "Password": "Password-10796021",
+  "IsAdmin": false
 }
 
 
-### UserMasterHead
-# @name UserMasterHead_DELETE
-DELETE {{server}}/odata/v4/user-master/UserMasterHead/10072388-065e-4855-af4b-b881467315d8
+### userMaster
+# @name userMaster_DELETE
+DELETE {{server}}/odata/v4/user-master/userMaster/10796021-9aae-41eb-881f-6ce9068b48b1
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}

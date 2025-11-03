@@ -1,0 +1,43 @@
+{
+  "userDetails": {
+    "username": "",
+    "password": ""
+  },
+  "loginInfo": {
+    "UserID": "",
+    "Username": "",
+    "Usercode": "",
+    "DepartmentCode": "",
+    "DepartmentName": "",
+    "IsActive": "",
+    "FirstName": "",
+    "LastName": "",
+    "EmailId": "",
+    "EmployeeCode": null,
+    "UserGroupID_UserGroupId": null,
+    "IsAdmin": false
+  },
+  "roleDetails": {
+    "RoleCode": "",
+    "RoleName": "",
+    "UserID": ""
+  },
+  "security": {
+    "sessionId": "",
+    "accessToken": ""
+  },
+  "route": {
+    "forwardRoute": "",
+    "backwardRoute": "",
+    "routeData": {
+      "formMode": "",
+      "uniqueId": "",
+      "lastUniqueId": "",
+      "plant": "",
+      "material" : "",
+      "inspectionLot" : "",
+      "inspectionDate" : ""
+    }
+  },
+  "customData": {}
+}

@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>App Title</title>
     <style>
-        html, body, body > div, #container, #container-uiarea {
+        html,
+        body,
+        body>div,
+        #container,
+        #container-uiarea {
             height: 100%;
         }
     </style>
-    <script
-        id="sap-ui-bootstrap"
-        src="https://sapui5.hana.ondemand.com/1.141.3/resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_horizon"
-        data-sap-ui-resource-roots='{
-            "testui": "./"
-        }'
-        data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"
-        data-sap-ui-compat-version="edge"
-        data-sap-ui-async="true"
-        data-sap-ui-frame-options="trusted"
-    ></script>
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/1.141.3/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon" data-sap-ui-resource-roots='{
+            "testui": "./",
+            "rootView": "./view",
+            "core": "./core",
+            "corebase": "./core/base",
+            "coregeneric": "./core/generic",
+            "modconfview": "./modconf/view",
+            "modconfigfragment": "./modconf/fragment",
+            "modconfcontroller": "./modconf/controller"
+        }' data-sap-ui-on-init="module:sap/ui/core/ComponentSupport" data-sap-ui-compat-version="edge"
+        data-sap-ui-async="true" data-sap-ui-frame-options="trusted"></script>
 </head>
+
 <body class="sapUiBody sapUiSizeCompact" id="content">
-    <div
-        data-sap-ui-component
-        data-name="testui"
-        data-id="container"
-        data-settings='{"id" : "testui"}'
-        data-handle-validation="true"
-    ></div>
+    <div data-sap-ui-component data-name="testui" data-id="container" data-settings='{"id" : "testui"}'
+        data-handle-validation="true"></div>
 </body>
+
 </html>
