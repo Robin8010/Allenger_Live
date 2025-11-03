@@ -1,0 +1,23 @@
+{
+  "ID": "",
+  "RecordResultID": "",
+  "InspectionLot": "",
+  "Material": "",
+  "Plant": "",
+  "ManagedBy": "",
+  "PostDate": "",
+  "EOI": "",
+  "Quantity": "0.00",
+  "Status": "",
+  "SerialBatchDetails": [
+    {
+      "ID": "",
+      "SerialBatchNumberID": "",
+      "SerialBatchNumber": "",
+      "Quantity": "0.00",
+      "Status": "",
+      "UsageDecisionStockType": "",
+      "StorageLocation": ""
+    }
+  ]
+}

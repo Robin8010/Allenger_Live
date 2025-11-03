@@ -1,0 +1,25 @@
+{
+    "ID": "",
+    "Quantity": 0.00,
+    "RecordResultSAPHead_ID": "",
+    "SerialBatchNumber": "",
+    "Status": "Draft",
+    "InspectionPlanStatus": null,
+    "ParametersDetails": [
+        {
+            "Attribute": "",
+            "ID": "",
+            "InstrumentDesc": "",
+            "InstrumentId": "",
+            "Observation": "",
+            "ParameterCode": "",
+            "ParameterName": "",
+            "ParentParameterCode": null,
+            "ParentParameterName": null,
+            "RecordResultSerialBatchDetail_ID": "",
+            "Remarks1": "",
+            "Remarks2": "",
+            "Status": "Draft"
+        }
+    ]
+}

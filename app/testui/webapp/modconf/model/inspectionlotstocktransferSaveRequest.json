@@ -1,0 +1,23 @@
+{
+  "ID": "",
+  "RecordResultDecisionHead": [
+    {
+      "ID": "",
+      "PostDate": "",
+      "Quantity": 0,
+      "Status": "",
+      "UsageDecisionStockType": "",
+      "StorageLocation": "",
+      "RecordResultDecisionDetail": [
+        {
+          "ID": "",
+          "PostData": false,
+          "SerialBatchNumberID": "",
+          "SerialBatchNumber": "",
+          "Quantity": 0,
+          "Status": ""
+        }
+      ]
+    }
+  ]
+}

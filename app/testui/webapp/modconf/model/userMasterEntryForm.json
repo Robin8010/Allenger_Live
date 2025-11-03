@@ -1,0 +1,9 @@
+{
+    "ID": "",
+    "IsAdmin": true,
+    "Password": "",
+    "UserName": "",
+    "enableUsername": true,
+    "ManageRecordResult": false,
+    "ManageUserDecision": false
+}

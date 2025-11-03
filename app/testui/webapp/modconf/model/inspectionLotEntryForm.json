@@ -1,0 +1,95 @@
+{
+    "ID": "",
+    "InspectionLot": "",
+    "Material": "",
+    "Plant": "",
+    "SerialNumber": "",
+    "PostDate": "",
+    "EOI": "",
+    "Quantity": "0.00",
+    "AcceptedQuantity": "0.00",
+    "RejectedQuantity": "0.00",
+    "Status": "Draft",
+    "InspectionLotEnabled": true,
+    "SerialNumberEnabled": true,
+    "PostDateEnabled": true,
+    "SubmitButtonEnabled": false,
+    "ParameterDetails": [
+        {
+            "RowNumber": 1,
+            " ParameterCode": "",
+            "ParameterName": "",
+            "Attribute": "",
+            "Observation": "",
+            "InstrumentId": "",
+            "InstrumentDesc": "",
+            "Status": "Draft",
+            "Remarks1": "",
+            "Remarks2": ""
+        },
+        {
+            "RowNumber": 2,
+            " ParameterCode": "",
+            "ParameterName": "",
+            "Attribute": "",
+            "Observation": "",
+            "InstrumentId": "",
+            "InstrumentDesc": "",
+            "Status": "Draft",
+            "Remarks1": "",
+            "Remarks2": ""
+        },
+        {
+            "RowNumber": 3,
+            " ParameterCode": "",
+            "ParameterName": "",
+            "Attribute": "",
+            "Observation": "",
+            "InstrumentId": "",
+            "InstrumentDesc": "",
+            "Status": "Draft",
+            "Remarks1": "",
+            "Remarks2": ""
+        },
+        {
+            "RowNumber": 4,
+            " ParameterCode": "",
+            "ParameterName": "",
+            "Attribute": "",
+            "Observation": "",
+            "InstrumentId": "",
+            "InstrumentDesc": "",
+            "Status": "Pending",
+            "Remarks1": "",
+            "Remarks2": ""
+        }
+    ],
+    "StatusList": [
+        {
+            "StatusId": "Pending",
+            "StatusDesc": "Pending"
+        },
+        {
+            "StatusId": "Completed",
+            "StatusDesc": "Completed"
+        },
+        {
+            "StatusId": "Draft",
+            "StatusDesc": "Draft"
+        }
+    ],
+    "ParameterStatusList": [
+    {
+      "StatusId": "Pending",
+      "StatusDesc": "Pending"
+    },
+    {
+      "StatusId": "Accepted",
+      "StatusDesc": "Accepted"
+    },
+    {
+      "StatusId": "Rejected",
+      "StatusDesc": "Rejected"
+    }
+  ]
+}

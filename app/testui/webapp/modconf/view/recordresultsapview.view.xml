@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    controllerName="modconfcontroller.recordresultsapview"
+    displayBlock="true"
+>
+    <Page
+        id="recordresultsaplv"
+        title="{i18n&gt;title}"
+        showNavButton="true"
+        navButtonPress="onPressOfListViewBackButton"
+    >
+       <content />
+        <footer>
+            <Toolbar class="d-flex justify-content-center btn-sav">
+               <ToolbarSpacer />
+                <Button
+                    type="Emphasized"
+                    id="hjg"
+                    text="{i18n>Export}"
+                    press="OnExport"
+                />
+            </Toolbar>
+        </footer>
+      
+    </Page>
+      
+         
+</mvc:View>

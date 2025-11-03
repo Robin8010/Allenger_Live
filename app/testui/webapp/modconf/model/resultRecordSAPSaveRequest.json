@@ -1,0 +1,50 @@
+{
+  "ID": "",
+  "InspectionLot": "",
+  "Material": "",
+  "Plant": "",
+  "ManagedBy": "",
+  "PostDate": "",
+  "EOI": "",
+  "Quantity": "0.00",
+  "AcceptedQuantity": "0.00",
+  "RejectedQuantity": "0.00",
+  "Status": "",
+  "ManufacturingOrder": "",
+  "UsageDecisionLevel": "",
+  "QuantityScore": 0.00,
+  "DecisionCatalog": "",
+  "UsageDecisionSelectedSet": "",
+  "UsageDecisionCodeGroup": "",
+  "UsageDecisionCode": "",
+  "UsageDecisionValuation": "",
+  "UsageDecisionFollowupAction": "",
+  "SerialBatchDetails": [
+    {
+      "ID": "",
+      "SerialBatchNumber": "",
+      "Quantity": "0.00",
+      "Status": "",
+      "UsageDecisionStockType": "",
+      "StorageLocation": "",
+      "InspectionPlanStatus": null,
+      "ParametersDetails": [
+        {
+          "ID": "",
+          "ParameterCode": "",
+          "ParameterName": "",
+          "ParentParameterCode": "",
+          "ParentParameterName": "",
+          "Attribute": "",
+          "AttributeID": "",
+          "Observation": "",
+          "InstrumentId": "",
+          "InstrumentDesc": "",
+          "Status": "",
+          "Remarks1": "",
+          "Remarks2": ""
+        }
+      ]
+    }
+  ]
+}

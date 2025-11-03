@@ -1,6 +1,6 @@
 {
   "welcomeFile": "/index.html",
-  "authenticationMethod": "route",
+  "authenticationMethod": "none",
   "routes": [
     {
       "source": "^/resources/(.*)$",
@@ -13,6 +13,20 @@
       "target": "/test-resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
+    },
+    {
+      "source": "^/sap/(.*)$",
+      "target": "$1",
+      "destination": "S4HANA_ALLENGERS",
+      "authenticationType": "none",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/?odata/(.*)$",
+      "target": "/odata/$1",
+      "destination": "srv-api",
+      "authenticationType": "none",
+      "csrfProtection": true
     },
     {
       "source": "^(.*)$",

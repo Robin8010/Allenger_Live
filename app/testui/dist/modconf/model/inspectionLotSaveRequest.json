@@ -1,0 +1,26 @@
+{
+    "ID": "",
+    "InspectionLot": "",
+    "Material": "",
+    "Plant": "",
+    "SerialNumber": "",
+    "PostDate": "",
+    "EOI": "",
+    "Quantity": 0.00,
+    "AcceptedQuantity": 0.00,
+    "RejectedQuantity": 0.00,
+    "Status" : "",
+    "ParameterDetails": [
+        {
+            "ParameterCode": "",
+            "ParameterName": "",
+            "Attribute": "",
+            "Observation": "",
+            "InstrumentId": "",
+            "InstrumentDesc": "",
+            "Status": "",
+            "Remarks1": "",
+            "Remarks2": ""
+        }
+    ]
+}

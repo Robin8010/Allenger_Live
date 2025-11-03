@@ -1,0 +1,101 @@
+{
+  "PostDate": "",
+  "Quantity": 0,
+  "Status": "Draft",
+  "UsageDecisionStockType": "",
+  "StorageLocation": "",
+  "PostButton": false,
+  "SaveButton": true,
+  "StockTypeEditable": true,
+  "SorageLocationEditable": true,
+  "PostDateEnabled": true,
+  "RecordResultDecisionDetail": [
+    {
+      "RowNumber": 1,
+      "ID": "",
+      "PostData": false,
+      "PostDataEnable": true,
+      "SerialBatchNumberID": "",
+      "SerialBatchNumber": "",
+      "Quantity": 0,
+      "Status": ""
+    }
+  ],
+  "StatusList": [
+    {
+      "StatusId": "Pending",
+      "StatusDesc": "Pending"
+    },
+    {
+      "StatusId": "Completed",
+      "StatusDesc": "Completed"
+    },
+    {
+      "StatusId": "Draft",
+      "StatusDesc": "Draft"
+    }
+  ],
+  "DocumentRowsStatusList": [
+    {
+      "StatusId": "Draft",
+      "StatusDesc": "Draft"
+    },
+    {
+      "StatusId": "Ready To Post",
+      "StatusDesc": "Ready To Post"
+    },
+    {
+      "StatusId": "Posted",
+      "StatusDesc": "Posted"
+    }
+  ],
+  "ParameterStatusList": [
+    {
+      "StatusId": "Pending",
+      "StatusDesc": "Pending"
+    },
+    {
+      "StatusId": "Accepted",
+      "StatusDesc": "Accepted"
+    },
+    {
+      "StatusId": "Rejected",
+      "StatusDesc": "Rejected"
+    },
+    {
+      "StatusId": "NA",
+      "StatusDesc": "NA"
+    }
+  ],
+  "UsageDecisionStockTypeList": [
+    {
+      "StockTypeId": "VMENGE01",
+      "StockTypeDesc": "To Unrestricted"
+    },
+    {
+      "StockTypeId": "VMENGE02",
+      "StockTypeDesc": "To Scrap"
+    },
+    {
+      "StockTypeId": "VMENGE03",
+      "StockTypeDesc": "To Sample Consumption"
+    },
+    {
+      "StockTypeId": "VMENGE04",
+      "StockTypeDesc": "To Blocked Stock"
+    },
+    {
+      "StockTypeId": "VMENGE05",
+      "StockTypeDesc": "To Reserves"
+    },
+    {
+      "StockTypeId": "VMENGE06",
+      "StockTypeDesc": "To New Material"
+    },
+    {
+      "StockTypeId": "VMENGE07",
+      "StockTypeDesc": "Return Inventory Posting"
+    }
+  ],
+  "StorageLocationList": []
+}

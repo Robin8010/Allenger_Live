@@ -1,0 +1,60 @@
+{
+  "ID": "",
+  "Quantity": 0.00,
+  "RecordResultSAPHead_ID": "",
+  "SerialBatchNumber": "",
+  "Status": "Pending",
+  "SearchRecord" : "",
+  "ParametersDetails": [
+    {
+      "RowNumber": 1,
+      "Attribute": "",
+      "ID": "",
+      "InstrumentDesc": "",
+      "InstrumentId": "",
+      "Observation": "",
+      "ParameterCode": "",
+      "ParameterName": "",
+      "ParentParameterCode": null,
+      "ParentParameterName": null,
+      "RecordResultSerialBatchDetail_ID": "",
+      "Remarks1": "",
+      "Remarks2": "",
+      "Status": "Pending",
+      "StatusEnableDisable" : true
+    }
+  ],
+  "StatusList": [
+    {
+      "StatusId": "Draft",
+      "StatusDesc": "Draft"
+    },
+    {
+      "StatusId": "Ready To Post",
+      "StatusDesc": "Ready To Post"
+    },
+    {
+      "StatusId": "Posted",
+      "StatusDesc": "Posted"
+    }
+  ],
+  "ParameterStatusList": [
+    {
+      "StatusId": "Pending",
+      "StatusDesc": "Pending"
+    },
+    {
+      "StatusId": "Accepted",
+      "StatusDesc": "Accepted"
+    },
+    {
+      "StatusId": "Rejected",
+      "StatusDesc": "Rejected"
+    },
+    {
+      "StatusId": "NA",
+      "StatusDesc": "NA"
+    }
+  ]
+
+}

@@ -13,6 +13,8 @@ service RecordResultSAPService {
     entity RecordResultSAPHead           as projection on allengersDatabase.RecordResultSAPHead;
     entity RecordResultSerialBatchDetail as projection on allengersDatabase.RecordResultSerialBatchDetail;
     entity RecordResultParametersDetail  as projection on allengersDatabase.RecordResultParametersDetail;
+    entity RecordResultDecisionHead      as projection on allengersDatabase.RecordResultDecisionHead;
+    entity RecordResultDecisionDetail    as projection on allengersDatabase.RecordResultDecisionDetail;
 }
 
 service InventoryTransferSAPService {

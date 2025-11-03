@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View
+    controllerName="modconfcontroller.usermasterentryform"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    class="d-flex justify-content-center"
+>
+    <Page
+        id="usermasterf"
+        title="User Master Form"
+        showNavButton="true"
+        navButtonPress="onPressOfEntryFormCancelButton"
+    >
+        <VBox>
+            <f:SimpleForm
+                editable="true"
+                layout="ResponsiveGridLayout"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+            >
+                <f:content>
+                    <Label
+                        id="usercodelbl"
+                        text="{i18n>usercode}"
+                        required="true"
+                        class="m-mast-lev"
+                    />
+ 
+                    <Input
+                        id="userName"
+                        value="{EntryFormDataSourceModel>/UserName}"
+                        required="true"
+                        enabled="{EntryFormDataSourceModel>/disableUsername}"
+                        class="m-mast-input"
+                    />
+ 
+                    <Label
+                        id="userdesclbl"
+                        text="{i18n>password}"
+                        required="true"
+                        class="m-mast-lev"
+                    />
+                    <Input
+                        id="password"
+                        type="Password"
+                        value="{EntryFormDataSourceModel>/Password}"
+                        required="true"
+                        enabled="true"
+                        class="m-mast-input"
+                    />
+ 
+                    <Label
+                        text="Admin"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                        <CheckBox
+                            selected="{EntryFormDataSourceModel>/IsAdmin}"
+                            id="isApprovalCheckBox"
+                            required="true"
+                            enabled="true"
+                            select="onCheckBoxSelect"
+                            class="ml-10"
+                        />
+                    </HBox>
+                    <Label
+                        text="Manager Record Result"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/ManageRecordResult}"
+                        id="isManageRecordResult"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    </HBox>
+                    <Label
+                        text="Manager User Decision"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/ManageUserDecision}"
+                        id="isManageUserDecision"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    </HBox>
+ 
+                </f:content>
+            </f:SimpleForm>
+        </VBox>        
+        <footer>
+            <Toolbar class="d-flex justify-content-center btn-sav">
+                <ToolbarSpacer />
+                <Button
+                    type="Emphasized"
+                    id="userMaster_Button"
+                    text="{i18n>submit}"
+                    press="onSave"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

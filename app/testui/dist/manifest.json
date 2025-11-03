@@ -113,6 +113,110 @@
 					"target": [
 						"LandingIndex"
 					]
+				},
+				{
+					"name": "RouteNameUserMasterConfiguration",
+					"pattern": "RouteNameUserMasterConfiguration",
+					"target": [
+						"TargetUserConfiguration"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameUserMasterEntryForm",
+					"pattern": "RouterNameUserMasterEntryForm",
+					"target": [
+						"TargetUserMasterEntryForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameRecordResultViewForm",
+					"pattern": "RecordResult",
+					"target": [
+						"TargetRecordResultViewForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameRecordResultEntryForm",
+					"pattern": "RecordResultEntry",
+					"target": [
+						"TargetRecordResultEntryForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameRecordResultSAPViewForm",
+					"pattern": "SAPRecordResult",
+					"target": [
+						"TargetRecordResultSAPViewForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameRecordResultSAPEntryForm",
+					"pattern": "SAPRecordResultEntry",
+					"target": [
+						"TargetRecordResultSAPEntryForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameRecordResultParametersEntryForm",
+					"pattern": "SAPRecordResultParameters",
+					"target": [
+						"TargetRecordResultParametersEntryForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameStockTransferViewForm",
+					"pattern": "StockTransfer",
+					"target": [
+						"TargetStockTransferViewForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameStockTransferEntryForm",
+					"pattern": "SAPStockTransferEntry",
+					"target": [
+						"TargetStockTransferEntryForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameStockTransferSAPViewForm",
+					"pattern": "Decision&Transfer",
+					"target": [
+						"TargetStockTransferSAPViewForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameStockTransferSAPEntryForm",
+					"pattern": "SAPStockTransferEntry",
+					"target": [
+						"TargetStockTransferSAPEntryForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameInspectionLotDecisionForm",
+					"pattern": "InspectionLotDecision",
+					"target": [
+						"TargetInspectionLotDecisionForm"
+					],
+					"cache": true
+				},
+				{
+					"name": "RouterNameInspectionLotStockTransferForm",
+					"pattern": "InspectionLotStockTransfer",
+					"target": [
+						"TargetInspectionLotStockTransferForm"
+					],
+					"cache": true
 				}
 			],
 			"targets": {
@@ -126,6 +230,110 @@
 					"clearControlAggregation": false,
 					"id": "Landing",
 					"name": "Landing"
+				},
+				"TargetUserConfiguration": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "usermasterlistview",
+					"viewName": "usermasterlistview",
+					"viewPath": "modconfview"
+				},
+				"TargetUserMasterEntryForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "usermasterentryform",
+					"viewName": "usermasterentryform",
+					"viewPath": "modconfview"
+				},
+				"TargetRecordResultViewForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "recordresultview",
+					"viewName": "recordresultview",
+					"viewPath": "modconfview"
+				},
+				"TargetRecordResultEntryForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "recordresultentry",
+					"viewName": "recordresultentry",
+					"viewPath": "modconfview"
+				},
+				"TargetRecordResultSAPViewForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "recordresultsapview",
+					"viewName": "recordresultsapview",
+					"viewPath": "modconfview"
+				},
+				"TargetRecordResultSAPEntryForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "recordresultsapentry",
+					"viewName": "recordresultsapentry",
+					"viewPath": "modconfview"
+				},
+				"TargetRecordResultParametersEntryForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "rrparametersentryform",
+					"viewName": "rrparametersentryform",
+					"viewPath": "modconfview"
+				},
+				"TargetStockTransferViewForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "stocktransferview",
+					"viewName": "stocktransferview",
+					"viewPath": "modconfview"
+				},
+				"TargetStockTransferEntryForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "stocktransferentry",
+					"viewName": "stocktransferentry",
+					"viewPath": "modconfview"
+				},
+				"TargetStockTransferSAPViewForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "stocktransfersapview",
+					"viewName": "stocktransfersapview",
+					"viewPath": "modconfview"
+				},
+				"TargetStockTransferSAPEntryForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "stocktransfersapentry",
+					"viewName": "stocktransfersapentry",
+					"viewPath": "modconfview"
+				},
+				"TargetInspectionLotDecisionForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "inspectionlotdecisionform",
+					"viewName": "inspectionlotdecisionform",
+					"viewPath": "modconfview"
+				},
+				"TargetInspectionLotStockTransferForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "inspectionlotstocktransfer",
+					"viewName": "inspectionlotstocktransfer",
+					"viewPath": "modconfview"
 				}
 			}
 		},

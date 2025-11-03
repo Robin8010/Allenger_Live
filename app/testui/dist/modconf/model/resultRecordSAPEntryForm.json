@@ -1,0 +1,139 @@
+{
+  "ID": "",
+  "InspectionLot": "",
+  "Material": "",
+  "Plant": "",
+  "ManagedBy": "",
+  "PostDate": "",
+  "EOI": "",
+  "Quantity": "0.00",
+  "AcceptedQuantity": "0.00",
+  "RejectedQuantity": "0.00",
+  "Status": "Pending",
+  "UsageDecisionLevel": "L",
+  "QuantityScore": 0.00,
+  "DecisionCatalog": "3",
+  "UsageDecisionSelectedSet": "UD01",
+  "UsageDecisionCodeGroup": "UD01",
+  "UsageDecisionCode": "A1",
+  "UsageDecisionValuation": "A",
+  "UsageDecisionFollowupAction": "SWM_A",
+  "InspectionLotEnabled": true,
+  "SerialNumberEnabled": true,
+  "PostDateEnabled": true,
+  "SubmitButtonEnabled": false,
+  "DocumentSummary": "",
+  "ManufacturingOrder": "",
+  "SearchRecord": "",
+  "SerialBatchDetails": [
+    {
+      "RowNumber": 1,
+      "ID": "",
+      "SerialBatchNumber": "",
+      "Quantity": "0.00",
+      "Status": "Pending",
+      "UsageDecisionStockType": "VMENGE04",
+      "StorageLocation": "9022",
+      "InspectionPlanStatus": null,
+      "AddParameters": false,
+      "CopyParameters": false,
+      "StockTypeEditable": true,
+      "SorageLocationEditable": true,
+      "ParametersDetails": [
+        {
+          "RowNumber": 1,
+          "ID": "",
+          "ParameterCode": "",
+          "ParameterName": "",
+          "ParentParameterCode": null,
+          "ParentParameterName": null,
+          "Attribute": "",
+          "AttributeID": "",
+          "Observation": "",
+          "InstrumentId": "",
+          "InstrumentDesc": "",
+          "Status": "Pending",
+          "Remarks1": "",
+          "Remarks2": ""
+        }
+      ]
+    }
+  ],
+  "StatusList": [
+    {
+      "StatusId": "Pending",
+      "StatusDesc": "Pending"
+    },
+    {
+      "StatusId": "Completed",
+      "StatusDesc": "Completed"
+    },
+    {
+      "StatusId": "Draft",
+      "StatusDesc": "Draft"
+    }
+  ],
+  "DocumentRowsStatusList": [
+    {
+      "StatusId": "Draft",
+      "StatusDesc": "Draft"
+    },
+    {
+      "StatusId": "Ready To Post",
+      "StatusDesc": "Ready To Post"
+    },
+    {
+      "StatusId": "Posted",
+      "StatusDesc": "Posted"
+    }
+  ],
+  "ParameterStatusList": [
+    {
+      "StatusId": "Pending",
+      "StatusDesc": "Pending"
+    },
+    {
+      "StatusId": "Accepted",
+      "StatusDesc": "Accepted"
+    },
+    {
+      "StatusId": "Rejected",
+      "StatusDesc": "Rejected"
+    },
+    {
+      "StatusId": "NA",
+      "StatusDesc": "NA"
+    }
+  ],
+  "UsageDecisionStockTypeList": [
+    {
+      "StockTypeId": "VMENGE01",
+      "StockTypeDesc": "To Unrestricted"
+    },
+    {
+      "StockTypeId": "VMENGE02",
+      "StockTypeDesc": "To Scrap"
+    },
+    {
+      "StockTypeId": "VMENGE03",
+      "StockTypeDesc": "To Sample Consumption"
+    },
+    {
+      "StockTypeId": "VMENGE04",
+      "StockTypeDesc": "To Blocked Stock"
+    },
+    {
+      "StockTypeId": "VMENGE05",
+      "StockTypeDesc": "To Reserves"
+    },
+    {
+      "StockTypeId": "VMENGE06",
+      "StockTypeDesc": "To New Material"
+    },
+    {
+      "StockTypeId": "VMENGE07",
+      "StockTypeDesc": "Return Inventory Posting"
+    }
+  ],
+  "StorageLocationList": []
+}

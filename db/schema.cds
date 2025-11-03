@@ -6,9 +6,11 @@ using {
 namespace allengersBTP;
 
 entity UserMaster : cuid {
-    UserName : String;
-    Password : String;
-    IsAdmin  : Boolean;
+    UserName           : String;
+    Password           : String;
+    IsAdmin            : Boolean;
+    ManageRecordResult : Boolean;
+    ManageUserDecision : Boolean;
 }
 
 entity RecordResultHead : cuid {
@@ -23,6 +25,7 @@ entity RecordResultHead : cuid {
     AcceptedQuantity : Decimal;
     RejectedQuantity : Decimal;
     Status           : String;
+    ManufacturingOrder  : String;
     ParameterDetails : Composition of many RecordResultDetail
                            on ParameterDetails.RecordResultHead = $self
 }
@@ -51,6 +54,7 @@ entity RecordResultSAPHead : cuid {
     AcceptedQuantity            : Decimal;
     RejectedQuantity            : Decimal;
     Status                      : String;
+    ManufacturingOrder          : String;
     UsageDecisionLevel          : String;
     QuantityScore               : Decimal;
     DecisionCatalog             : Int64;
@@ -60,7 +64,9 @@ entity RecordResultSAPHead : cuid {
     UsageDecisionValuation      : String;
     UsageDecisionFollowupAction : String;
     SerialBatchDetails          : Composition of many RecordResultSerialBatchDetail
-                                      on SerialBatchDetails.RecordResultSAPHead = $self
+                                      on SerialBatchDetails.RecordResultSAPHead = $self;
+    RecordResultDecisionHead    : Composition of many RecordResultDecisionHead
+                                      on RecordResultDecisionHead.RecordResultSAPHead = $self
 }
 
 entity RecordResultSerialBatchDetail : cuid {
@@ -89,6 +95,26 @@ entity RecordResultParametersDetail : cuid {
     Remarks1                      : String;
     Remarks2                      : String;
     RecordResultSerialBatchDetail : Association to RecordResultSerialBatchDetail;
+}
+
+entity RecordResultDecisionHead : cuid {
+    PostDate                   : Date;
+    Quantity                   : Decimal;
+    Status                     : String;
+    UsageDecisionStockType     : String;
+    StorageLocation            : String;
+    RecordResultSAPHead        : Association to RecordResultSAPHead;
+    RecordResultDecisionDetail : Composition of many RecordResultDecisionDetail
+                                     on RecordResultDecisionDetail.RecordResultDecisionHead = $self;
+}
+
+entity RecordResultDecisionDetail : cuid {
+    PostData                 : Boolean;
+    SerialBatchNumberID      : String;
+    SerialBatchNumber        : String;
+    Quantity                 : Decimal;
+    Status                   : String;
+    RecordResultDecisionHead : Association to RecordResultDecisionHead;
 }
 
 entity InventoryTransferSAPHead : cuid {
