@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: TestCap2
 description: A simple CAP project.
-version: 1.2.0
+version: 1.2.1
 modules:
   - name: TestCap2-srv
     type: nodejs

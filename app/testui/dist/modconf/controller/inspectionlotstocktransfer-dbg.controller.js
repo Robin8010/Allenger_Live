@@ -11,7 +11,7 @@ sap.ui.define([
         return genericentryform.extend("modconfcontroller.inspectionlotstocktransfer", {
 
             onInit: function () {
-               
+
                 genericentryform.prototype.onInit.apply(this, arguments);
                 //this.initialize();
                 oBusyIndicator = BusyIndicator;
@@ -87,11 +87,11 @@ sap.ui.define([
                 const formMode = this.getFormMode();
                 if (formMode === "2") {
                     this.handleFormInEditMode();
-                   this.ChangeStatusResultrecordPosted();
+                    this.ChangeStatusResultrecordPosted();
                     //this.SetEnableDisableProperty(false);
                     this.SetConstantValuesInEditMode();
                     this.EnableDisablePostButton(true);
-                    
+
                 }
                 else {
                     debugger;
@@ -478,7 +478,7 @@ sap.ui.define([
             onPostStockTransfer: async function () {
                 try {
                     debugger;
-                    var _textData="";
+                    var _textData = "";
                     let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                     const inspectionLot = await this.getInspectionLotNumber();
                     const inspectionChangeDateTime1 = await this.FetchInspectionLotChanngeTime(inspectionLot);
@@ -533,8 +533,8 @@ sap.ui.define([
                         await fetch(`/sap/opu/odata/sap/API_INSPECTIONLOT_SRV/A_InspLotMatlDocItem`, requestOptions)
                             .then(async (response) => {
                                 debugger;
-                                 _textData = await response.json()
-                                console.log("textData -" + textData);
+                                _textData = await response.json()
+                                console.log("textData -" + _textData);
                                 if (response.ok) {
                                     isPostedSuccessfully = true;
                                     MessageToast.show("Transfer Posted.");
@@ -560,24 +560,41 @@ sap.ui.define([
                             this.onSave();
                         }
                         else {
-                             
+
                             debugger;
                             //const data = JSON.stringify(_textData);
-                           //const data= await response.json();
+                            //const data= await response.json();
 
                             let oModel = new sap.ui.model.json.JSONModel(_textData);
                             this.getView().setModel(oModel, "ErrorJson");
 
                             let ErrorModel = this.getView().getModel('ErrorJson');
                             const FinalError = ErrorModel.getProperty('/error/message/value');
-                           
+                            const errorCode = ErrorModel.getProperty('/error/code');
 
                             //console.log("response data -", data);
-                           // MessageToast.show("Error posting stock transfer. Check SAP logs");
+                            // MessageToast.show("Error posting stock transfer. Check SAP logs");
                             MessageToast.show(FinalError);
-                            
+                            if (String(errorCode).includes("185")) {
+                                await MessageBox.show('Already posted. Updatye Status?', {
+                                    title: 'Confirm',
+                                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                                    onClose: async function (oAction) {
+                                        if (oAction == 'YES') {
+                                            debugger;
+                                            MessageToast.show("Updating Status.");
+                                            await RecordResultDecisionDetail.forEach(async (element, index) => {
+                                                element.Status = "Posted"
+                                                await this.UpdateRecordResultRowLevelPostingStatus(element.SerialBatchNumberID, "Posted", index);
+                                            });
+                                            viewModel.setProperty("/Status", "Posted");
+                                            viewModel.refresh(true);
+                                            this.onSave();
+                                        }
+                                    }.bind(this)
+                                });
+                            }
                         }
-                           
                     }
                     else {
                         throw new error("CSRF token invalid.");
@@ -648,17 +665,15 @@ sap.ui.define([
                 MessageToast.show("Redirecting to SAP Stock Transfer View.....")
                 router.navTo("RouterNameInspectionLotDecisionForm");
             },
-            ChangeStatusResultrecordPosted:function()
-            {
+            ChangeStatusResultrecordPosted: function () {
                 debugger;
-                  let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
-                    const { RecordResultDecisionDetail = [] } = viewModel.getData();
-                    RecordResultDecisionDetail.forEach(async (element, index) => {
-                               if( element.Status == "Posted")
-                               {
-                                await this.UpdateRecordResultRowLevelPostingStatus(element.SerialBatchNumberID, "Posted", index);
-                               }
-                            });
+                let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                const { RecordResultDecisionDetail = [] } = viewModel.getData();
+                RecordResultDecisionDetail.forEach(async (element, index) => {
+                    if (element.Status == "Posted") {
+                        await this.UpdateRecordResultRowLevelPostingStatus(element.SerialBatchNumberID, "Posted", index);
+                    }
+                });
             },
             onSearch: function (oEvent) {
                 var sQuery = oEvent.getParameter("newValue"); // Get search input
