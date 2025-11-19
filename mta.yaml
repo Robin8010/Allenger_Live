@@ -1,14 +1,14 @@
 _schema-version: 3.3.0
-ID: TestCap2
+ID: AllengersQc
 description: A simple CAP project.
-version: 1.2.1
+version: 1.0.1
 modules:
-  - name: TestCap2-srv
+  - name: AllengersQc-srv
     type: nodejs
     path: gen/srv
     requires:
-      - name: TestCap2-db
-      - name: TestCap2-destination
+      - name: AllengersQc-db
+      - name: AllengersQc-destination
     provides:
       - name: srv-api
         properties:
@@ -18,14 +18,14 @@ modules:
       instances: 1
     build-parameters:
       builder: npm-ci
-  - name: TestCap2-db-deployer
+  - name: AllengersQc-db-deployer
     type: hdb
     path: gen/db
     requires:
-      - name: TestCap2-db
+      - name: AllengersQc-db
     parameters:
       buildpack: nodejs_buildpack
-  - name: TestCap2
+  - name: AllengersQc
     type: approuter.nodejs
     path: app/router
     requires:
@@ -35,8 +35,8 @@ modules:
           forwardAuthToken: true
           name: srv-api
           url: ~{srv-url}
-      - name: TestCap2-destination
-      - name: TestCap2-repo-runtime
+      - name: AllengersQc-destination
+      - name: AllengersQc-repo-runtime
     provides:
       - name: app-api
         properties:
@@ -46,23 +46,23 @@ modules:
       disk-quota: 256M
       keep-existing-routes: true
       memory: 256M
-  - name: TestCap2-app-content
+  - name: AllengersQc-app-content
     type: com.sap.application.content
     path: .
     requires:
-      - name: TestCap2-repo-host
+      - name: AllengersQc-repo-host
         parameters:
           content-target: true
     build-parameters:
       build-result: resources
       requires:
         - artifacts:
-            - testui.zip
-          name: testui
+            - qcui.zip
+          name: qcui
           target-path: resources/
-  - name: testui
+  - name: qcui
     type: html5
-    path: app/testui
+    path: app/qcui
     build-parameters:
       build-result: dist
       builder: custom
@@ -72,12 +72,12 @@ modules:
       supported-platforms:
         []
 resources:
-  - name: TestCap2-db
+  - name: AllengersQc-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
-  - name: TestCap2-destination
+  - name: AllengersQc-destination
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -93,13 +93,13 @@ resources:
             existing_destinations_policy: update
       service: destination
       service-plan: lite
-  - name: TestCap2-repo-host
+  - name: AllengersQc-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: TestCap2-html5-service
+      service-name: AllengersQc-html5-service
       service-plan: app-host
-  - name: TestCap2-repo-runtime
+  - name: AllengersQc-repo-runtime
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo

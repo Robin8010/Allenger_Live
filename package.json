@@ -1,5 +1,5 @@
 {
-  "name": "TestCap2",
+  "name": "AllengersQc",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
@@ -16,8 +16,8 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-testui": "cds watch --open testui/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "undeploy": "cf undeploy TestCap2 --delete-services --delete-service-keys --delete-service-brokers",
+    "watch-qcui": "cds watch --open qcui/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy AllengersQc --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
@@ -46,7 +46,7 @@
   },
   "workspaces": {
     "packages": [
-      "app/testui"
+      "app/qcui"
     ],
     "nohoist": [
       "app/router",

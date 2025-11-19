@@ -1,0 +1,41 @@
+<mvc:View controllerName="qcui.controller.Landing"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+	    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt">
+    <Page id="page" title="{i18n>title}">
+    <ScrollContainer vertical="true" height="100%" id="scTop">	
+            <GenericTile id="gt1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="User Master"
+                subheader="Admin" press="ClickMe" url="https://www.sap.com/">
+                <TileContent id="tc1">
+                    <ImageContent id="ic1" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile>
+            <!-- <GenericTile id="gt2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Record Result"
+                subheader="Quality Control" press="ShowRecordResult" url="https://www.sap.com/">
+                <TileContent id="tc2">
+                    <ImageContent id="ic2" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile> -->
+             <GenericTile id="gt3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="SAP Record Result"
+                subheader="SAP Quality Control" press="ShowRecordResultSAP" url="https://www.sap.com/">
+                <TileContent id="tc3">
+                    <ImageContent id="ic3" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile id="gt4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Stock Transfer"
+                subheader="Stock Transfer" press="ShowStockTransfer" url="https://www.sap.com/" visible="false">
+                <TileContent id="tc4">
+                    <ImageContent id="ic4" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile id="gt5" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="User Decision"
+                subheader="Decision and Transfer" press="ShowDecisionAndTransfer" url="https://www.sap.com/">
+                <TileContent id="tc5">
+                    <ImageContent id="ic5" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile>
+
+	</ScrollContainer>    
+    </Page>
+</mvc:View>

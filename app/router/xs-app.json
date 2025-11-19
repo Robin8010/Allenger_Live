@@ -1,15 +1,15 @@
 {
-    "welcomeFile": "/testui",
+    "welcomeFile": "/qcui",
     "authenticationMethod": "none",
     "routes": [
         {
-            "source": "^/testui/(.*)$",
+            "source": "^/qcui/(.*)$",
             "target": "$1",
             "destination": "ui5",
             "authenticationType": "none"
         },
         {
-            "source": "^/testui/(.*)$",
+            "source": "^/qcui/(.*)$",
             "target": "$1",
             "service": "html5-apps-repo-rt",
             "authenticationType": "none"
