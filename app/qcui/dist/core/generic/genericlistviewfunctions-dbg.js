@@ -38,7 +38,7 @@ sap.ui.define([
                     });
             },
 
-            : async function (oRequestType, sUrl, oHeaderData, oRequestData, sModelName, oDataType) {
+            createNewModelUsingAPIFetchMethod: async function (oRequestType, sUrl, oHeaderData, oRequestData, sModelName, oDataType) {
                 await this.callApiUsingFetch(oRequestType, sUrl, oRequestData, oHeaderData, oDataType)
                     .then((data) => {
                         console.log('Success - response:', data);
@@ -51,7 +51,7 @@ sap.ui.define([
                         console.error('Error:', error);
                         throw error;
                     });
-            },createNewModelUsingAPIFetchMethod
+            },
 
             createNewModelUsingArray: async function (sModelName, oModelData) {
 

@@ -19,7 +19,7 @@ server:
             - path: /odata
               destination: AllengersBTP
             - path: /sap
-              destination: S4HANA_ALLENGERS_DEV
+              destination: S4HANA_ALLENGERS
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
