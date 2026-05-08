@@ -17,7 +17,7 @@
     {
       "source": "^/sap/(.*)$",
       "target": "$1",
-      "destination": "S4HANA_ALLENGERS",
+      "destination": "S4HANA_ALLENGERS_DEV",
       "authenticationType": "none",
       "csrfProtection": true
     },

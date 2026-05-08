@@ -6,9 +6,9 @@
     <Page id="page" title="{i18n>title}">
     <ScrollContainer vertical="true" height="100%" id="scTop">	
             <GenericTile id="gt1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="User Master"
-                subheader="Admin" press="ClickMe" url="https://www.sap.com/">
+                subheader="Manage" press="ClickMe" url="https://www.sap.com/">
                 <TileContent id="tc1">
-                    <ImageContent id="ic1" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                    <ImageContent id="ic1" src="sap-icon://employee" />
                 </TileContent>
             </GenericTile>
             <!-- <GenericTile id="gt2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Record Result"
@@ -17,10 +17,10 @@
                     <ImageContent id="ic2" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
                 </TileContent>
             </GenericTile> -->
-             <GenericTile id="gt3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="SAP Record Result"
-                subheader="SAP Quality Control" press="ShowRecordResultSAP" url="https://www.sap.com/">
+             <GenericTile id="gt3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Record Result"
+                subheader="Quality Check" press="ShowRecordResultSAP" url="https://www.sap.com/">
                 <TileContent id="tc3">
-                    <ImageContent id="ic3" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                    <ImageContent id="ic3" src="sap-icon://verified" />
                 </TileContent>
             </GenericTile>
             <GenericTile id="gt4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Stock Transfer"
@@ -30,12 +30,33 @@
                 </TileContent>
             </GenericTile>
             <GenericTile id="gt5" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="User Decision"
-                subheader="Decision and Transfer" press="ShowDecisionAndTransfer" url="https://www.sap.com/">
+                subheader="Decision &amp; Transfer" press="ShowDecisionAndTransfer" url="https://www.sap.com/">
                 <TileContent id="tc5">
-                    <ImageContent id="ic5" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                    <ImageContent id="ic5" src="sap-icon://decision" />
                 </TileContent>
             </GenericTile>
 
+             <GenericTile id="gt6" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Record result decision "
+                subheader="List Report" press="Showrecordresult" url="https://www.sap.com/">
+                <TileContent id="tc6">
+                    <ImageContent id="ic6" src="sap-icon://decision" />
+                </TileContent>
+            </GenericTile>
+
+                <GenericTile id="gt7" visible="true" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Product Quality Assurance"
+                subheader="Product Quality Assurance" press="ShowproductQuality" url="https://www.sap.com/">
+                <TileContent id="tc7">
+                    <ImageContent id="ic7" src="sap-icon://decision" />
+                </TileContent>
+            </GenericTile>
+<!--
+              <GenericTile id="gt78" visible="true" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Serial wise Report"
+                subheader="Qc Report" press="ShowReport" url="https://www.sap.com/">
+                <TileContent id="tc8">
+                    <ImageContent id="ic8" src="sap-icon://decision" />
+                </TileContent>
+            </GenericTile>
+-->
 	</ScrollContainer>    
     </Page>
 </mvc:View>

@@ -4,24 +4,35 @@
   "RecordResultSAPHead_ID": "",
   "SerialBatchNumber": "",
   "Status": "Pending",
-  "SearchRecord" : "",
+  "SearchRecord": "",
+  "modifiedAt":"",
+
   "ParametersDetails": [
     {
       "RowNumber": 1,
       "Attribute": "",
       "ID": "",
+      "lineid":"",
       "InstrumentDesc": "",
       "InstrumentId": "",
+      "Lowervalue":0.0,
+      "Uppervalue":0.0,
+      "UOM":"",
+      "DeviceGroupID": "",
+      "DeviceGroup": "",
       "Observation": "",
       "ParameterCode": "",
       "ParameterName": "",
       "ParentParameterCode": null,
       "ParentParameterName": null,
       "RecordResultSerialBatchDetail_ID": "",
+      "InspectionAgency": "",
       "Remarks1": "",
       "Remarks2": "",
       "Status": "Pending",
-      "StatusEnableDisable" : true
+      "OldStatus": "Pending",
+      "StatusEnableDisable": true,
+      "Employeeworker": ""
     }
   ],
   "StatusList": [
@@ -56,5 +67,4 @@
       "StatusDesc": "NA"
     }
   ]
-
 }

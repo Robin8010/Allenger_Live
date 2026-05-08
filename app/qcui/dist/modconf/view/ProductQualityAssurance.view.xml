@@ -1,0 +1,99 @@
+<mvc:View
+     xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+      xmlns:f="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    controllerName="modconfcontroller.ProductQualityAssurance">
+
+         <Page title="Product Quality Assurance" showNavButton="true" navButtonPress="navBack">
+ 
+        <!-- Filter Bar -->
+        <Toolbar>
+  <Input
+                            id="InspvdectionLot"
+                            value="{EntryFormDataSourceModel>/InspectionLot}"
+                         width="60%"
+                    class="sapUiLargeMarginEnd"
+                            showValueHelp="true"
+                            valueHelpRequest="cflForInspectionLot"
+                            placeholder="Select Inspection Lot"
+                        />
+                         <Input
+                            id="ManufacturingOrder"
+                            value="{EntryFormDataSourceModel>/Production}"
+                         width="60%"
+                    class="sapUiLargeMarginEnd"
+                            showValueHelp="true"
+                            valueHelpRequest="cflForProduction"
+                            placeholder="Select Production oredr"
+                        />
+                         <Input
+                            id="SerialNumber"
+                            value="{EntryFormDataSourceModel>/SerialNum}"
+                         width="60%"
+                        class="sapUiLargeMarginEnd"
+                            showValueHelp="true"
+                            valueHelpRequest="cflForSerial"
+                            placeholder="Select Serial"
+                        />
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                       <Button
+                            type="Emphasized"
+                            id="Go"
+                            text="{i18n>Go}"
+                            press="Go"
+                        />
+</Toolbar>
+
+  
+       
+     
+
+        <VBox id="fragmentContainer" class="sapUiSmallMargin">
+        
+                        <VBox id="fragment1Container"/>
+                        <VBox id="fragment2Container"/>
+                       <VBox id="fragment3Container"/>
+                        <VBox id="fragment4Container"/>
+                       
+        
+
+        </VBox>
+
+      <footer>
+            <Toolbar class="d-flex justify-content-center btn-sav">
+                <ToolbarSpacer />
+              
+                <Button
+                    type="Emphasized"
+                    id="_save"
+                    text="{i18n>Save}"
+                    press="onSave"
+                />
+                
+                <Button
+                    type="Emphasized"
+                    id="_cancel"
+                    text="{i18n>Cancel}"
+                    press="onCancel"
+                />
+            </Toolbar>
+        </footer>
+
+   
+       
+
+    </Page>
+
+
+    
+
+            
+              
+        
+
+       
+    
+</mvc:View>

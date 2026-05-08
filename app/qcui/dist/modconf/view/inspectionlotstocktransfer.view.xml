@@ -124,7 +124,20 @@
                             required="true"
                             enabled="false"
                             class="m-mast-input"
-                        />                   
+                        />   
+                        <Label
+                            id="createdBylbl"
+                            text="{i18n>CreatedBy}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="inCreatedBy"
+                            value="{EntryFormDataSourceModel>/CreatedBy}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />           
                 </f:content>
             </f:SimpleForm>
         </VBox>   

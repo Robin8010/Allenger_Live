@@ -2,6 +2,9 @@
     "IsAdmin": true,
     "Password": "",
     "UserName": "",
+    "NameDsc":"",
     "ManageRecordResult": false,
-    "ManageUserDecision": false
+    "ManageUserDecision": false,
+    "IsElectrial":false,
+    "IsMechnical":false
 }

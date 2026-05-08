@@ -13,68 +13,71 @@
         showNavButton="true"
         navButtonPress="onPressOfEntryFormCancelButton"
     >
-        <VBox>
-            <f:SimpleForm
-                editable="true"
-                layout="ResponsiveGridLayout"
-                columnsXL="1"
-                columnsL="1"
-                columnsM="1"
-                singleContainerFullSize="false"
-                labelSpanXL="3"
-                labelSpanL="3"
-                labelSpanM="3"
-                labelSpanS="12"
-                adjustLabelSpan="false"
-                emptySpanXL="4"
-                emptySpanL="4"
-                emptySpanM="4"
-                emptySpanS="0"
-            >
-                <f:content>
+       
+          <f:SimpleForm
+            editable="true"
+            layout="ResponsiveLayout"
+            labelSpanXL="6"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="3"
+            emptySpanL="3"
+            emptySpanM="3"
+            emptySpanS="3">
+                <f:content  >
+              
+                <HBox alignItems="Center"  >
                     <Label
                         id="serialBatchlbl"
                         text="{i18n>SerialBatchNumber}"
                         required="true"
-                        class="m-mast-lev"
+                        class="sapUiMediumMarginEnd"
                     />
+                  
                     <Input
                         id="rwContactID"
                         value="{EntryFormDataSourceModel>/SerialBatchNumber}"
                         required="true"
                         enabled="false"
-                        class="m-mast-input"
+                        class="sapUiMediumMarginEnd"
                     />
-
+                    </HBox>
+                    <HBox alignItems="Center">
                     <Label
                         id="rwQuantitylbl"
                         text="{i18n>Quantity}"
                         required="true"
-                        class="m-mast-lev"
+                        class="sapUiMediumMarginEnd"
                     />
                     <Input
                         id="crQuantity"
                         value="{EntryFormDataSourceModel>/Quantity}"
                         required="true"
                         enabled="false"
-                        class="m-mast-input"
-                    />       
+                         class="sapUiMediumMarginEnd"
+                    />   
+                    </HBox>
+                    <HBox alignItems="Center">
                     <Label
                         id="crStatuslbl"
                         text="{i18n>Status}"
                         required="true"
-                        class="m-mast-lev"
+                        class="sapUiMediumMarginEnd"
                     />
                     <Input
                         id="crStatus"
                         value="{EntryFormDataSourceModel>/Status}"
                         required="true"
                         enabled="false"
-                        class="m-mast-input"
+                         class="sapUiMediumMarginEnd"
                     />
+                    </HBox>
+                   
                 </f:content>
             </f:SimpleForm>
-        </VBox>
+       
         <VBox>
           <HBox
                 class="sapUiSmallMarginEnd"
@@ -95,11 +98,14 @@
             >
                 <VBox>
                      <SearchField placeholder="Search" liveChange="onSearch" value="{EntryFormDataSourceModel>/SearchRecord}"></SearchField>
+                      <Input id="cPperameter" showValueHelp="true" value="{EntryFormDataSourceModel>/InspectionLot}" valueHelpRequest="cflForInspectionLot"      placeholder="Select Inspection Lot" change="ChangeInspectionLot" enabled="true" />
+                     <HBox  justifyContent="End">   <Button  type="Emphasized" id="Cp_Perameter" text="CopyPerameter"  press="onPressCopyPerameter"  />
+                     </HBox>
                 </VBox>
             </HBox>
             <ScrollContainer
                 width="100%"
-                height="300px"
+                height="400px"
                 horizontal="true"
                 vertical="true">
                 <Table
@@ -109,13 +115,16 @@
                     }"
                     class="sapUiSizeCompact"
                     inset="true"
+                     width="auto"
+                    fixedLayout="false"
                     sticky="ColumnHeaders,HeaderToolbar"
+                    growing="true"
+                    growingScrollToLoad="true"
+                   
                     showSeparators="All"
                     showNoData="true"
                     enableBusyIndicator="true"
                     alternateRowColors="true"
-                    growingScrollToLoad="true"
-                  
                     backgroundDesign="Translucent"
                     
                 >
@@ -123,7 +132,20 @@
                         <Column>
                             <Label text="Sr No"  />
                         </Column>
-                        <Column Width="300"
+                        <Column>   
+                         <Label tooltip="Parent Parameter Id"
+                                text="Parent Parameter Id"
+                                labelFor="ParentParameterCode"
+                            />
+                        </Column>
+                         <Column  width="25%">
+                            <Label tooltip="Parent Parameter Description"
+                                text="Parent Parameter Description"
+                                labelFor="ParentParameterName"
+                            />
+                        </Column> 
+                         
+                         <Column Width="300"
                              demandPopin="false">
                             <Label
                                 text="Parameter Id"
@@ -132,29 +154,49 @@
                                 
                             />
                         </Column>
-                         <Column >
+                       <Column  width="20%">
                             <Label tooltip="Parameter Description"
                                 text="Parameter Description"
                                 labelFor="ParameterName"
-                                
+                               
                             />
                         </Column>
-                        <Column>   
-                         <Label tooltip="Parent Parameter Id"
-                                text="Parent Parameter Id"
-                                labelFor="ParentParameterCode"
+                        
+                        <Column>
+                            <Label tooltip="Range From"
+                                text="Range From"
+                                labelFor="Range From"
                             />
                         </Column>
-                         <Column>
-                            <Label tooltip="Parent Parameter Description"
-                                text="Parent Parameter Description"
-                                labelFor="ParentParameterName"
+                        <Column>
+                            <Label tooltip="Range To"
+                                text="Range To"
+                                labelFor="Range To"
                             />
-                        </Column>      
+                        </Column> 
+
                          <Column>
+                            <Label tooltip="UOM"
+                                text="Uom"
+                                labelFor="Uom"
+                            />
+                        </Column>     
+                        <Column>
                             <Label tooltip="Characteristic/Attribute"
                                 text="Characteristic/Attribute"
                                 labelFor="Attribute"
+                            />
+                        </Column>
+                        <Column>
+                            <Label tooltip="DeviceGroupID"
+                                text="DeviceGroupID"
+                                labelFor="DeviceGroupID"
+                            />
+                        </Column>
+                        <Column>
+                            <Label tooltip="DeviceGroup"
+                                text="DeviceGroup"
+                                labelFor="DeviceGroup"
                             />
                         </Column>
                          <Column>
@@ -164,18 +206,13 @@
                             />
                         </Column>
                         <Column>
-                            <Label tooltip="Inspection Method/Instrument ID"
-                                text="Inspection Method/Instrument ID"
-                                labelFor="InstrumentId"
+                            <Label tooltip="Inspection Agency "
+                                text="Inspection Agency "
+                                labelFor="InspectionAgency"
                             />
                         </Column>
-                         <Column>
-                            <Label tooltip="Inspection Method/Instrument Description"
-                                text="Inspection Method/Instrument Description"
-                                labelFor="InstrumentDesc"
-                            />
-                        </Column>
-                        <Column>
+                         
+                        <Column width="40px">
                             <Label
                                 text="Status"
                                 labelFor="Status"
@@ -195,30 +232,47 @@
                         </Column>       
                     </columns>
                     <items>
-                        <ColumnListItem vAlign="Middle">
+                        <ColumnListItem vAlign="Middle" >
                             <cells>
                                 <Text
                                     id="il_SrNo1"
                                     text="{EntryFormDataSourceModel>RowNumber}"
                                 />
                                 <Text
+                                    id="il_PParameterCode1"
+                                    text="{EntryFormDataSourceModel>ParentParameterCode}"
+                                    wrapping="true"
+                                />
+                                 <Text
+                                    id="il_PParameterName1"
+                                    text="{EntryFormDataSourceModel>ParentParameterName}"
+                                    wrapping="true"
+                                />
+                               
+                                
+                                 <Text
                                     id="il_ParameterCode1"
                                     text="{EntryFormDataSourceModel>ParameterCode}"
                                     wrapping="true"
-                                />
-                                <Text
+                                /> 
+                              <Text
                                     id="il_ParameterName1"
                                     text="{EntryFormDataSourceModel>ParameterName}"
                                     wrapping="true"
                                 />
                                  <Text
-                                    id="il_PParameterCode1"
-                                    text="{EntryFormDataSourceModel>ParentParameterCode}"
+                                    id="il_RangeF"
+                                    text="{EntryFormDataSourceModel>Lowervalue}"
                                     wrapping="true"
                                 />
-                                <Text
-                                    id="il_PParameterName1"
-                                    text="{EntryFormDataSourceModel>ParentParameterName}"
+                                 <Text
+                                    id="il_RangeT"
+                                    text="{EntryFormDataSourceModel>Uppervalue}"
+                                    wrapping="true"
+                                />
+                                  <Text
+                                    id="il_UOM"
+                                    text="{EntryFormDataSourceModel>UOM}"
                                     wrapping="true"
                                 />
                                 <Text
@@ -226,25 +280,34 @@
                                     text="{EntryFormDataSourceModel>Attribute}"
                                     wrapping="true"
                                 />
+                                <Text
+                                    id="il_DeviceGroupID"
+                                    text="{EntryFormDataSourceModel>DeviceGroupID}"
+                                    wrapping="true"
+                                />
+                                <Text
+                                    id="il_DeviceGroup"
+                                    text="{EntryFormDataSourceModel>DeviceGroup}"
+                                    wrapping="true"
+                                />
                                 <TextArea
                                     id="il_Observation1"
                                     value="{EntryFormDataSourceModel>Observation}"
                                     growing="true"
+                                    
                                     editable="{EntryFormDataSourceModel>StatusEnableDisable}"
+                                    liveChange="HandleLiveChanges"
                                 />
                                 <Text
                                     id="il_InstrumentId1"
-                                    text="{EntryFormDataSourceModel>InstrumentId}"
+                                    text="{EntryFormDataSourceModel>InspectionAgency}"
                                 />
-                                <Text
-                                    id="il_InstrumentDesc1"
-                                    text="{EntryFormDataSourceModel>InstrumentDesc}"
-                                    wrapping="true"
-                                />
-                                <ComboBox
+                               
+                                <ComboBox  width="100px"
                                     id="rrpStatus"
                                     required="true"
                                     valueState="None"
+                                    change="onComboSelection"
                                     visible="true"
                                     editable="{EntryFormDataSourceModel>StatusEnableDisable}"
                                     selectedKey="{EntryFormDataSourceModel>Status}"

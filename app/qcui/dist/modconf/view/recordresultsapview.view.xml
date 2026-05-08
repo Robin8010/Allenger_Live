@@ -14,6 +14,7 @@
         showNavButton="true"
         navButtonPress="onPressOfListViewBackButton"
     >
+   
        <content />
         <footer>
             <Toolbar class="d-flex justify-content-center btn-sav">

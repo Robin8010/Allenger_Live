@@ -5,18 +5,26 @@
     "SerialBatchNumber": "",
     "Status": "Draft",
     "InspectionPlanStatus": null,
+    
     "ParametersDetails": [
         {
             "Attribute": "",
             "ID": "",
+            "lineid":"",
             "InstrumentDesc": "",
             "InstrumentId": "",
+             "Lowervalue":0.0,
+            "Uppervalue":0.0,
+            "UOM":"",
             "Observation": "",
             "ParameterCode": "",
             "ParameterName": "",
+            "DeviceGroupID": "",
+            "DeviceGroup": "",
             "ParentParameterCode": null,
             "ParentParameterName": null,
             "RecordResultSerialBatchDetail_ID": "",
+            "InspectionAgency": "",
             "Remarks1": "",
             "Remarks2": "",
             "Status": "Draft"

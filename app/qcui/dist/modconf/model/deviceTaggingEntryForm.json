@@ -1,0 +1,16 @@
+{
+      "ID": "",
+      "Enable":"true",
+      "RecordResultDeviceTagging": [
+            {
+                  "RowNumber": 1,
+                  "ID": "",
+                  "DeviceSelect": false,
+                  "DeviceID": "",
+                  "DeviceDescription": "",
+                  "DeviceGroup":"",
+                  "Serial":"",
+                  "DSerial":""
+            }
+      ]
+}

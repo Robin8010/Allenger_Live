@@ -9,7 +9,7 @@
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/odata/v4/user-master/|
 |**Module Name**<br>qcui|
-|**Application Title**<br>App Title|
+|**Application Title**<br>Allengers Medical System|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.141.3|

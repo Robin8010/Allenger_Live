@@ -12,6 +12,7 @@ sap.ui.define([
         return genericentryform.extend("modconfcontroller.stocktransferentryform", {
 
             onInit: function () {
+                debugger;
                 genericentryform.prototype.onInit.apply(this, arguments);
                 //this.initialize();
             },
@@ -410,7 +411,7 @@ sap.ui.define([
                         let oModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                         oModel.setProperty("/Status", "Draft");
                         let oData = oModel.getData();
-
+//Robin
                         const modelData = this.getView().getModel(this.getEntryFormDataSourceModelName()).getData();
                         let trgObject = this.getView().getModel("stockTransferSaveRequest").getData();
                         console.log("Target Object:", trgObject);
@@ -991,7 +992,7 @@ sap.ui.define([
                 const loginModel = this.getOwnerComponent().getModel('UserModel');
                 if (!loginModel || loginModel === 'undefined') {
                     var router = sap.ui.core.UIComponent.getRouterFor(this);
-                    router.navTo("RouteIndexPage");
+                    router.navTo("RouteLogin");
                     MessageToast.show("Not a valid user.");
                 }
             },

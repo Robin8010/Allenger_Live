@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View
+    controllerName="modconfcontroller.InspectionLotReport"
+    height="100%"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:c="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:T="sap.ui.table"
+    xmlns:a="sap.ui.core.Control"
+>
+    <Page
+        id="_DocList"
+        class="sapUiFioriObjectPage"
+        showHeader="true"
+        showNavButton="true"
+        navButtonPress=".navBack"
+        title="Device Group Report"
+    >
+        <content>
+            <f:SimpleForm
+                id="_DebitListForm"
+                maxContainerCols="2"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                title=""
+                labelSpanL="4"
+                labelSpanM="4"
+                emptySpanL="0"
+                emptySpanM="0"
+                columnsL="2"
+                columnsM="1"
+                validateFieldGroup="onValidateFieldGroup"
+                backgroundDesign="Solid"
+            >
+                <VBox id="Vbox">
+                    <!-- Search Field for Filtering -->
+                    <VBox justifyContent="End">
+                        <Input
+                            width="20%"
+                            id="Serial"
+                            value="{EntryFormDataSourceModel>/SerialBatchNumber}"
+                            required="true"
+                            class="m-mast-input"
+                            showValueHelp="true"
+                            valueHelpRequest="cflForSerial"
+                            placeholder="Select Serial"
+                            change="ChangeSerial"
+                        />
+                    </VBox>
+
+                    <!-- Table to Display Items -->
+                    <Table
+                        id="_DebitTbl"
+                        items="{DeviceList>/value}"
+                        width="100%"
+                        growing="true"
+                        growingScrollToLoad="true"
+                        class="sapUiSizeCompact"
+                        sticky="ColumnHeaders,HeaderToolbar"
+                        showSeparators="All"
+                        showNoData="true"
+                        growingThreshold="5"
+                        enableBusyIndicator="true"
+                        alternateRowColors="true"
+                        headerLevel="Auto"
+                        backgroundDesign="Translucent"
+                    >
+                        <headerToolbar>
+                            <Toolbar>
+                                <content>
+                                    <ToolbarSpacer/>
+                                    <Button text="Go" type="Accept" press="Go"/>
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column><Label text="InspectionLot"/></Column>
+                            <Column><Label text="Material"/></Column>
+                            <Column><Label text="SerialBatchNumber"/></Column>
+                            <Column><Label text="DeviceGroupID"/></Column>
+                            <Column><Label text="DeviceGroup"/></Column>
+                            <Column hAlign="End"><Label text="Action"/></Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{DeviceList>InspectionLot}"/>
+                                    <Text text="{DeviceList>Material}"/>
+                                    <Text text="{DeviceList>SerialBatchNumber}"/>
+                                    <Text text="{DeviceList>DeviceGroupID}"/>
+                                    <Text text="{DeviceList>DeviceGroup}"/>
+                                    <Button icon="sap-icon://print" type="Transparent" press="OnPrint"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+            </f:SimpleForm>
+        </content>
+    </Page>
+</mvc:View>

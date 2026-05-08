@@ -1,0 +1,42 @@
+@server=http://localhost:4004
+@username=alice
+@password=
+
+
+### DeviceGroupList
+# @name DeviceGroupList_GET
+GET {{server}}/odata/v4/device-group-list/DeviceGroupList
+Authorization: Basic {{username}}:{{password}}
+
+
+### DeviceGroupList
+# @name DeviceGroupList_POST
+POST {{server}}/odata/v4/device-group-list/DeviceGroupList
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "26277367-d1c7-4c07-a809-d5886ba62cd5",
+  "DeviceGroupID": "DeviceGroupID-26277367",
+  "DeviceGroup": "DeviceGroup-26277367"
+}
+
+
+### DeviceGroupList
+# @name DeviceGroupList_PATCH
+PATCH {{server}}/odata/v4/device-group-list/DeviceGroupList/26277367-d1c7-4c07-a809-d5886ba62cd5
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "26277367-d1c7-4c07-a809-d5886ba62cd5",
+  "DeviceGroupID": "DeviceGroupID-26277367",
+  "DeviceGroup": "DeviceGroup-26277367"
+}
+
+
+### DeviceGroupList
+# @name DeviceGroupList_DELETE
+DELETE {{server}}/odata/v4/device-group-list/DeviceGroupList/26277367-d1c7-4c07-a809-d5886ba62cd5
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}

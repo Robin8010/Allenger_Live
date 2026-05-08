@@ -1,0 +1,71 @@
+<core:FragmentDefinition xmlns="sap.m"  
+xmlns:f="sap.ui.layout.form"
+ xmlns:core="sap.ui.core">
+    <Panel headerText="CHECKLIST OF DOCUMENTS REQUIRED BEFORE CLEARANCE FOR DISMANTLING:" expandable="true" expanded="false" expand=".onPanelExpand">
+        
+ <VBox >
+
+
+
+ <Table id="_Tbl"  
+  width="100%"
+    growing="true"
+    growingScrollToLoad="true"
+    items="{EntryFormDataSourceModel>/LineItem}"  
+  class="sapUiSizeCompact"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    showSeparators="All"
+                    showNoData="true"
+                    enableBusyIndicator="true"
+                    alternateRowColors="true"
+                    headerLevel="Auto"                    
+                    backgroundDesign="Translucent">
+  <headerToolbar>
+  <Toolbar >
+  <content>
+    <!--   <SearchField placeholder="GMC Num" width="30%" liveChange="onSearch"></SearchField>
+ <SearchField placeholder="Job Work Po" width="30%" liveChange="onSearchWithName"></SearchField>
+    <ToolbarSpacer />
+     <Button type="Accept" enabled="{ENBmodel>/Enable}" text="Addnew" press="Addnew"></Button>-->
+
+  
+
+  </content>
+  </Toolbar>
+  </headerToolbar>
+							<columns>
+          
+								<Column>
+									<Label text="Document Name"/>
+								</Column>
+								<Column>
+									<Label text="Click if Document Atteched"/>
+								</Column>
+							
+								<Column width="30%">
+									<Label text="Click if Not Application"/>
+								</Column>
+               
+							</columns>
+							<items>
+								<ColumnListItem>
+								<cells>
+                  	         <Text text="{EntryFormDataSourceModel>DocumentNum}"/>
+										 <CheckBox
+                                        selected="{= ${EntryFormDataSourceModel>IsDocumentAtteched} === 'true' || ${EntryFormDataSourceModel>IsDocumentAtteched} === true }"
+                                    />
+                                  <CheckBox
+                                       
+                                       selected="{= ${EntryFormDataSourceModel>IsApplicable} === 'true' || ${EntryFormDataSourceModel>IsApplicable} === true }"
+                                    />
+									
+                	</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+
+          
+
+  </VBox>      
+    </Panel>
+</core:FragmentDefinition>

@@ -192,7 +192,7 @@ sap.ui.define([
                 const loginModel = this.getOwnerComponent().getModel('UserModel');
                 if (!loginModel || loginModel === 'undefined') {
                     var router = sap.ui.core.UIComponent.getRouterFor(this);
-                    router.navTo("RouteIndexPage");
+                    router.navTo("RouteLogin");
                     MessageToast.show("Not a valid user.");
                 }
             },

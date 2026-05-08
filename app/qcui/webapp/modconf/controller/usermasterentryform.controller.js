@@ -59,6 +59,11 @@ sap.ui.define([
             },
             onSave: async function () {
                 try {
+                  let Currentmodify= await this.getModifyTime();
+                   const oModelData = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                        var _modify = oModelData.getProperty("/modifiedAt");
+                        if(Currentmodify==_modify)
+                        {
                     let isRecordAdded = false;
                     const formMode = this.getFormMode();
                     if (formMode === "3") {
@@ -94,6 +99,11 @@ sap.ui.define([
                             MessageToast.show("Record added successfully");
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.show("Another user working on same screen kindly wait and reopen...");
+                }
                 }
                 catch (error) {
                     MessageBox.show(error.message);

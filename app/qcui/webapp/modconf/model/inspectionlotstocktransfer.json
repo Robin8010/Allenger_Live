@@ -4,6 +4,7 @@
   "Status": "Draft",
   "UsageDecisionStockType": "",
   "StorageLocation": "",
+  "CreatedBy": "",
   "PostButton": false,
   "SaveButton": true,
   "StockTypeEditable": true,

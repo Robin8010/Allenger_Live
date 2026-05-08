@@ -49,6 +49,7 @@ sap.ui.define([
             handleUIOperation: function () {
                 const formMode = this.getFormMode();
                 if (formMode === "2") {
+                  // document.getElementById("myInput").disabled = cmbElectrical;
                     this.handleFormInEditMode();
                     this.SetEnableDisableProperty(false);
                 }
@@ -58,8 +59,10 @@ sap.ui.define([
                 }
             },
             SetEnableDisableProperty: async function (value) {
+                debugger;
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 viewModel.setProperty(`/InspectionLotEnabled`, value);
+               
                 viewModel.setProperty(`/SerialNumberEnabled`, value);
                 viewModel.setProperty(`/PostDateEnabled`, value);
                 const status = viewModel.getProperty(`/Status`);
@@ -201,6 +204,8 @@ sap.ui.define([
                     MessageBox.show("cflForSerialNo -: " + error.message);
                 }
             },
+
+            
             onConfirmSerialNo: function () {
                 let x = this.getCflObject();
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());

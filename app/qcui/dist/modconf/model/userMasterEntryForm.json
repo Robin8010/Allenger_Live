@@ -3,7 +3,11 @@
     "IsAdmin": true,
     "Password": "",
     "UserName": "",
+    "NameDsc":"",
     "enableUsername": true,
     "ManageRecordResult": false,
-    "ManageUserDecision": false
+    "ManageUserDecision": false,
+    "IsElectrial":false,
+    "IsMechnical":false,
+    "modifiedAt":""
 }

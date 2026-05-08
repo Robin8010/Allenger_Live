@@ -131,6 +131,14 @@ sap.ui.define([
                 var sFormattedDate = oDateFormat.format(oDate);
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 viewModel.setProperty(`/PostDate`, sFormattedDate);
+                const loginModel = this.getOwnerComponent().getModel('UserModel');
+                if (loginModel && loginModel != 'undefined') {
+                    let userName = loginModel.value[0].UserName;
+                    let createdBy = viewModel.getProperty(`/CreatedBy`);
+                    if (!createdBy || createdBy == "" || createdBy == "undefined") {
+                        viewModel.setProperty(`/CreatedBy`, userName);
+                    }
+                }
                 viewModel.refresh(true);
             },
             handleFormInEditMode: async function () {

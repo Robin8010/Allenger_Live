@@ -8,6 +8,7 @@ sap.ui.define([
         "use strict";
         var _RoleInfo = null, _LoginInfo;
         var oBusyIndicator;
+        let userName="";
 
         return genericentryform.extend("modconfcontroller.inspectionlotdecisionform", {
 
@@ -17,6 +18,8 @@ sap.ui.define([
                 oBusyIndicator = BusyIndicator;
             },
             onBeforeShow: async function (oEvent) {
+                debugger;
+                  this.isValidUser();
                 this.identifyFormMode(oEvent);
                 this.initialize();
                 this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSAPHead(ID = " + this.getListViewEditPropertyValue() + ")?$expand=RecordResultDecisionHead($orderby=PostDate desc)");
@@ -57,6 +60,21 @@ sap.ui.define([
                 else {
                     this.ShowDefaultValues();
                     this.SetEnableDisableProperty(true);
+                }
+            },
+             isValidUser: function () {
+                // let loginInfo=this.getLoginInfo();
+                // let userid = loginInfo.UserID;
+
+                const loginModel = this.getOwnerComponent().getModel('UserModel');
+                if (!loginModel || loginModel === 'undefined') {
+                    var router = sap.ui.core.UIComponent.getRouterFor(this);
+                    router.navTo("RouteLogin");
+                    MessageToast.show("Not a valid user.");
+                }
+                else
+                {
+                    userName=loginModel.value[0].UserName;
                 }
             },
             SetEnableDisableProperty: async function (value) {
@@ -281,23 +299,36 @@ sap.ui.define([
             onPressUDPosting: async function () {
                 try {
                     debugger;
+                    /*  let viewModel11 = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                    viewModel11.getProperty("/ID")
+                    this.UpdateRecordResultHeaderStatus(viewModel11.getProperty("/ID"), "abc","")
+                    */
                     oBusyIndicator.show(0);
                     let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                     const status = viewModel.getProperty("/Status");
-                    const transferedQuantity = viewModel.getProperty("/TransferedQuantity");
-                    const quantity = viewModel.getProperty("/Quantity");
-                    if (Number(transferedQuantity) == Number(quantity) && (status == "Draft" || status == "Completed")) {
-                        await this.PostingUserDecisionToSAPSystem();
-                    }
+                    const Remarks = viewModel.getProperty("/Remarks");
+                    if (Remarks && Remarks.trim() !== "")                       
+                    {
+                        const transferedQuantity = viewModel.getProperty("/TransferedQuantity");
+                        const quantity = viewModel.getProperty("/Quantity");
+                        if (Number(transferedQuantity) == Number(quantity) && (status == "Draft" || status == "Completed")) 
+                        {
+                            await this.PostingUserDecisionToSAPSystem();
+                        }
                     else {
-                        if (status == "UD-Posted") {
-                            MessageToast.show("Already posted");
-                            viewModel.setProperty("/PostUD", false);
-                            viewModel.refresh(true);
+                            if (status == "UD-Posted") {
+                                MessageToast.show("Already posted");
+                                viewModel.setProperty("/PostUD", false);
+                                viewModel.refresh(true);
+                            }
+                            else {
+                                MessageToast.show("Not posting, check status");
+                            }
                         }
-                        else {
-                            MessageToast.show("Not posting, check status");
-                        }
+                    }
+                    else
+                    {
+                        MessageToast.show("Remarks can not blank...");
                     }
                     oBusyIndicator.hide();
                 }
@@ -473,8 +504,13 @@ sap.ui.define([
             },
             UpdateRecordResultHeaderStatus: async function (inspectionLotId, status) {
                 try {
+                    const today = new Date();
+                    const formattedDate = today.toISOString().split('T')[0];
                     const dataJson = {
-                        Status: status
+                        Status: status,
+                        UDUser:userName,
+                        UDPostingDate:formattedDate
+    
                     };
                     await this.createNewModelUsingAPI(
                         'PATCH',

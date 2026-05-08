@@ -1,0 +1,14 @@
+<mvc:View
+    controllerName="myDrilldownApp.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    
+    <App>
+        <Page title="Multi-Level Drilldown Table">
+            <Table id="drillTable"
+                   inset="false"
+                   headerText="Drilldown Table">
+            </Table>
+        </Page>
+    </App>
+</mvc:View>

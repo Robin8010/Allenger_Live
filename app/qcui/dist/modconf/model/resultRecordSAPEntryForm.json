@@ -3,6 +3,7 @@
   "InspectionLot": "",
   "Material": "",
   "Plant": "",
+  "Remarks":"",
   "ManagedBy": "",
   "PostDate": "",
   "EOI": "",
@@ -19,12 +20,20 @@
   "UsageDecisionValuation": "A",
   "UsageDecisionFollowupAction": "SWM_A",
   "InspectionLotEnabled": true,
+   "DateT": true,
   "SerialNumberEnabled": true,
   "PostDateEnabled": true,
   "SubmitButtonEnabled": false,
+  "EnableDeviceTag": false,
   "DocumentSummary": "",
   "ManufacturingOrder": "",
   "SearchRecord": "",
+  "CreatedBy": "",
+  "Employeeworker": "",
+  "MechnicalUser":"",
+  "ElectrialUser":"",
+  
+  "SalesOrder":"",
   "SerialBatchDetails": [
     {
       "RowNumber": 1,
@@ -32,33 +41,31 @@
       "SerialBatchNumber": "",
       "Quantity": "0.00",
       "Status": "Pending",
+       "Mechnical": true,
+     "Electrial": true,
+     "DateOfT":"",
       "UsageDecisionStockType": "VMENGE04",
       "StorageLocation": "9022",
       "InspectionPlanStatus": null,
       "AddParameters": false,
       "CopyParameters": false,
       "StockTypeEditable": true,
-      "SorageLocationEditable": true,
-      "ParametersDetails": [
-        {
-          "RowNumber": 1,
-          "ID": "",
-          "ParameterCode": "",
-          "ParameterName": "",
-          "ParentParameterCode": null,
-          "ParentParameterName": null,
-          "Attribute": "",
-          "AttributeID": "",
-          "Observation": "",
-          "InstrumentId": "",
-          "InstrumentDesc": "",
-          "Status": "Pending",
-          "Remarks1": "",
-          "Remarks2": ""
-        }
-      ]
+      "SorageLocationEditable": true
     }
   ],
+      
+   "MUserList": [
+    {
+       "ID": "",
+      "UserName": ""
+    }
+   ],
+   "EUserList": [
+    {
+       "ID": "",
+      "UserName": ""
+    }
+   ],
   "StatusList": [
     {
       "StatusId": "Pending",

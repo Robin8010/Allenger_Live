@@ -47,6 +47,9 @@ sap.ui.define([
                 }
                 this.getView().byId("gt3").setVisible(manageRecordResult);
                 this.getView().byId("gt5").setVisible(manageUserDecision);
+                 this.getView().byId("gt6").setVisible(manageUserDecision);
+                  this.getView().byId("gt7").setVisible(manageUserDecision);
+                //  this.getView().byId("gt8").setVisible(manageUserDecision);
             },
             ClickMe: function () {
                 console.log("Clicked");
@@ -54,11 +57,31 @@ sap.ui.define([
                 MessageToast.show("Redirecting to User Master.....")
                 router.navTo("RouteNameUserMasterConfiguration");
             },
-            ShowRecordResult: function () {
+             ShowproductQuality: function () {
+                console.log("Clicked");
+                var router = sap.ui.core.UIComponent.getRouterFor(this);
+                MessageToast.show("Redirecting to Product Quality Assurance.....")
+                router.navTo("ProductQualityAssuranceList");
+            },
+            Showrecordresult:function(){
+                debugger;
                 console.log("Clicked");
                 var router = sap.ui.core.UIComponent.getRouterFor(this);
                 MessageToast.show("Redirecting to Record Result.....")
+                router.navTo("RecordResultListReport");
+                
+            },
+            ShowRecordResult: function () {
+                console.log("Clicked");
+              let router=sap.ui.core.UIComponent.getRouterFor(this);
+                MessageToast.show("Redirecting to Record Result.....")
                 router.navTo("RouterNameRecordResultViewForm");
+            },
+             ShowReport: function () {
+                console.log("Clicked");
+              let router=sap.ui.core.UIComponent.getRouterFor(this);
+                MessageToast.show("Redirecting to InspectionReport.....")
+                router.navTo("InspectionLotReport");
             },
             ShowRecordResultSAP: function () {
                 console.log("Clicked");

@@ -1,0 +1,14 @@
+{
+      "ID": "",
+      "RecordResultDeviceTagging": [
+            {
+                  "ID": "",
+                  "DeviceSelect": false,
+                  "DeviceID": "",
+                  "DeviceDescription": "",
+                    "DeviceGroup":"",
+                  "Serial":"",
+                  "DSerial":""
+            }
+      ]
+}

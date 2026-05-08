@@ -1,0 +1,52 @@
+{
+            "CertificateNo": null,
+            "CertificateType": null,
+            "CertificationType": null,
+            "DetailDescription": null,
+            "ElectricalPerson": null,
+            "ElectricalQA": null,
+            "FinalApprovalBy": null,
+            "FinalClearBy": null,
+            "ID": "",
+            "Inspection": null,
+            "MachineModel": null,
+            "MachinePartCode": null,
+            "MachineSeries": null,
+            "MachineType": null,
+            "ManufacturingCode": null,
+            "ManufacturingCodeRevision": null,
+            "MechanicalQA": null,
+            "OrderType": null,
+            "ProductSpecilist": null,
+            "ProductionOrder": null,
+            "Serial": null,
+            "createdAt": null,
+            "createdBy": null,
+            "deviation": null,
+            "deviationNo": null,
+            "modifiedAt": null,
+            "modifiedBy": null,
+            "LineItem": [
+                            {
+                              "DocumentNum": "",
+                              "IsDocumentAtteched": false,
+                              "IsApplicable": false
+                            }
+                        ],
+  "List": [
+    {
+      "ID": "0",
+      "Name": "Yes"
+    },
+    {
+      "ID": "1",
+      "Name": "No"
+    }
+  ],
+  "ElectrialcalUserList": [
+    {
+      "ID": "",
+      "UserName": ""
+    }
+  ]
+}

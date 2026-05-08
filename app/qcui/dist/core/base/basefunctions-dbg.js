@@ -3,6 +3,7 @@ sap.ui.define(
   function (baseproperties, BusyIndicator, Controller, MessageBox) {
     'use strict';
     var oBusyIndicator;
+      let Etag="";
     return baseproperties.extend('corebase.basefunctions', {
       onInit: function () {
         baseproperties.prototype.onInit.apply(this, arguments);
@@ -60,6 +61,9 @@ sap.ui.define(
             contentType: 'application/json; charset=utf-8',
             crossDomain: true,
             async: true,
+          //  headers: this.ETag ? {
+            //"If-Match": this.sETag   // 👈 ADD THIS
+          //} : {},
             /*headers: {
                             "Content-Type": "application/json",
                             "Cookie": "B1SESSION=fc34c65a-4da1-11ef-8000-00155d025317"
@@ -512,25 +516,31 @@ sap.ui.define(
       },
 
       getRouteData: function () {
-        let oModel;
-        let oRouteData;
-        oModel = this.getView().getModel('sysModel');
+    const oModel = this.getView().getModel('sysModel');
 
-        oRouteData = oModel.getProperty('/route/routeData');
+    if (!oModel) {
+        console.error("sysModel not found");
+        return null;
+    }
 
-        return oRouteData;
-      },
+    return oModel.getProperty('/route/routeData');
+},
 
-      setRouteData: function (sFormMode, sUniqueId) {
-        let oModel;
+     setRouteData: function (sFormMode, sUniqueId) {
+    const oModel = this.getView().getModel('sysModel');
 
-        oModel = this.getView().getModel('sysModel');
-        //alert(JSON.stringify(oModel));
-        oModel.setProperty('/route/routeData/formMode', sFormMode);
-        oModel.setProperty('/route/routeData/uniqueId', sUniqueId);
+    if (!oModel) {
+        console.error("sysModel not found");
+        return;
+    }
 
-        this.getView().setModel(oModel, 'sysModel');
-      },
+    if (!oModel.getProperty('/route/routeData')) {
+        oModel.setProperty('/route/routeData', {});
+    }
+
+    oModel.setProperty('/route/routeData/formMode', sFormMode);
+    oModel.setProperty('/route/routeData/uniqueId', sUniqueId);
+},
       setRouteDataNested: function (sFormMode, sUniqueId, lastUniqueId) {
         let oModel;
 
@@ -777,9 +787,11 @@ sap.ui.define(
 
       addRowInObj: function (sPath, oNewObj, sPropName) {
         let model = this.getEntryFormModel();
+         let data="";
+        // model.attachRequestCompleted(() => {
 
-        let data = model.getData();
-
+         data = model.getData();
+        // })
         let x = data[sPath].length;
 
         oNewObj[sPropName] = x + 1;

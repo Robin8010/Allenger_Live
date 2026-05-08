@@ -87,6 +87,13 @@
 				}
 			]
 		},
+		"sap.ui5": {
+			"dependencies": {
+				"libs": {
+					"sap.ui.export": {}
+				}
+			}
+		},
 		"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
@@ -120,7 +127,7 @@
 					"target": [
 						"TargetUserConfiguration"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameUserMasterEntryForm",
@@ -128,7 +135,7 @@
 					"target": [
 						"TargetUserMasterEntryForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameRecordResultViewForm",
@@ -136,7 +143,7 @@
 					"target": [
 						"TargetRecordResultViewForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameRecordResultEntryForm",
@@ -144,7 +151,15 @@
 					"target": [
 						"TargetRecordResultEntryForm"
 					],
-					"cache": true
+					"cache": false
+				},
+				{
+					"name": "ProductQualityAssurance",
+					"pattern": "ProductQualityAssurance",
+					"target": [
+						"TargetProductQualityAssurance"
+					],
+					"cache": false
 				},
 				{
 					"name": "RouterNameRecordResultSAPViewForm",
@@ -152,7 +167,15 @@
 					"target": [
 						"TargetRecordResultSAPViewForm"
 					],
-					"cache": true
+					"cache": false
+				},
+				{
+					"name": "RecordResultListReport",
+					"pattern": "DeviceListReport",
+					"target": [
+						"RecordResultListReport"
+					],
+					"cache": false
 				},
 				{
 					"name": "RouterNameRecordResultSAPEntryForm",
@@ -160,7 +183,7 @@
 					"target": [
 						"TargetRecordResultSAPEntryForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameRecordResultParametersEntryForm",
@@ -168,7 +191,15 @@
 					"target": [
 						"TargetRecordResultParametersEntryForm"
 					],
-					"cache": true
+					"cache": false
+				},
+				{
+					"name": "RouterNameRecordResultDeviceTaggingForm",
+					"pattern": "SAPRecordResultDevices",
+					"target": [
+						"TargetRecordResultDeviceTaggingForm"
+					],
+					"cache": false
 				},
 				{
 					"name": "RouterNameStockTransferViewForm",
@@ -176,7 +207,7 @@
 					"target": [
 						"TargetStockTransferViewForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameStockTransferEntryForm",
@@ -184,7 +215,7 @@
 					"target": [
 						"TargetStockTransferEntryForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameStockTransferSAPViewForm",
@@ -192,7 +223,7 @@
 					"target": [
 						"TargetStockTransferSAPViewForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameStockTransferSAPEntryForm",
@@ -200,7 +231,7 @@
 					"target": [
 						"TargetStockTransferSAPEntryForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameInspectionLotDecisionForm",
@@ -208,7 +239,7 @@
 					"target": [
 						"TargetInspectionLotDecisionForm"
 					],
-					"cache": true
+					"cache": false
 				},
 				{
 					"name": "RouterNameInspectionLotStockTransferForm",
@@ -216,7 +247,23 @@
 					"target": [
 						"TargetInspectionLotStockTransferForm"
 					],
-					"cache": true
+					"cache": false
+				},
+				{
+					"name": "InspectionLotReport",
+					"pattern": "InspectionLotReport",
+					"target": [
+						"TargetInspectionLotReport"
+					],
+					"cache": false
+				},
+				{
+					"name": "ProductQualityAssuranceList",
+					"pattern": "ProductQualityAssuranceList",
+					"target": [
+						"TargetProductQualityAssuranceList"
+					],
+					"cache": false
 				}
 			],
 			"targets": {
@@ -237,6 +284,38 @@
 					"clearControlAggregation": false,
 					"viewId": "usermasterlistview",
 					"viewName": "usermasterlistview",
+					"viewPath": "modconfview"
+				},
+				"TargetProductQualityAssurance": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "ProductQualityAssurance",
+					"viewName": "ProductQualityAssurance",
+					"viewPath": "modconfview"
+				},
+				"TargetInspectionLotReport": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "InspectionLotReport",
+					"viewName": "InspectionLotReport",
+					"viewPath": "modconfview"
+				},
+				"TargetProductQualityAssuranceList": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "ProductQualityList",
+					"viewName": "ProductQualityList",
+					"viewPath": "modconfview"
+				},
+				"RecordResultListReport": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "InspectionLotReport",
+					"viewName": "InspectionLotReport",
 					"viewPath": "modconfview"
 				},
 				"TargetUserMasterEntryForm": {
@@ -285,6 +364,14 @@
 					"clearControlAggregation": false,
 					"viewId": "rrparametersentryform",
 					"viewName": "rrparametersentryform",
+					"viewPath": "modconfview"
+				},
+				"TargetRecordResultDeviceTaggingForm": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "DeviceTaggingform",
+					"viewName": "DeviceTaggingform",
 					"viewPath": "modconfview"
 				},
 				"TargetStockTransferViewForm": {

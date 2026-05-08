@@ -1,0 +1,66 @@
+@server=http://localhost:4004
+@username=alice
+@password=
+
+
+### InspectionQcReport
+# @name InspectionQcReport_GET
+GET {{server}}/odata/v4/inspection-qcreport/InspectionQcReport
+Authorization: Basic {{username}}:{{password}}
+
+
+### InspectionQcReport
+# @name InspectionQcReport_POST
+POST {{server}}/odata/v4/inspection-qcreport/InspectionQcReport
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "31548040-d339-4a0d-8142-8ec44e388eba",
+  "InspectionLot": "InspectionLot-31548040",
+  "Material": "Material-31548040",
+  "ManufacturingOrder": "ManufacturingOrder-31548040",
+  "SerialBatchNumber": "SerialBatchNumber-31548040",
+  "DeviceGroupID": "DeviceGroupID-31548040",
+  "DeviceGroup": "DeviceGroup-31548040",
+  "ParameterName": "ParameterName-31548040",
+  "Attribute": "Attribute-31548040",
+  "Lowervalue": "Lowervalue-31548040",
+  "Uppervalue": "Uppervalue-31548040",
+  "Observation": "Observation-31548040",
+  "UOM": "UOM-31548040",
+  "Status": "Status-31548040",
+  "Dsc": "Dsc-31548040"
+}
+
+
+### InspectionQcReport
+# @name InspectionQcReport_PATCH
+PATCH {{server}}/odata/v4/inspection-qcreport/InspectionQcReport/31548040-d339-4a0d-8142-8ec44e388eba
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "31548040-d339-4a0d-8142-8ec44e388eba",
+  "InspectionLot": "InspectionLot-31548040",
+  "Material": "Material-31548040",
+  "ManufacturingOrder": "ManufacturingOrder-31548040",
+  "SerialBatchNumber": "SerialBatchNumber-31548040",
+  "DeviceGroupID": "DeviceGroupID-31548040",
+  "DeviceGroup": "DeviceGroup-31548040",
+  "ParameterName": "ParameterName-31548040",
+  "Attribute": "Attribute-31548040",
+  "Lowervalue": "Lowervalue-31548040",
+  "Uppervalue": "Uppervalue-31548040",
+  "Observation": "Observation-31548040",
+  "UOM": "UOM-31548040",
+  "Status": "Status-31548040",
+  "Dsc": "Dsc-31548040"
+}
+
+
+### InspectionQcReport
+# @name InspectionQcReport_DELETE
+DELETE {{server}}/odata/v4/inspection-qcreport/InspectionQcReport/31548040-d339-4a0d-8142-8ec44e388eba
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}

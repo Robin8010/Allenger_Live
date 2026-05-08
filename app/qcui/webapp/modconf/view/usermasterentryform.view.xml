@@ -46,6 +46,20 @@
                         enabled="{EntryFormDataSourceModel>/disableUsername}"
                         class="m-mast-input"
                     />
+                    <Label
+                        id="usercodeDsc"
+                        text="{i18n>User FullName}"
+                        required="true"
+                        class="m-mast-lev"
+                    />
+ 
+                    <Input
+                        id="_UserFullName"
+                        value="{EntryFormDataSourceModel>/NameDsc}"
+                        required="true"
+                        
+                        class="m-mast-input"
+                    />
  
                     <Label
                         id="userdesclbl"
@@ -112,6 +126,44 @@
                         select="onCheckBoxSelect"
                         class="ml-10"
                     />
+                    
+                    </HBox>
+                     <Label
+                        text="Electrical User"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/IsElectrial}"
+                        id="isElectrical"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    
+                    </HBox>
+
+                     <Label
+                        text="Mechanical"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/IsMechnical}"
+                        id="isMechanical"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    
                     </HBox>
  
                 </f:content>

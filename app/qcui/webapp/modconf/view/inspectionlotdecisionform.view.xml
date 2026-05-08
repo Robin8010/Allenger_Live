@@ -149,14 +149,33 @@
                             class="m-mast-lev"
                             visible="false"
                         /> 
-                        <Input
-                            id="indocumentSummary"
-                            value="{EntryFormDataSourceModel>/DocumentSummary}"
+                        <Label
+                            id="createdBylbl"
+                            text="{i18n>CreatedBy}"
                             required="true"
-                            enabled="false"
-                            class="m-mast-input"                            
-                            visible="false"
-                        />                        
+                            class="m-mast-lev"
+                        />  
+                         <Label
+                            id="_RMK"
+                            text="Remarks"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <TextArea
+                            value="{EntryFormDataSourceModel>/Remarks}"
+                            growing="true"
+                            growingMaxLines="10"
+                        
+                            placeholder="Enter description..." />
+                            <!--
+                                <Input
+                                    id="txtRemarks"
+                                    value="{EntryFormDataSourceModel>/Remarks}"
+                                    required="true"
+                                    enabled="true"
+                                    class="m-mast-input"
+                                />  
+                        -->                                          
                 </f:content>
             </f:SimpleForm>
         </VBox>   

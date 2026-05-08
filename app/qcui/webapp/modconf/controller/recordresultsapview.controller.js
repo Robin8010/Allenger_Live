@@ -10,7 +10,8 @@ sap.ui.define([
 
             onInit: function () {
                 genericlistview.prototype.onInit.apply(this, arguments);
-
+                
+debugger;
             },
             onBeforeShow: function (oEvent) {
                 //this.validateAccess();
@@ -30,6 +31,9 @@ sap.ui.define([
                 this.setFormSubTitle("Result List");
                 this.setListViewFilterColumn("stglvInspectionLot", "Inspection Lot", "Cfl", "eq", "String", "InspectionLot", "cflForInspectionLot");
                 this.setListViewFilterColumn("stglvMaterial", "Material", "Cfl", "eq", "String", "Material", "cflForMaterial");
+                this.setListViewFilterColumn("stglvPlant", "Plant", "Cfl", "eq", "String", "Plant", "cflForPlant");
+                this.setListViewFilterColumn("stglvStatus", "Status", "Cfl", "eq", "String", "Status", "cflForStatus");
+                this.setListViewFilterColumn("stglvDate", "PostDate", "Cfl", "eq", "String", "PostDate", "cflForDate");
                 this.setListViewEditProperty("ID");
                 this.setForwardRoute("RouterNameRecordResultSAPEntryForm");
                 //this.setBackwardRoute("RouteIndex");
@@ -37,11 +41,35 @@ sap.ui.define([
             },
             cflForInspectionLot: async function () {
                 this.setCflTitle('Inspection Lot List');
-                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead", "", this.getCflListViewDataSourceModelName());
+                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead?$apply=groupby((InspectionLot))", "", this.getCflListViewDataSourceModelName());
                 this.setCflDisplayColumns(["Inspection Lot"]);
                 this.setCflDataColumns(["InspectionLot"]);
                 this.setCflValueAndDisplay("", "", "stglvInspectionLot", "InspectionLot");
                 this.showCfl("stglvInspectionLot", this.getCflListViewDataSourceModelName(), "value", this.onClosecflForInspection.bind(this));
+            },
+            cflForStatus: async function () {
+                this.setCflTitle('Status List');
+                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead?$apply=groupby((Status))", "", this.getCflListViewDataSourceModelName());
+                this.setCflDisplayColumns(["Status"]);
+                this.setCflDataColumns(["Status"]);
+                this.setCflValueAndDisplay("", "", "stglvStatus", "Status");
+                this.showCfl("stglvStatus", this.getCflListViewDataSourceModelName(), "value", this.onClosecflForInspection.bind(this));
+            },
+             cflForDate: async function () {
+                this.setCflTitle('Status List');
+                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead?$apply=groupby((PostDate))", "", this.getCflListViewDataSourceModelName());
+                this.setCflDisplayColumns(["PostingDate"]);
+                this.setCflDataColumns(["PostDate"]);
+                this.setCflValueAndDisplay("", "", "stglvDate", "PostDate");
+                this.showCfl("stglvDate", this.getCflListViewDataSourceModelName(), "value", this.onClosecflForInspection.bind(this));
+            },
+             cflForPlant: async function () {
+                this.setCflTitle('Plant List');
+                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead?$apply=groupby((Plant))", "", this.getCflListViewDataSourceModelName());
+                this.setCflDisplayColumns(["Plant"]);
+                this.setCflDataColumns(["Plant"]);
+                this.setCflValueAndDisplay("", "", "stglvPlant", "Plant");
+                this.showCfl("stglvPlant", this.getCflListViewDataSourceModelName(), "value", this.onClosecflForInspection.bind(this));
             },
             onClosecflForInspection: function () {
                 let x = this.getCflObject();
@@ -108,7 +136,7 @@ sap.ui.define([
             
             cflForMaterial: async function () {
                 this.setCflTitle('Material List');
-                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead", "", this.getCflListViewDataSourceModelName());
+                await this.createNewModelUsingAPI("GET", "/odata/v4/record-result-sap/RecordResultSAPHead?$apply=groupby((Material))", "", this.getCflListViewDataSourceModelName());
                 this.setCflDisplayColumns(["Material"]);
                 this.setCflDataColumns(["Material"]);
                 this.setCflValueAndDisplay("", "", "stglvMaterial", "Material");
@@ -124,7 +152,7 @@ sap.ui.define([
                 const loginModel = this.getOwnerComponent().getModel('UserModel');
                 if (!loginModel || loginModel === 'undefined') {
                     var router = sap.ui.core.UIComponent.getRouterFor(this);
-                    router.navTo("RouteIndexPage");
+                    router.navTo("RouteLogin");
                     MessageToast.show("Not a valid user.");
                 }
             },

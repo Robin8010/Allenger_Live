@@ -21,7 +21,7 @@
 					<OverflowToolbarLayoutData priority="NeverOverflow"/>
 				</layoutData>
 			</Image>
-			<Title text="Prоduct Name" wrapping="false" id="productName">
+			<Title text="Quality Control" wrapping="false" id="productName">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="Disappear"/>
 				</layoutData>
@@ -67,7 +67,7 @@
 			</Button>
 			<tnt:ToolHeaderUtilitySeparator/>
 			<ToolbarSpacer width="1.125rem"/>
-			<Avatar id="lnkLogout" src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press="handleLinkPress" tooltip="Profile">
+			<Avatar id="lnkLogout" src="sap-icon://account" displaySize="XS" press="handleLinkPress" tooltip="Profile">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="NeverOverflow"/>
 				</layoutData>

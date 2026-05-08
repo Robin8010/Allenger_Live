@@ -1,0 +1,135 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+    <Panel headerText="PRODUCT INSPECTION DETAILS:" expandable="true" expanded="false" expand=".onPanelExpand">
+         <Panel headerText="Product Details:- " expandable="true" expanded="true" expand=".onPanelExpand">
+        <VBox>
+
+         <f:SimpleForm backgroundDesign="Solid"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                maxContainerCols="3"
+                labelSpanXL="4"
+                labelSpanL="4"
+                labelSpanM="4"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="3"
+                emptySpanM="3"
+                emptySpanS="0"
+            >
+                <f:content>
+                <core:Title text="" />
+                      
+                      
+                        <Label
+                            id="ElectricalQA"
+                            text="{i18n>Electrical QA}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_ElectricalQA"
+                            value="{EntryFormDataSourceModel>/ElectricalQA}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                        
+                           <Label
+                            id="MechanicalQA"
+                            text="{i18n>Mechanical QA}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        
+                          <Input
+                            id="_MechanicalQA"
+                            value="{EntryFormDataSourceModel>/MechanicalQA}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+
+                         <Label
+                            id="deviation"
+                            text="Is there any deviation required: "
+                            required="true"
+                            class="m-mast-lev"
+                           
+                        />  
+                        <ComboBox 
+                            id="_cmbElectrical"
+                            required="true"
+                            valueState="None"
+                            change="onComboSelection"
+                            selectedKey="{EntryFormDataSourceModel>/deviation}"
+                            items="{EntryFormDataSourceModel>/List}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>ID}"
+                                text="{EntryFormDataSourceModel>Name}"/>
+                        </ComboBox>
+                           
+                           
+                        
+                        <Label
+                            id="deviationNo"
+                            text="If Yes, mention deviation No.  "
+                            required="true"
+                            class="m-mast-lev"
+                           
+                        /> 
+                        <Input
+                            id="_deviationNo"
+                            value="{EntryFormDataSourceModel>/deviationNo}"
+                            required="true"
+                            enabled="true"
+                           
+                            class="m-mast-input"
+                            change="ValidateQuantity"
+                           
+                        /> 
+<core:Title text="" />  
+                        
+                        
+                                             
+                        <Label
+                            id="ElectricalPerson"
+                            text="{i18n>Electrical Person Authorized }"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_ElectricalPerson"
+                            value="{EntryFormDataSourceModel>/ElectricalPerson}"
+                            required="true"
+                            enabled="true"
+                            class="m-mast-input"
+                        />
+                           <Label
+                            id="ProductSpecilist"
+                            text="{i18n>Product Specilist Approval}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        
+                          <Input
+                            id="_ProductSpecilist"
+                            value="{EntryFormDataSourceModel>/ProductSpecilist}"
+                            required="true"
+                            enabled="true"
+                            class="m-mast-input"
+                        />
+
+                           
+      
+
+                </f:content>
+            </f:SimpleForm>
+
+           
+        </VBox>
+    </Panel>
+    </Panel>
+</core:FragmentDefinition>

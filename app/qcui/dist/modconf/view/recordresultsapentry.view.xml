@@ -99,6 +99,22 @@
                             enabled="false"
                             class="m-mast-input"
                         />  
+                        <Label
+                            id="userlbl"
+                            text="{i18n>CreatedBy}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="inSCreatedBy"
+                            value="{EntryFormDataSourceModel>/CreatedBy}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />  
+                        
+                        
+                        
                         
                          <core:Title text="" />                      
                         <Label
@@ -201,7 +217,20 @@
                             required="true"
                             enabled="false"
                             class="m-mast-input"                            
-                        />                        
+                        />
+                        <Label
+                            id="employeeWorkerlbl"
+                            text="{i18n>Employee Worker}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="inEmpWorker"
+                            value="{EntryFormDataSourceModel>/Employeeworker}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"                            
+                        />  
                 </f:content>
             </f:SimpleForm>
         </VBox>   
@@ -251,6 +280,24 @@
                         </Column>
                          <Column>
                             <Label
+                                text="ElectrialUser"
+                                labelFor="ElectrialUser"
+                            />
+                        </Column>
+                         <Column>
+                            <Label
+                                text="MechnicalUser"
+                                labelFor="MechnicalUser"
+                            />
+                        </Column>
+                        <Column >
+                        <Label text="Date of Testing"
+                        labelFor="Dateof Testing" >
+                        
+                        </Label>
+                        </Column>
+                         <Column>
+                            <Label
                                 text="Quantity"
                                 labelFor="Quantity"
                             />
@@ -279,6 +326,9 @@
                         <Column>
                            
                         </Column>
+                         <Column>
+                           
+                        </Column>
                     </columns>
                     <items>
                         <ColumnListItem vAlign="Middle">
@@ -291,6 +341,44 @@
                                     id="il_SerialBatchNumber"
                                     text="{EntryFormDataSourceModel>SerialBatchNumber}"
                                 />
+                                 <ComboBox 
+                                    id="cmbElectrical"
+                                    required="true"
+                                    valueState="None"
+                                    change="onComboSelection"
+                                    enabled="{EntryFormDataSourceModel>Electrial}"
+                                    selectedKey="{EntryFormDataSourceModel>ElectrialUser}"
+                                    items="{EntryFormDataSourceModel>/EUserList}"
+                                > 
+                                    <core:Item 
+                                        key="{EntryFormDataSourceModel>ID}"
+                                        text="{EntryFormDataSourceModel>UserName}"
+                                    />
+                                </ComboBox>
+
+                                 <ComboBox 
+                                    id="cmbMechnical"
+                                    required="true"
+                                    valueState="None"
+                                    change="onComboSelection"
+                                    enabled="{EntryFormDataSourceModel>Mechnical}"
+                                    selectedKey="{EntryFormDataSourceModel>MechnicalUser}"
+                                    items="{EntryFormDataSourceModel>/MUserList}"
+                                > 
+                                    <core:Item 
+                                        key="{EntryFormDataSourceModel>ID}"
+                                        text="{EntryFormDataSourceModel>UserName}"
+                                    />
+                                </ComboBox> 
+                                 <DatePicker
+                                    id="dtTDate"
+                                value="{EntryFormDataSourceModel>DateOfT}"
+                                    required="true"
+                                                          
+                                    valueFormat="yyyy-MM-dd" 
+                                    displayFormat="yyyy-MM-dd" 
+                                    class="customDisbaleColour"
+                                />  
                                 <Text
                                     id="il_Quantity"
                                     text="{EntryFormDataSourceModel>Quantity}"
@@ -352,12 +440,21 @@
                                     fieldHelpDisplay="Parameters"
                                     press="onPressParameters"/>
                                  <Button  
-                                    visible="{EntryFormDataSourceModel>CopyParameters}" 
+                                    visible="false" 
                                     width="35px" 
                                     icon="sap-icon://copy" 
                                     type="Success"
                                     fieldHelpDisplay="Parameters"
                                     press="onPressCopyParameters"/>
+                            </cells>
+                            <cells>
+                                <Button
+                    type="Emphasized"
+                    id="_recordResultSAP_Device"
+                    text="{i18n>Device Tagging}"
+                    press="onDeviceTagging"
+                   
+                />
                             </cells>
                         </ColumnListItem>
                     </items>
@@ -367,6 +464,13 @@
         <footer>
             <Toolbar class="d-flex justify-content-center btn-sav">
                 <ToolbarSpacer />
+                <Button
+                    type="Emphasized"
+                    id="recordResultSAP_Device"
+                    text="{i18n>Device Tagging}"
+                    press="onDeviceTaggingHeder"
+                    enabled="{EntryFormDataSourceModel>/EnableDeviceTag}"
+                />
                 <Button
                     type="Emphasized"
                     id="recordResultSAP_Save"

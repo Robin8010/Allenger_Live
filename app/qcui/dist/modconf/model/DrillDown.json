@@ -1,0 +1,9 @@
+{
+  "flatList": [
+    { "level": 1, "id": "L1-001", "name": "Product A", "totalSales": 1000, "parentId": null },
+    { "level": 2, "orderId": "O-1001", "customer": "John Doe", "quantity": 10, "price": 50, "parentId": "L1-001" },
+    { "level": 2, "orderId": "O-1002", "customer": "Jane Smith", "quantity": 5, "price": 100, "parentId": "L1-001" },
+    { "level": 1, "id": "L1-002", "name": "Product B", "totalSales": 1500, "parentId": null },
+    { "level": 2, "orderId": "O-2001", "customer": "Alice", "quantity": 8, "price": 75, "parentId": "L1-002" }
+  ]
+}

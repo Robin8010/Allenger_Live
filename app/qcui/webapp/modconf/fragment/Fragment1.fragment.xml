@@ -1,0 +1,228 @@
+<core:FragmentDefinition xmlns="sap.m"
+ xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+    <Panel headerText="Product Details:- " expandable="true" expanded="true" expand=".onPanelExpand">
+        <VBox>
+
+         <f:SimpleForm backgroundDesign="Solid"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                maxContainerCols="3"
+                labelSpanXL="4"
+                labelSpanL="4"
+                labelSpanM="4"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="3"
+                emptySpanM="3"
+                emptySpanS="0"
+            >
+                <f:content>
+                <core:Title text="" />
+                      <Label
+                            id="_lblOrderType"
+                            text="{i18n>OrderType}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <RadioButtonGroup selectedKey="{EntryFormDataSourceModel>/OrderType}" columns="3" selectedIndex="0">
+
+                            <buttons>
+                                <RadioButton text="Make to Stock"/>
+                                <RadioButton text="Make to Order"/>
+                                
+                            </buttons>
+
+                        </RadioButtonGroup>                     
+                        
+                      
+                        <Label
+                            id="lblMachinePartCode"
+                            text="{i18n>MachinePartCode}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtMachinePartCode"
+                            value="{EntryFormDataSourceModel>/MachinePartCode}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                        <Label
+                            id="lblDetailDescription"
+                            text="{i18n>Managed By}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtDetailDescription"
+                            value="{EntryFormDataSourceModel>/DetailDescription}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />                        
+                        <Label
+                            id="__lblSerial"
+                            text="{i18n>Serial Number }"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtSerial"
+                            value="{EntryFormDataSourceModel>/Serial}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />  
+                        <Label
+                            id="lblInspection"
+                            text="{i18n>Inspection Lot}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtInspection"
+                            value="{EntryFormDataSourceModel>/Inspection}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />  
+                         <Label
+                            id="lblCertificateType"
+                            text="{i18n>Certificate Type }"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtCertificateType"
+                            value="{EntryFormDataSourceModel>/CertificateType}"
+                            required="true"
+                          
+                            class="m-mast-input"
+                        />  
+                         <Label
+                            id="lblCertificateNo"
+                            text="{i18n>_CertificateNo}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtCertificateNo"
+                            value="{EntryFormDataSourceModel>/CertificateNo}"
+                            required="true"
+                           
+                            class="m-mast-input"
+                        /> 
+                         <Label
+                            id="lblCertificationType"
+                            text="{i18n>CertificationType}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtCertificationType"
+                            value="{EntryFormDataSourceModel>/CertificationType}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />  
+                         <core:Title text="" />
+                           <Label
+                            id="lblMachineType"
+                            text="{i18n>Machine Type }"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        
+                          <Input
+                            id="_txtMachineType"
+                            value="{EntryFormDataSourceModel>/MachineType}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                                             
+                        <Label
+                            id="lblProductionOrder"
+                            text="{i18n>Production Order }"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtProductionOrder"
+                            value="{EntryFormDataSourceModel>/ProductionOrder}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                        <Label
+                            id="lblMachineModel"
+                            text="{i18n>Machine Model }"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_MachineModel"
+                            value="{EntryFormDataSourceModel>/MachineModel}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                        <Label
+                            id="ManufacturingCode"
+                            text="{i18n>Manufacturing Code}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_ManufacturingCode"
+                            value="{EntryFormDataSourceModel>/ManufacturingCode}"
+                            required="true"
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                        <Label
+                            id="MachineSeries"
+                            text="{i18n>Machine  Series }"
+                            required="true"
+                            class="m-mast-lev"
+                            
+                        /> 
+                        <Input
+                            id="_MachineSeries"
+                            value="{EntryFormDataSourceModel>/MachineSeries}"
+                            required="true"
+                            enabled="false"
+                            
+                            class="m-mast-input"
+                            change="ValidateQuantity"
+                            
+                        />
+                        <Label
+                            id="df"
+                            text="ManufacturingCodeRevision"
+                            required="true"
+                            class="m-mast-lev"
+                           
+                        /> 
+                        <Input
+                            id="_ManufacturingCodeRevision"
+                            value="{EntryFormDataSourceModel>/ManufacturingCodeRevision}"
+                            required="true"
+                            enabled="false"
+                           
+                            class="m-mast-input"
+                            change="ValidateQuantity"
+                           
+                        /> 
+                          
+
+                </f:content>
+            </f:SimpleForm>
+
+           
+        </VBox>
+    </Panel>
+</core:FragmentDefinition>

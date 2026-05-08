@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View
+    controllerName="modconfcontroller.DeviceTaggingform"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    class="d-flex justify-content-center"
+>
+    <Page
+        id="deviceTaggingsf"
+        title="Device Tagging"
+        showNavButton="true"
+        navButtonPress="onPressOfEntryFormCancelButton"
+    >
+        <VBox>
+          <f:SimpleForm backgroundDesign="Solid"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                maxContainerCols="2"
+                labelSpanXL="2"
+                labelSpanL="2"
+                labelSpanM="2"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="3"
+                emptySpanM="3"
+                emptySpanS="0"
+            >
+                <f:content>
+                <HBox width="30%">
+                
+                <VBox    >
+                  <Label 
+                            id="lbldvcid"
+                            text="DeviceId"
+                            class="m-mast-lev"
+                        /> 
+                       <SearchField placeholder="Search" liveChange="onSearch"></SearchField>
+                       
+                </VBox >
+                
+                
+                </HBox>
+                </f:content>
+            </f:SimpleForm>
+          <HBox
+                class="sapUiSmallMarginEnd"
+                justifyContent="End"
+            >
+                <VBox>
+                    <Button
+                        icon="sap-icon://add"
+                        text="{i18n>addNew}"
+                        press="addRow"
+                        visible="false"
+                    />
+                </VBox>
+            </HBox>
+            <!-- <HBox
+                class="sapUiSmallMarginEnd"
+                justifyContent="End"
+            >
+                <VBox>
+                     <SearchField placeholder="Search" liveChange="onSearch" value="{EntryFormDataSourceModel>/SearchRecord}"></SearchField>
+                </VBox>
+            </HBox> -->
+            <ScrollContainer
+                width="100%"
+                height="300px"
+                horizontal="true"
+                vertical="true">
+                <Table
+                    id="smDevices1"
+                    items="{
+                        path: 'EntryFormDataSourceModel>/RecordResultDeviceTagging'
+                    }"
+                  
+                    inset="true"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    showSeparators="All"
+                    showNoData="true"
+                      growing="true"
+                   
+                    enableBusyIndicator="true"
+                    alternateRowColors="true"
+                    growingScrollToLoad="true"
+                  
+                    backgroundDesign="Translucent"
+                    
+                >
+                    <columns>
+                        <Column>
+                            <Label text="Sr No"  />
+                        </Column>
+                        <Column Width="300"
+                             demandPopin="false">
+                            <Label
+                                text="Select"
+                                labelFor="Select"
+                                wrapping="true"
+                                
+                            />
+                        </Column>
+                         <Column >
+                            <Label tooltip="Device ID"
+                                text="Device Id"
+                                labelFor="DeviceID"                                
+                            />
+                        </Column>
+                          <Column>   
+                         <Label tooltip="DeviceSerial"
+                                text="DeviceSerial"
+                                labelFor="DeviceSerial"
+                            />
+                        </Column>    
+                        <Column>   
+                         <Label tooltip="Device Description"
+                                text="Device Description"
+                                labelFor="DeviceDescription"
+                            />
+                        </Column> 
+                         <Column>   
+                         <Label tooltip="Device Group"
+                                text="Device Group"
+                                labelFor="DeviceGroup"
+                            />
+                        </Column>
+                         <Column>   
+                         <Label tooltip="MaterialSerial"
+                                text="MaterialSerial"
+                                labelFor="MaterialSerial"
+                            />
+                        </Column>       
+                    </columns>
+                    <items>
+                        <ColumnListItem vAlign="Middle">
+                            <cells>
+                                <Text
+                                    id="il_SrNoo1"
+                                    text="{EntryFormDataSourceModel>RowNumber}"
+                                />
+                                <CheckBox
+                                    id="il_Select1"
+                                    enabled="{SetEnable>/Enable}"
+                                    selected="{EntryFormDataSourceModel>DeviceSelect}"                                    
+                                />
+                                <Text
+                                    id="il_DeviceId1"
+                                    text="{EntryFormDataSourceModel>DeviceID}"
+                                    wrapping="true"
+                                />
+                                 <Text
+                                    id="il_DeviceIdSe"
+                                    text="{EntryFormDataSourceModel>DSerial}"
+                                    wrapping="true"
+                                />
+                                <Text
+                                    id="il_DeviceDescription1"
+                                    text="{EntryFormDataSourceModel>DeviceDescription}"
+                                    wrapping="true"
+                                />
+                                 <Text
+                                    id="il_DeviceGroups"
+                                    text="{EntryFormDataSourceModel>DeviceGroup}"
+                                    wrapping="true"
+                                />
+                                 <Text
+                                    id="il_Serial"
+                                    text="{EntryFormDataSourceModel>Serial}"
+                                    wrapping="true"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </ScrollContainer>
+        </VBox>
+        <footer>
+            <Toolbar class="d-flex justify-content-center btn-sav">
+                <ToolbarSpacer />
+                <Button
+                    type="Emphasized"
+                    id="CADS_Button"
+                    text="{i18n>submit}"
+                    press="onSave"
+                />
+                 <Button
+                    type="Emphasized"
+                    id="CADC_Button"
+                    text="{i18n>cancel}"
+                    press="onCancel"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

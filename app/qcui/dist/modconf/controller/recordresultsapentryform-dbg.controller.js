@@ -15,12 +15,30 @@ sap.ui.define([
                 //this.initialize();
             },
             onBeforeShow: async function (oEvent) {
+                debugger;
                 this.isValidUser();
                 this.identifyFormMode(oEvent);
-                this.initialize();
+                await  this.initialize();
                 this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSAPHead(ID = " + this.getListViewEditPropertyValue() + ")?$expand=SerialBatchDetails($orderby=SerialBatchNumber)");
+                  const formMode = this.getFormMode();
+                  debugger;
+                if(formMode=="2")
+                {
+                     let abc=this.getListViewEditPropertyValue();
+                    if(this.getListViewEditPropertyValue()=="")
+                    {
+                       var router = sap.ui.core.UIComponent.getRouterFor(this);
+                            MessageToast.show("Data could nor loaded due to connectivity.....")
+                            router.navTo("RouterNameRecordResultSAPViewForm");
+                    }
+                    else
+                    {
+                       
+                    }
+                }
                 await this.showEntryForm();
-                this.handleUIOperation();
+                await   this.handleUIOperation();
+                await   this.CheckDeviceGroup();
             },
             initialize: async function () {
                 this.setPageId("recordresultsapf");
@@ -28,7 +46,7 @@ sap.ui.define([
                 this.setBackwardRoute("RouterNameRecordResultSAPViewForm");
                 this.setForwardRoute("RouterNameRecordResultParametersEntryForm");
                 this.setEntryFormDataSourceURLForNewMode("");
-
+                debugger
                 this.setEntryFormDataSourceURLToAddData("/odata/v4/record-result-sap/RecordResultSAPHead");
                 this.setEntryFormDataSourceURLToUpdateData("/odata/v4/record-result-sap/RecordResultSAPHead('" + this.getListViewEditPropertyValue() + "')");
                 this.setListViewFilterColumn();
@@ -38,6 +56,7 @@ sap.ui.define([
                 );
                 let oModel = new sap.ui.model.json.JSONModel(oPath);
                 this.getView().setModel(oModel, this.getEntryFormDataSourceModelName());
+                
 
                 let oPathSaveReq = jQuery.sap.getModulePath(
                     "qcui",
@@ -47,15 +66,18 @@ sap.ui.define([
                 let oModelSaveRequest = new sap.ui.model.json.JSONModel(oPathSaveReq);
                 this.getView().setModel(oModelSaveRequest, "recordResultSaveRequest");
             },
-            handleUIOperation: function () {
+            handleUIOperation: async function () {
+                debugger;
                 const formMode = this.getFormMode();
+             await   this.fillComboMechanical();
+             await   this.fillComboElectrial();
                 if (formMode === "2") {
-                    this.handleFormInEditMode();
+                  await  this.handleFormInEditMode();
                     this.SetEnableDisableProperty(false);
                     this.SetConstantValuesInEditMode();
                 }
                 else {
-                    this.ShowDefaultValues();
+                    await this.ShowDefaultValues();
                     this.SetEnableDisableProperty(true);
                 }
             },
@@ -63,7 +85,11 @@ sap.ui.define([
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 viewModel.setProperty(`/InspectionLotEnabled`, value);
                 viewModel.setProperty(`/SerialNumberEnabled`, value);
+                viewModel.setProperty(`/DateT`, value);
+               // viewModel.setProperty(`/Mechnical`, value);
+              //  viewModel.setProperty(`/Electrial`, value);
                 viewModel.setProperty(`/PostDateEnabled`, value);
+
                 const status = viewModel.getProperty(`/Status`);
                 if (status || status == "undefined" || status == "Draft") {
                     viewModel.setProperty(`/SubmitButtonEnabled`, !value);
@@ -82,9 +108,17 @@ sap.ui.define([
                 var sFormattedDate = oDateFormat.format(oDate);
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 viewModel.setProperty(`/PostDate`, sFormattedDate);
-                viewModel.refresh(true);
+                const loginModel = this.getOwnerComponent().getModel('UserModel');
+                if (loginModel && loginModel != 'undefined') {
+                    let userName = loginModel.value[0].UserName;
+                    let createdBy = viewModel.getProperty(`/CreatedBy`);
+                    if (!createdBy || createdBy == "" || createdBy == "undefined") {
+                        viewModel.setProperty(`/CreatedBy`, userName);
+                    }
+                }
+                //viewModel.refresh(true);
             },
-            handleFormInEditMode: function () {
+            handleFormInEditMode:async function () {
                 const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 const { SerialBatchDetails = [] } = viewModel.getData();
                 SerialBatchDetails.forEach((element, index) => {
@@ -323,11 +357,14 @@ sap.ui.define([
                     if (inspectionData && inspectionData != "undefined") {
                         const inspectionLotNumber = inspectionData.InspectionLot;
                         if (inspectionLotNumber && inspectionLotNumber != "undefined" && inspectionLotNumber != "") {
+                           debugger
                             let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                            viewModel.setProperty(`/SalesOrder`, inspectionData.SalesOrder);
                             viewModel.setProperty(`/Material`, inspectionData.Material);
                             viewModel.setProperty(`/Plant`, inspectionData.Plant);
                             viewModel.setProperty(`/ManufacturingOrder`, inspectionData.ManufacturingOrder);
                             viewModel.setProperty(`/SerialNumber`, "");
+                            viewModel.setProperty(`/Employeeworker`, inspectionData.YY1_Employeeworker2_ILH);
                             await this.CheckMaterialManageBy(inspectionData.Material);
                             viewModel.setProperty(`/Quantity`, inspectionData.InspectionLotQuantity);
                             const manageBy = viewModel.getProperty(`/ManagedBy`);
@@ -345,7 +382,7 @@ sap.ui.define([
                                 this.FetchBatchData(value);
                             }
                             else if (manageBy == "Serial") {
-                                this.FetchSerialData(value);
+                              await  this.FetchSerialData(value);
                             }
                             checkDataExists = true;
                         }
@@ -362,7 +399,9 @@ sap.ui.define([
                 }
             },
             FetchSerialData: async function (value) {
+                debugger
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                
                 await this.createNewModelUsingAPI(
                     'GET',
                     `/sap/opu/odata/sap/API_INSPECTIONLOT_SRV/A_InspLotSerialNumber?$filter=InspectionLot eq '${value}'`,
@@ -486,67 +525,68 @@ sap.ui.define([
             onSave: async function () {
                 try {
                     debugger;
-                    if (this.DataValidationsForSave()) {
-                        let isRecordAdded = false;
-                        const formMode = this.getFormMode();
-                        if (formMode === "3") {
-                            const oModelData = this.getView().getModel(this.getEntryFormDataSourceModelName());
-                            var inspectionLot = oModelData.getProperty("/InspectionLot");
-                            var serialNumber = oModelData.getProperty("/SerialNumber");
-                            await this.createNewModelUsingAPI(
-                                'GET',
-                                `/odata/v4/record-result-sap/RecordResultSAPHead?$filter=(InspectionLot eq '${inspectionLot}')`,
-                                '',
-                                'InspectionLotData'
-                            );
-                            const inspectionLotData = this.getView().getModel('InspectionLotData').getData();
-                            if (inspectionLotData && inspectionLotData.value && inspectionLotData.value.length > 0) {
-                                MessageToast.show("Record already added for this inspection lot.");
-                                isRecordAdded = true;
+                  
+                        if (this.DataValidationsForSave()) {
+                            let isRecordAdded = false;
+                            const formMode = this.getFormMode();
+                            if (formMode === "3") {
+                                const oModelData = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                                var inspectionLot = oModelData.getProperty("/InspectionLot");
+                                var serialNumber = oModelData.getProperty("/SerialNumber");
+                                await this.createNewModelUsingAPI(
+                                    'GET',
+                                    `/odata/v4/record-result-sap/RecordResultSAPHead?$filter=(InspectionLot eq '${inspectionLot}')`,
+                                    '',
+                                    'InspectionLotData'
+                                );
+                                const inspectionLotData = this.getView().getModel('InspectionLotData').getData();
+                                if (inspectionLotData && inspectionLotData.value && inspectionLotData.value.length > 0) {
+                                    MessageToast.show("Record already added for this inspection lot.");
+                                    isRecordAdded = true;
+                                }
+                            }
+                            if (!isRecordAdded) {
+                                let oModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                                oModel.setProperty("/Status", "Draft");
+                                let oData = oModel.getData();
+
+                                const modelData = this.getView().getModel(this.getEntryFormDataSourceModelName()).getData();
+                                let trgObject = this.getView().getModel("recordResultSaveRequest").getData();
+                                console.log("Target Object:", trgObject);
+
+                                this.transferObjectValues(modelData, trgObject);
+                                await this.onPressOfEntryFormSaveButton(trgObject);
+                                let response = this.getApiResponseObject();;
+                                if (response.success) {
+                                    console.log("No duplicate found. Proceeding with save..okok.");
+                                    this.router.navTo(this.getBackwardRoute());
+                                    MessageToast.show("Record added successfully");
+                                }
                             }
                         }
-                        if (!isRecordAdded) {
-                            let oModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
-                            oModel.setProperty("/Status", "Draft");
-                            let oData = oModel.getData();
+                        else {
 
-                            const modelData = this.getView().getModel(this.getEntryFormDataSourceModelName()).getData();
-                            let trgObject = this.getView().getModel("recordResultSaveRequest").getData();
-                            console.log("Target Object:", trgObject);
-
-                            this.transferObjectValues(modelData, trgObject);
-                            await this.onPressOfEntryFormSaveButton(trgObject);
-                            let response = this.getApiResponseObject();;
-                            if (response.success) {
-                                console.log("No duplicate found. Proceeding with save..okok.");
-                                this.router.navTo(this.getBackwardRoute());
-                                MessageToast.show("Record added successfully");
-                            }
                         }
-                    }
-                    else {
-
-                    }
+               
                 }
                 catch (error) {
                     MessageBox.show(error.message);
                 }
             },
             DataValidationsForSave: function () {
-                var LineNum=0;
-                
+                var LineNum = 0;
+
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
-                 const _quantity = viewModel.getProperty(`/Quantity`);
+                const _quantity = viewModel.getProperty(`/Quantity`);
                 //const modelName = this.getEntryFormDataSourceModelName();
                 const { SerialBatchDetails = [] } = viewModel.getData();
-                LineNum=SerialBatchDetails.length;
-                if(this.ToDecimal(LineNum)!=this.ToDecimal(_quantity))
-                {
-                  MessageToast.show("Lot quantity and serial should be equal...");
-                    return false;  
+                LineNum = SerialBatchDetails.length;
+                if (this.ToDecimal(LineNum) != this.ToDecimal(_quantity)) {
+                    MessageToast.show("Lot quantity and serial should be equal...");
+                    return false;
                 }
-                
-                
+
+
                 var inspectionLot = viewModel.getProperty("/InspectionLot");
                 if (!inspectionLot || inspectionLot == "undefined" || inspectionLot == "") {
                     MessageToast.show("Select inspection lot");
@@ -572,7 +612,7 @@ sap.ui.define([
                 MessageToast.show("Redirecting to SAP Record Result.....")
                 router.navTo("RouterNameRecordResultSAPViewForm");
             },
-            onPressParameters: function (oEvent) {
+            onPressParameters1: function (oEvent) {
                 var oButton = oEvent.getSource();
 
                 // Step 2: Get the binding context of the row containing the button
@@ -587,6 +627,7 @@ sap.ui.define([
                 }
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 const plant = viewModel.getProperty("/Plant");
+                const Lot = viewModel.getProperty("/InspectionLot");
                 const materialCocde = viewModel.getProperty("/Material");
                 const inspectionDate = viewModel.getProperty("/PostDate");
                 let oModel = this.getView().getModel('sysModel');
@@ -595,6 +636,7 @@ sap.ui.define([
                 oModel.setProperty('/route/routeData/plant', plant);
                 oModel.setProperty('/route/routeData/material', materialCocde);
                 oModel.setProperty('/route/routeData/inspectionDate', inspectionDate);
+                oModel.setProperty('/route/routeData/inspectionLot', Lot);
                 this.getView().setModel(oModel, 'sysModel');
 
                 var sPath = oBindingContext.getPath(); // e.g., "/Role/1"
@@ -604,6 +646,78 @@ sap.ui.define([
 
                 this.router.navTo(this.getForwardRoute());
             },
+            onPressParameters: function (oEvent) {
+    try {
+        const oButton = oEvent.getSource();
+        const oBindingContext = oButton.getBindingContext(this.getEntryFormDataSourceModelName());
+
+        // ✅ FIX 1: Check FIRST
+        if (!oBindingContext) {
+            console.error("Binding context not found");
+            sap.m.MessageToast.show("Binding context not found");
+            return;
+        }
+
+        const oRowObject = oBindingContext.getProperty("ID");
+
+        if (!oRowObject) {
+            sap.m.MessageToast.show("Invalid row selected");
+            return;
+        }
+
+        const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+
+        if (!viewModel) {
+            sap.m.MessageToast.show("View model not ready");
+            return;
+        }
+
+        const plant = viewModel.getProperty("/Plant");
+        const lot = viewModel.getProperty("/InspectionLot");
+        const material = viewModel.getProperty("/Material");
+        const inspectionDate = viewModel.getProperty("/PostDate");
+
+        // ✅ FIX 2: Validate required data
+        if (!plant || !lot || !material) {
+            sap.m.MessageToast.show("Missing required data");
+            return;
+        }
+
+        // ✅ FIX 3: Ensure sysModel exists
+        let oSysModel = this.getView().getModel('sysModel');
+        
+
+        if (!oSysModel) {
+            oSysModel = new sap.ui.model.json.JSONModel({
+                route: { routeData: {} }
+            });
+        }
+
+        // ✅ FIX 4: Set data safely
+        oSysModel.setProperty('/route/routeData', {
+            lastUniqueId: this.getListViewEditPropertyValue(),
+            plant: plant,
+            material: material,
+            inspectionDate: inspectionDate,
+            inspectionLot: lot
+        });
+
+        this.getView().setModel(oSysModel, 'sysModel');
+
+        // ✅ FIX 5: Set navigation params AFTER data is ready
+        this.setRouteData("2", oRowObject);
+        this.setListViewEditPropertyValue(oRowObject);
+
+        // ✅ Optional: small delay to avoid race condition in BTP
+        setTimeout(() => {
+            this.router.navTo(this.getForwardRoute());
+        }, 0);
+
+    } catch (error) {
+        console.error(error);
+        sap.m.MessageBox.error("Error while navigating.");
+    }
+},
             onPressCopyParameters: function (oEvent) {
                 var oButton = oEvent.getSource();
 
@@ -672,7 +786,7 @@ sap.ui.define([
                                                     "Quantity": childObject.Quantity,
                                                     "RecordResultSAPHead_ID": childObject.RecordResultSAPHead_ID,
                                                     "SerialBatchNumber": childObject.SerialBatchNumber,
-                                                    "Status": "Ready To Post",
+                                                    //"Status": "Ready To Post",
                                                     "InspectionPlanStatus": "2",
                                                     "ParametersDetails": [
                                                         {
@@ -839,7 +953,32 @@ sap.ui.define([
                 var otable = this.byId("smSerialBatchDetails");
                 otable.getBinding("items").filter(finalFilter);
             },
-
+            fillComboElectrial: async function () {
+                let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                await this.createNewModelUsingAPI(
+                    'GET',
+                    `/odata/v4/user-master/userMaster?$filter=IsElectrial eq true`,
+                    '',
+                    'Users'
+                );
+                const _data = this.getView().getModel("Users").getData();
+                const { value = [] } = _data || {};
+                viewModel.setProperty("/EUserList", []); // clear array
+                viewModel.setProperty("/EUserList", value);
+            },
+            fillComboMechanical: async function () {
+                let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                await this.createNewModelUsingAPI(
+                    'GET',
+                    `/odata/v4/user-master/userMaster?$filter=IsMechnical eq true`,
+                    '',
+                    'Users'
+                );
+                const _data = this.getView().getModel("Users").getData();
+                const { value = [] } = _data || {};
+                viewModel.setProperty("/MUserList", []); // clear array
+                viewModel.setProperty("/MUserList", value);
+            },
             isValidUser: function () {
                 // let loginInfo=this.getLoginInfo();
                 // let userid = loginInfo.UserID;
@@ -847,8 +986,125 @@ sap.ui.define([
                 const loginModel = this.getOwnerComponent().getModel('UserModel');
                 if (!loginModel || loginModel === 'undefined') {
                     var router = sap.ui.core.UIComponent.getRouterFor(this);
-                    router.navTo("RouteIndexPage");
+                    router.navTo("RouteLogin");
                     MessageToast.show("Not a valid user.");
+                }
+            },
+            CheckDeviceGroup: async function () {
+                try {
+                    debugger;
+                    let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                    const id = viewModel.getProperty("/ID");
+                    await this.createNewModelUsingAPI(
+                        'GET',
+                        `/odata/v4/device-group-list/DeviceGroupList?$filter=ID eq '${id}' AND DeviceGroupID ne null`,
+                        '',
+                        'DeviceGroupList'
+                    );
+                    let checkDataExists = false;
+                    const responseData = this.getView().getModel('DeviceGroupList').getData();
+                    if (responseData && responseData != "undefined") {
+                        const deviceGroupData = responseData.value;
+                        if (deviceGroupData && deviceGroupData != "undefined" && deviceGroupData.length > 0) {
+                            checkDataExists = true;
+                        }
+                    }
+                    if (checkDataExists) {
+                        viewModel.setProperty("/EnableDeviceTag", true);
+                    }
+                    else {
+                        viewModel.setProperty("/EnableDeviceTag", false);
+                    }
+                }
+                catch (error) {
+                    MessageToast.show(error);
+                }
+            },
+            onDeviceTagging1: function (oEvent) {
+                try {
+                    debugger;
+                    let oControl = oEvent.getSource();
+                    let oBindingC = oControl.getBindingContext(this.getEntryFormDataSourceModelName());
+                    let id = oBindingC.getProperty("ID");
+                    let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                    // const id = viewModel.getProperty("/ID");
+                    let oModel = this.getView().getModel('sysModel');
+                    //alert(JSON.stringify(oModel));
+                    oModel.setProperty('/route/routeData/lastUniqueId', this.getListViewEditPropertyValue());
+                    this.getView().setModel(oModel, 'sysModel');
+                    this.setRouteData("2", id);
+                    this.setListViewEditPropertyValue(id);
+                    this.router.navTo("RouterNameRecordResultDeviceTaggingForm");
+                }
+                catch (error) {
+                    MessageToast.show(error);
+                }
+            },
+            onDeviceTagging: function (oEvent) {
+    try {
+        const oControl = oEvent.getSource();
+        const oBindingC = oControl.getBindingContext(this.getEntryFormDataSourceModelName());
+
+        // ✅ FIX 1: Validate binding
+        if (!oBindingC) {
+            sap.m.MessageToast.show("Binding context not found");
+            return;
+        }
+
+        const id = oBindingC.getProperty("ID");
+
+        // ✅ FIX 2: Validate ID
+        if (!id) {
+            sap.m.MessageToast.show("Invalid ID");
+            return;
+        }
+
+        // ✅ FIX 3: Ensure sysModel exists
+        let oSysModel = this.getView().getModel('sysModel');
+
+        if (!oSysModel) {
+            oSysModel = new sap.ui.model.json.JSONModel({
+                route: { routeData: {} }
+            });
+        }
+
+        // ✅ FIX 4: Set full object instead of partial mutation
+        oSysModel.setProperty('/route/routeData', {
+            lastUniqueId: this.getListViewEditPropertyValue()
+        });
+
+        this.getView().setModel(oSysModel, 'sysModel');
+
+        // ✅ FIX 5: Set route data properly
+        this.setRouteData("2", id);
+        this.setListViewEditPropertyValue(id);
+
+        // ✅ FIX 6: Avoid race condition
+        setTimeout(() => {
+            this.router.navTo("RouterNameRecordResultDeviceTaggingForm");
+        }, 0);
+
+    } catch (error) {
+        console.error(error);
+        sap.m.MessageBox.error("Navigation failed");
+    }
+},
+            onDeviceTaggingHeder: function (oEvent) {
+                try {
+                    debugger;
+
+                    let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                    const id = viewModel.getProperty("/ID");
+                    let oModel = this.getView().getModel('sysModel');
+                    //alert(JSON.stringify(oModel));
+                    oModel.setProperty('/route/routeData/lastUniqueId', this.getListViewEditPropertyValue());
+                    this.getView().setModel(oModel, 'sysModel');
+                    this.setRouteData("2", id);
+                    this.setListViewEditPropertyValue(id);
+                    this.router.navTo("RouterNameRecordResultDeviceTaggingForm");
+                }
+                catch (error) {
+                    MessageToast.show(error);
                 }
             }
         });

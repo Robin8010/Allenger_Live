@@ -3,6 +3,7 @@
   "InspectionLot": "",
   "Material": "",
   "Plant": "",
+   "Remarks":"",
   "ManagedBy": "",
   "PostDate": "",
   "EOI": "",
@@ -19,32 +20,24 @@
   "UsageDecisionCode": "",
   "UsageDecisionValuation": "",
   "UsageDecisionFollowupAction": "",
+  "CreatedBy": "",
+ "Employeeworker": "",
+ 
+  
+  "SalesOrder":"",
   "SerialBatchDetails": [
     {
       "ID": "",
       "SerialBatchNumber": "",
       "Quantity": "0.00",
       "Status": "",
+       "MechnicalUser":"",
+        "ElectrialUser":"",
+        "DateOfT":"",
       "UsageDecisionStockType": "",
       "StorageLocation": "",
-      "InspectionPlanStatus": null,
-      "ParametersDetails": [
-        {
-          "ID": "",
-          "ParameterCode": "",
-          "ParameterName": "",
-          "ParentParameterCode": "",
-          "ParentParameterName": "",
-          "Attribute": "",
-          "AttributeID": "",
-          "Observation": "",
-          "InstrumentId": "",
-          "InstrumentDesc": "",
-          "Status": "",
-          "Remarks1": "",
-          "Remarks2": ""
-        }
-      ]
+      "InspectionPlanStatus": null
+      
     }
   ]
 }
