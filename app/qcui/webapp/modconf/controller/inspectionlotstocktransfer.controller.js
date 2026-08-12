@@ -17,6 +17,7 @@ sap.ui.define([
                 oBusyIndicator = BusyIndicator;
             },
             onBeforeShow: async function (oEvent) {
+                debugger
                 this.identifyFormMode(oEvent);
                 await this.initialize();
                 await this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultDecisionHead(ID = " + this.getListViewEditPropertyValue() + ")?$expand=RecordResultDecisionDetail($orderby=SerialBatchNumber)");
@@ -345,6 +346,12 @@ sap.ui.define([
                 try {
                     oBusyIndicator.show(0);
                     debugger;
+                    const isDeviceTag = await this.isDevicesTag();
+                    if(!isDeviceTag)
+                    {
+                        oBusyIndicator.hide();
+                        return;
+                    }
                     const isDataValidated = await this.DataValidationsForSave();
                     if (isDataValidated) {
                         await this.RemovesUncheckedSerialNumbers();
@@ -439,6 +446,52 @@ sap.ui.define([
                 }
                 return true;
             },
+isDevicesTag: async function () {
+
+    let viewmodel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+
+    const { RecordResultDecisionDetail = [] } = viewmodel.getData();
+
+    let serial = "";
+
+    for (const element of RecordResultDecisionDetail) {
+
+        const Serial = element.SerialBatchNumber;
+
+        const Device = await this._getdevices(Serial);
+
+        if (Device === 1) {
+
+            serial = Serial;
+
+            MessageToast.show("Device not tag with serial - " + serial);
+
+            return false;
+        }
+    }
+
+    return true;
+},
+
+_getdevices: async function (Serial) {
+
+    await this.createNewModelUsingAPI(
+        "GET",
+        `/odata/v4/device-group-list-report-services/DeviceGroupListReport?$filter=SerialBatchNumber eq '${Serial}'&$format=json`,
+        "",
+        "DeviceList"
+    );
+
+    let _model = this.getView().getModel("DeviceList");
+
+    const { value = [] } = _model.getData();
+
+    if (value.length > 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+},
             PrepareObjectForSaveTransfer: async function () {
                 try {
                     let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());

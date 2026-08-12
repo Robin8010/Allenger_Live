@@ -9,6 +9,9 @@ service RecordResultService {
     entity RecordResultDetail as projection on allengersDatabase.RecordResultDetail;
 }
 
+service RecordResultDeviceTaggingServices{
+    entity RecordResultDeviceTagging as projection on allengersDatabase.RecordResultDeviceTagging;
+}
 service RecordResultSAPService {
     entity RecordResultSAPHead           as projection on allengersDatabase.RecordResultSAPHead;
     entity RecordResultSerialBatchDetail as projection on allengersDatabase.RecordResultSerialBatchDetail;

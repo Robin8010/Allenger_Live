@@ -41,7 +41,7 @@
                     showNoData="true"
                     enableBusyIndicator="true"
                     alternateRowColors="true"
-                    autoPopinMode="true"
+                    
                     growing="true"
                     growingScrollToLoad="true"
                     headerLevel="Auto"                    
@@ -55,6 +55,12 @@
                             <Label
                                 text="Inspection Lot"
                                 labelFor="InspectionLot"
+                            />
+                        </Column>
+                         <Column>
+                            <Label
+                                text="Serial"
+                                labelFor="Serial"
                             />
                         </Column>
                          <Column>
@@ -109,6 +115,13 @@
                                     text="{EntryFormDataSourceModel>InspectionLot}"
                                 />
                                 <Text
+                               
+                                    id="iSerial"
+                                    text="viewSerial"
+                                    
+                                    tooltip="{EntryFormDataSourceModel>Serial}"
+                                />
+                                <Text 
                                     id="il_Material"
                                     text="{EntryFormDataSourceModel>Material}"
                                 />

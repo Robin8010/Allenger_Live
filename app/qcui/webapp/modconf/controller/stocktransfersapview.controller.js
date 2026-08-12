@@ -37,6 +37,7 @@ sap.ui.define([
                                 "ID": "",
                                 "InspectionLot": "",
                                 "Material": "",
+                                "Serial":"",
                                 "Plant": "",
                                 "PostDate": "",
                                 "Quantity": "",
@@ -140,7 +141,9 @@ sap.ui.define([
                         element.RowNumber = index + 1;
                         let DraftCount = 0, PPCount = 0, PostedCount = 0;
                         const { SerialBatchDetails = [] } = element;
+                        let _Serial="";
                         SerialBatchDetails.forEach((dataValue, index) => {
+
                             if (dataValue.Status == "Draft") {
                                 DraftCount = DraftCount + 1;
                             }
@@ -150,7 +153,10 @@ sap.ui.define([
                             if (dataValue.Status == "Posted") {
                                 PostedCount = PostedCount + 1;
                             }
+                             _Serial=_Serial+","+dataValue.SerialBatchNumber;
                         });
+                     
+element.Serial=_Serial;
                         element.Summary = `D-${DraftCount}, RTP-${PPCount}, P-${PostedCount}`;
                     });
                     viewModel.setProperty(`/value`, value);

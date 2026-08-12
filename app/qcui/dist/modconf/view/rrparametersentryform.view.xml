@@ -320,12 +320,14 @@
                                 </ComboBox>
                                 <TextArea                                    
                                     id="il_Remarks11"
-                                    value="{EntryFormDataSourceModel>Remarks1}"  
+                                    value="{EntryFormDataSourceModel>Remarks1}" 
+                                    enabled="{EntryFormDataSourceModel>Remarks1Enable}" 
                                     growing="true"                                  
                                 />
                                 <TextArea
                                     id="il_Remarks21"
                                     value="{EntryFormDataSourceModel>Remarks2}"
+                                     enabled="{EntryFormDataSourceModel>Remarks2Enable}" 
                                     growing="true"
                                 />
                             </cells>

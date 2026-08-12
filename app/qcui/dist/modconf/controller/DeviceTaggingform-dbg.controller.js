@@ -21,7 +21,7 @@ sap.ui.define([
                 this.isValidUser();
                 this.identifyFormMode(oEvent);
                 this.initialize();
-                this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSerialBatchDetail(ID="  + this.getListViewEditPropertyValue() +  ")?$expand=RecordResultDeviceTagging($orderby=DeviceID asc;$top=1000)");
+                this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSerialBatchDetail(ID="  + this.getListViewEditPropertyValue() +  ")?$expand=RecordResultDeviceTagging($orderby=DeviceID asc;$top=2000)");
                 this.hanldePreviousData();
                 await this.showEntryForm();
                 this.handleUIOperation();
@@ -114,7 +114,7 @@ sap.ui.define([
                         const id = viewModel.getProperty("/ID");
                         await this.createNewModelUsingAPI(
                             'GET',
-                            `/odata/v4/device-group-list/DeviceGroupList?$filter=ID eq '${id}' AND DeviceGroupID ne null&$top=1000`,
+                            `/odata/v4/device-group-list/DeviceGroupList?$filter=ID eq '${id}' AND DeviceGroupID ne null&$top=2000`,
                             '',
                             'DeviceGroupList'
                         );

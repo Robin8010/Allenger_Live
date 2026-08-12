@@ -57,6 +57,7 @@ entity RecordResultSAPHead : cuid {
     AcceptedQuantity            : Decimal;
     RejectedQuantity            : Decimal;
     Status                      : String;
+    ReasonforDesire             : String;
     ManufacturingOrder          : String;
     UsageDecisionLevel          : String;
     QuantityScore               : Decimal;
@@ -250,27 +251,38 @@ entity DeviceGroupListReport as
         on T1.ID = T2.RecordResultSerialBatchDetail.ID
     join RecordResultDeviceTagging as T3
         on T1.ID = T3.RecordResultSerialBatchDetail.ID
+    left join RecordResultDecisionHead as t4 on T1.ID=t4.RecordResultSAPHead.ID
+    left join RecordResultDecisionDetail as T5 on t4.ID=T5.RecordResultDecisionHead.ID
     {
         key T1.ID,
+        T0.Status as LotStatus,
+        T1.Status as SerialStatus,
             T0.InspectionLot,
             T0.Material,
             T1.SerialBatchNumber,
             T3.DeviceID          as DeviceGroupID,
             T3.DeviceGroup,
             T3.DeviceDescription as Dsc,
-            T3.DSerial
+            T3.DSerial,
+            t4.Status as UDStatus,
+            T5.Status as Serial_StockTransfer
     }
     where
         DeviceSelect = true
-    group by
+    group by  
         T1.ID,
         T0.InspectionLot,
         T0.Material,
+        T1.Status,
         T1.SerialBatchNumber,
         T3.DeviceID,
         T3.DeviceGroup,
         T3.DeviceDescription,
-        T3.DSerial;
+        T3.DSerial,
+        T0.Status ,
+        T1.Status,
+        t4.Status ,
+            T5.Status ;
 
 
 entity InspectionQcReport    as
@@ -292,6 +304,7 @@ entity InspectionQcReport    as
             T5.NameDsc as MechnicalUserName,
             T0.InspectionLot,
             T0.Material,
+            T0.ReasonforDesire,
             T0.ManufacturingOrder,
             T1.SerialBatchNumber,
             T2.lineid,

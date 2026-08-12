@@ -24,7 +24,10 @@ sap.ui.define([
                   debugger;
                 if(formMode=="2")
                 {
-                     let abc=this.getListViewEditPropertyValue();
+                    debugger
+                let _model=    this.getView().getModel(this.getEntryFormDataSourceModelName());
+                _model.setProperty("/ReasonforDesireEnavle",false)     
+                let abc=this.getListViewEditPropertyValue();
                     if(this.getListViewEditPropertyValue()=="")
                     {
                        var router = sap.ui.core.UIComponent.getRouterFor(this);
@@ -72,6 +75,7 @@ sap.ui.define([
              await   this.fillComboMechanical();
              await   this.fillComboElectrial();
                 if (formMode === "2") {
+                    
                   await  this.handleFormInEditMode();
                     this.SetEnableDisableProperty(false);
                     this.SetConstantValuesInEditMode();
@@ -119,6 +123,8 @@ sap.ui.define([
                 //viewModel.refresh(true);
             },
             handleFormInEditMode:async function () {
+                let _model=    this.getView().getModel(this.getEntryFormDataSourceModelName());
+                _model.setProperty("/ReasonforDesireEnavle",false)
                 const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 const { SerialBatchDetails = [] } = viewModel.getData();
                 SerialBatchDetails.forEach((element, index) => {

@@ -124,7 +124,7 @@ sap.ui.define([
                 await this.createNewModelUsingAPI(
                     'GET',
                     //`/sap/opu/odata4/sap/zune_sb_inspplnrpt_api/srvd_a2x/sap/zune_sd_inspplnrpt_api/0001/ZUNE_CDS_InspPlnRpt(p_fromdate=${inspectionDate},p_material='${material}',p_plant='${plant}')/Set?$orderby=ParentParameter,ChildParameter&$top=1000`,
-                     `/sap/opu/odata4/sap/zune_sb_inspplnrpt_api/srvd_a2x/sap/zune_sd_inspplnrpt_api/0001/ZUNE_CDS_InspPlnRpt(p_fromdate=${inspectionDate},p_material='${material}',p_plant='${plant}')/Set?$orderby=lineid&$top=1000`,
+                     `/sap/opu/odata4/sap/zune_sb_inspplnrpt_api/srvd_a2x/sap/zune_sd_inspplnrpt_api/0001/ZUNE_CDS_InspPlnRpt(p_fromdate=${inspectionDate},p_material='${material}',p_plant='${plant}')/Set?$orderby=lineid&$top=2000`,
                     '',
                     'InspectionPlanData'
                 );
@@ -182,67 +182,91 @@ sap.ui.define([
                     MessageToast.show("Error in fetching parameter details. check log.");
                 }
             },
-            HandleLiveChanges: function (oEvent) {
-                var oButton = oEvent.getSource();
-              
-               // var oContext = oTextArea.getBindingContext(this.getEntryFormDataSourceModelName());
-                var oBindingContext = oButton.getBindingContext(this.getEntryFormDataSourceModelName());
-                console.log("Binding Context:", oBindingContext);
-                  var oModel = oBindingContext.getModel();
-                let oRowObject = oBindingContext.getProperty("Attribute");
-                if (oRowObject == "Range") {
-                    var _oInput = oEvent.getSource();
-                   // var val = _oInput.getValue();
-                  //  val = val.replace(/[^\d]/g, '');
-                   // _oInput.setValue(val);
-debugger;
-                     var oTextArea = oEvent.getSource();
-                   // var oContext = oTextArea.getBindingContext("EntryFormDataSourceModel");
-                        var fromRange = parseFloat(oBindingContext.getProperty("Lowervalue"));
-                        var toRange = parseFloat(oBindingContext.getProperty("Uppervalue"));
-                    var observation = parseFloat(oTextArea.getValue());
-                    if(observation!="")
-                    {
-                    if (observation < fromRange || observation > toRange) 
-                        {
-                            var sStatusPath = oBindingContext.getPath() + "/Status";
-                            oModel.setProperty(sStatusPath, "Rejected");
-                            this.onComboSelection();
-                        }
-                        else if (observation > fromRange || observation < toRange) 
-                        {
-                            var sStatusPath = oBindingContext.getPath() + "/Status";
-                            oModel.setProperty(sStatusPath, "Accepted");
-                        }
-                        else
-                        {
-                            var sStatusPath = oBindingContext.getPath() + "/Status";
-                            oModel.setProperty(sStatusPath, "Pending");
-                        }
-                }
+          HandleLiveChanges: function (oEvent) {
+
+    var oButton = oEvent.getSource();
+
+    var oBindingContext = oButton.getBindingContext(this.getEntryFormDataSourceModelName());
+
+    console.log("Binding Context:", oBindingContext);
+
+    var oModel = oBindingContext.getModel();
+
+    let oRowObject = oBindingContext.getProperty("Attribute");
+
+    if (oRowObject == "Range") {
+
+        var oTextArea = oEvent.getSource();
+
+        var fromRange = parseFloat(oBindingContext.getProperty("Lowervalue"));
+
+        var toRange = parseFloat(oBindingContext.getProperty("Uppervalue"));
+
+        var observation = parseFloat(oTextArea.getValue());
+
+        if (!isNaN(observation)) {
+
+            var sStatusPath = oBindingContext.getPath() + "/Status";
+
+            if (observation < fromRange || observation > toRange) {
+
+                oModel.setProperty(sStatusPath, "Rejected");
+
+                this.onComboSelection();
+
+            } else if (observation >= fromRange && observation <= toRange) {
+
+                oModel.setProperty(sStatusPath, "Accepted");
+
+            } else {
+
+                oModel.setProperty(sStatusPath, "Pending");
             }
-                //MessageToast.show(oRowObject);
-            },
-            handleFormInEditMode: function () {
-                debugger;
-                const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
-                // viewModel.attachRequestCompleted(() => {
-                const { ParametersDetails = [] } = viewModel.getData();
-                ParametersDetails.forEach((element, index) => {
-                    element.RowNumber = index + 1;
-                     element.OldStatus = element.Status;
-                    if (viewModel.getProperty("/Status") != "Draft") {
-                        element.StatusEnableDisable = false
-                       
-                    }
-                    else {
-                        element.StatusEnableDisable = true;
-                    }
-                });
-                viewModel.setProperty(`/ParametersDetails`, ParametersDetails);
-                this.SetConstantValuesInEditMode();
-          //  })
-            },
+        }
+    }
+},
+           handleFormInEditMode: function () {
+    debugger;
+
+    const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+
+    let _Status = viewModel.getProperty("/Status");
+
+    const { ParametersDetails = [] } = viewModel.getData();
+
+    ParametersDetails.forEach((element, index) => {
+
+        if (_Status == "Ready To Post") {
+
+            element.Remarks1Enable = false;
+            element.Remarks2Enable = true;
+
+        } else if (_Status == "Posted") {
+
+            element.Remarks1Enable = false;
+            element.Remarks2Enable = false;
+
+        } else {
+
+            element.Remarks1Enable = true;
+            element.Remarks2Enable = true;
+        }
+
+        element.RowNumber = index + 1;
+        element.OldStatus = element.Status;
+
+        if (_Status != "Draft") {
+            element.StatusEnableDisable = false;
+        } else {
+            element.StatusEnableDisable = true;
+        }
+
+    });
+
+    viewModel.setProperty("/ParametersDetails", ParametersDetails);
+
+    this.SetConstantValuesInEditMode();
+},
 
              cflForInspectionLot: async function () {
                 try {

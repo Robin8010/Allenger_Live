@@ -29,6 +29,8 @@
       "InspectionAgency": "",
       "Remarks1": "",
       "Remarks2": "",
+       "Remarks1Enable": true,
+      "Remarks2Enable": true,
       "Status": "Pending",
       "OldStatus": "Pending",
       "StatusEnableDisable": true,

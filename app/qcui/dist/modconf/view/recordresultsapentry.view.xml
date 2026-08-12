@@ -112,6 +112,19 @@
                             enabled="false"
                             class="m-mast-input"
                         />  
+                         <Label
+                            id="reasonlbl"
+                            text="{i18n>Reason for Desire}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="txtreson"
+                            value="{EntryFormDataSourceModel>/ReasonforDesire}"
+                             enabled="{EntryFormDataSourceModel>/ReasonforDesireEnavle}"    
+                            
+                            class="m-mast-input"
+                        />  
                         
                         
                         

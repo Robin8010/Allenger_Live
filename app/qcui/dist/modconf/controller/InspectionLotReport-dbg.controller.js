@@ -326,16 +326,21 @@ isValidUser: function () {
              //Get Part No Information
 
             //Left Side Content
-               doc.text("Inspection Lot No.", 10, y+25);
-               doc.text(`${value[0].InspectionLot|| ""}`, 60, y+25);
-                doc.text("Production Order NO.", 10, y+30);
-                doc.text(`${value[0].ManufacturingOrder|| ""}`,60,y+30);
-                doc.text("Production Order Type (MTS/MTO)", 10, y+35);
-               doc.text(`${productionData[0].ManufacturingOrderType}`, 60, y+35);
+               doc.text("Inspection Lot No.", 10, y+30);
+               doc.text(`${value[0].InspectionLot|| ""}`, 60, y+30);
+                doc.text("Production Order NO.", 10, y+35);
+                doc.text(`${value[0].ManufacturingOrder|| ""}`,60,y+35);
+                //doc.text("Production Order Type (MTS/MTO)", 10, y+35);
+              // doc.text(`${productionData[0].ManufacturingOrderType}`, 60, y+35);
                doc.text("Serial Number ", 10, y+40);
                doc.text(`${value[0].SerialBatchNumber|| ""}`, 60, y+40);
                doc.text("Date of Testing (Inspection start Date)", 10, y+45);
-              doc.text(`${value[0].DateOfT || ""}`, 60, y+45);
+              //doc.text(`${value[0].DateOfT || ""}`, 60, y+45);
+              const formattedDate = value[0].DateOfT
+            ? new Date(value[0].DateOfT).toLocaleDateString("en-GB")
+            : "";
+
+            doc.text(formattedDate, 60, y + 45);
 
 
                //Right Side Content
@@ -612,8 +617,14 @@ let sdate="";
                            // console.error("Invalid SAP date format");
                         }
                 //#endregion
-            const dateOnly = new Date(sdate).toISOString().split('T')[0];
-                 doc.text(`${(dateOnly|| "" )}`, 165, FooterY + 15);
+                const dateOnly = new Date(sdate).toISOString().split('T')[0];
+                 const MfgOrderCreationDate = dateOnly
+                    ? new Date(dateOnly).toLocaleDateString("en-GB")
+                    : "";
+
+                  //  doc.text(UDPostingDate, 65, FooterY + 45);
+            
+                 doc.text(`${(MfgOrderCreationDate|| "" )}`, 165, FooterY + 15);
 
                  doc.text("Inspected By:-", 10, FooterY + 20);
 
@@ -636,7 +647,13 @@ let sdate="";
                doc.text(`${(value[0].UDUser  || "")}`, 65, FooterY + 45);
                doc.text("Singnature", 100, FooterY + 45);
                 doc.text("Date", 150, FooterY + 45);
-                 doc.text(`${(value[0].UDPostingDate  || "")}`, 65, FooterY + 45);
+                 //doc.text(`${(value[0].UDPostingDate  || "")}`, 65, FooterY + 45);
+
+                 const UDPostingDate = value[0].UDPostingDate
+                    ? new Date(value[0].UDPostingDate).toLocaleDateString("en-GB")
+                    : "";
+
+                    doc.text(UDPostingDate, 165, FooterY + 45);
 
                  doc.line(5, FooterY+47 , doc.internal.pageSize.getWidth() - 5, FooterY+47);
     }
