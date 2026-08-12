@@ -52,27 +52,88 @@ sap.ui.define([
         this._oPopover.openBy(oEventSource);
       }
     },
+    onLogoPressed:function()
+    {
+        var router = sap.ui.core.UIComponent.getRouterFor(this);
+            router.navTo("LandingPageIndex");
+    },
     onListItemPress: function () {
       MessageBox.confirm("Your session will be logout.", {
         title: "Confirm",
         actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
         onClose: function (oAction) {
           if (oAction === MessageBox.Action.OK) {
+              this.UnlockUserScreen(); 
             this.deleteLoginInfo();
+           // Clear sessionStorage
             sessionStorage.clear();
+
+            // Clear localStorage (only keys related to app)
+            localStorage.removeItem("sap.ushell.UserTileData");
+
+            // Optional: Clear all localStorage (careful!)
             localStorage.clear();
-            var router = sap.ui.core.UIComponent.getRouterFor(this);
-            window.history.pushState(null, null, window.location.href);
-            window.onpopstate = function () {
-              window.history.go(1);
-            };
-            router.navTo("RouteLogin");
+         
+              var router = sap.ui.core.UIComponent.getRouterFor(this);
+              router.navTo("RouteLogin");
+
+ //Reload the page to ensure all data is cleared
+              sap.ui.getCore().getConfiguration().setLanguage(
+                    sap.ui.getCore().getConfiguration().getLanguage()
+                );
+                window.location.reload(true);
+            
+          
+      
+           
+           
 
             this._VisibleFalseHeader();
           }
         }.bind(this)
       });
     },
+
+
+    
+    UnlockUserScreen: async function () {
+      debugger
+    let formTypeRR   =await this.populateFormStatus("GET","/odata/v4/form-status-services/FormStatus?$filter=FormId eq 'RR'","");
+    let formTypeDS   =await this.populateFormStatus("GET","/odata/v4/form-status-services/FormStatus?$filter=FormId eq 'DS'","");
+   if(formTypeRR.value.length>0)
+        {
+          if(formTypeRR.value[0].IsLockedForRR!=undefined)  
+          {
+                  if(formTypeRR.value[0].IsLockedForRR === true)    
+                      {      
+                                  let _json= {
+                                                "FormId": "RR",
+                                                "ID":   formTypeRR.value[0].ID,
+                                                "IsLockedForRR": false,
+                                                "RRUserName": null
+                                            }
+                                            
+                                    await   this.populateFormStatus("Patch","/odata/v4/form-status-services/FormStatus(" +   formTypeRR.value[0].ID + ")",_json);
+                        }
+              }
+      }
+        if(formTypeDS.value.length>0)
+        {
+                if(formTypeDS.value[0].IsLockedForDS!=undefined)  
+                {
+                    if(formTypeDS.value[0].IsLockedForDS === true)    
+                    {
+                                  let _json2={
+                                            "FormId": "DS",
+                                            "ID": formTypeDS.value[0].ID,
+                                            "IsLockedForDS": false,
+                                            "DSUserName": null
+                                        }
+                          await   this.populateFormStatus("Patch","/odata/v4/form-status-services/FormStatus(" +   formTypeDS.value[0].ID + ")",_json2);
+                      }
+                    }
+            }
+  },
     _loadSysModel: function () {
       let oModel = new sap.ui.model.json.JSONModel();
       oModel.loadData('model/sysModel.json');

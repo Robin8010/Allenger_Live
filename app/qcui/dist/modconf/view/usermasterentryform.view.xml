@@ -165,7 +165,80 @@
                     />
                     
                     </HBox>
- 
+                     <Label
+                        text="DebitNote User"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/IsDebitNote}"
+                        id="IsDebitNote"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    
+                    </HBox>
+
+                     <Label
+                        text="DispatchQuality"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/DispatchQuality}"
+                        id="IsDispatchQuality"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    
+                    </HBox>
+
+                      <Label
+                        text="Product Quality Assurance"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/QualityAssurance}"
+                        id="IsQCAssurance"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    
+                    </HBox>
+ <Label
+                        text="Record Result Report"
+                        required="true"
+                    />
+                    <HBox
+                        alignItems="Center"
+                        justifyContent="Start"
+                    >
+                    <CheckBox
+                        selected="{EntryFormDataSourceModel>/IsRecordResultreport}"
+                        id="IsRecordResultreport"
+                        required="true"
+                        enabled="true"
+                        select="onCheckBoxSelect"
+                        class="ml-10"
+                    />
+                    
+                    </HBox>
                 </f:content>
             </f:SimpleForm>
         </VBox>        

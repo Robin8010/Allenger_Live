@@ -6,5 +6,9 @@
     "ManageRecordResult": false,
     "ManageUserDecision": false,
     "IsElectrial":false,
-    "IsMechnical":false
+    "IsMechnical":false,
+     "IsDebitNote":false,
+    "DispatchQuality":false,
+    "QualityAssurance":false,
+    "IsRecordResultreport":false
 }

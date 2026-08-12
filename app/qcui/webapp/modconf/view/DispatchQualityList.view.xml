@@ -1,0 +1,107 @@
+<mvc:View xmlns:cards="sap.f.cards" controllerName="modconfcontroller.DispatchQualityList"
+     height="100%"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:T="sap.ui.table"
+    xmlns:u="sap.ui.unified"
+    xmlns:c="sap.ui.core"
+	xmlns:a="sap.ui.core.Control"
+>
+    <Page
+        id="_GMF"
+        class="sapUiFioriObjectPage" title=""
+        showHeader="true" showNavButton="true" navButtonPress=".navBack"
+    > 
+     <content>
+            <f:SimpleForm
+                id="_DispatchQualityList"
+                maxContainerCols="2"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                title="DispatchQualityList"
+                labelSpanL="4"
+                labelSpanM="4"
+                emptySpanL="0"
+                emptySpanM="0"
+                columnsL="2"
+                columnsM="1"
+                validateFieldGroup="onValidateFieldGroup"
+            >
+     <VBox >
+
+
+
+  <Table id="Tbl"  
+  width="100%"  items="{QC>/value}" 
+       growing="true"
+    growingScrollToLoad="true"
+      class="sapUiSizeCompact"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    showSeparators="All"
+                    showNoData="true"
+                    growingThreshold="5"
+                    enableBusyIndicator="true"
+                    alternateRowColors="true"
+                    headerLevel="Auto"                    
+                    backgroundDesign="Translucent">
+  <headerToolbar>
+  <Toolbar >
+  <content>
+    <SearchField placeholder="Search here" width="30%" liveChange="onSearch"></SearchField>
+   <!-- <SearchField placeholder="Job Work Po" width="30%" liveChange="onSearchWithName"></SearchField>-->
+    <ToolbarSpacer />
+     <Button type="Accept"  text="Addnew" press="Addnew"></Button>
+
+  
+
+  </content>
+  </Toolbar>
+  </headerToolbar>
+							<columns>
+            
+								<Column>
+									<Label text="InspectionLot"/>
+								</Column>
+								<Column>
+									<Label text="SerialNum"/>
+								</Column>
+								<Column >
+									<Label text="SalesOrder"/>
+								</Column>
+                <Column >
+									<Label text="ISO"/>
+								</Column>
+                <Column >
+									<Label text="Material"/>
+								</Column>
+                <Column hAlign="End">
+									<Label text="Edit"/>
+								</Column>
+                
+                
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells  >
+                  <!--  <Text width="150vh" text="{GMC>ID}"/>-->
+                  	<Text text="{QC>InspectionLot}"/>
+										<Text text="{QC>SerialNum}"/>
+										<Text  text="{QC>SalesOrder}"/>
+                    <Text  text="{QC>ISO}"/>
+                    <Text  text="{QC>Material}"/>
+                    <Button text="Edit" type="Accept" press="onEditPress" ></Button>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+          
+
+  </VBox>  
+   </f:SimpleForm>
+     </content>
+     
+    </Page>
+</mvc:View>

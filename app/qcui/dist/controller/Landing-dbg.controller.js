@@ -29,28 +29,130 @@ sap.ui.define([
 
 
             CheckTilesAccess: function () {
-                let loginInfo = this.getLoginInfo();
-                const loginModel = this.getOwnerComponent().getModel("UserModel");
+                  // Always reset tiles first
+                     this.hideAllTiles();
+                 const loginModel =
+                this.getOwnerComponent()
+                .getModel("UserModel");
+
+
+
+            if (
+                !loginModel ||
+                !loginModel.value ||
+                loginModel.value.length === 0
+            ) {
+
+
+                MessageToast.show(
+                    "User information not found"
+                );
+
+
+                return;
+
+            }
+
+
+
+            let user =
+                loginModel.value[0];
+                sap.m.MessageBox.success("USER MODEL OBJECT:", user);
+                console.log("USER MODEL OBJECT:", user);
+
                 let isAdmin = false;
                 let manageRecordResult = false;
                 let manageUserDecision = false;
+                let DebitNote = false;
+                let RecordResultreport = false;
+                let Dispatch = false;
+                let QualityAnalyst = false;
                 if (loginModel && loginModel != 'undefined' && loginModel.value.length > 0) {
                     isAdmin = loginModel.value[0].IsAdmin;
                     manageRecordResult = loginModel.value[0].ManageRecordResult;
                     manageUserDecision = loginModel.value[0].ManageUserDecision;
-                }
-                if (isAdmin) {
+                    RecordResultreport = loginModel.value[0].IsRecordResultreport;
+                    DebitNote = loginModel.value[0].IsDebitNote;
+                    Dispatch = loginModel.value[0].DispatchQuality;
+                    QualityAnalyst = loginModel.value[0].QualityAssurance;
+
+                if (isAdmin==true) {
                     this.getView().byId("gt1").setVisible(true);
+                 }
+                if (manageRecordResult==true) {
+                    this.getView().byId("gt3").setVisible(true);
                 }
-                else {
-                    this.getView().byId("gt1").setVisible(false);
+                  if (manageUserDecision==true) {
+                    this.getView().byId("gt5").setVisible(true);
+                 }
+                  if (RecordResultreport==true) {
+                    this.getView().byId("gt6").setVisible(true);
+                 }
+                if (QualityAnalyst==true) {
+                    this.getView().byId("gt7").setVisible(true);
                 }
-                this.getView().byId("gt3").setVisible(manageRecordResult);
-                this.getView().byId("gt5").setVisible(manageUserDecision);
-                 this.getView().byId("gt6").setVisible(manageUserDecision);
-                  this.getView().byId("gt7").setVisible(manageUserDecision);
-                //  this.getView().byId("gt8").setVisible(manageUserDecision);
+                if (DebitNote==true) {
+                    this.getView().byId("gt8").setVisible(true);
+                }
+                if (Dispatch==true) {
+                    this.getView().byId("gt9").setVisible(true);
+                }
+               
+               
+                }
+                else
+                {
+                     var router = sap.ui.core.UIComponent.getRouterFor(this);
+                    router.navTo("RouteIndexPage");
+                }
+              
             },
+
+             /*
+        ==============================
+        HIDE ALL TILES
+        ==============================
+        */
+
+        hideAllTiles:function(){
+
+
+            let tiles = [
+                "gt1",
+                "gt3",
+                "gt4",
+                "gt5",
+                "gt6",
+                 "gt7",
+                  "gt8",
+                   "gt9"
+            ];
+
+
+
+            tiles.forEach(
+                function(id){
+
+
+                    let tile =
+                        this.byId(id);
+
+
+
+                    if(tile){
+
+                        tile.setVisible(false);
+
+                    }
+
+
+
+                }.bind(this)
+            );
+
+
+
+        },
             ClickMe: function () {
                 console.log("Clicked");
                 var router = sap.ui.core.UIComponent.getRouterFor(this);
@@ -71,6 +173,36 @@ sap.ui.define([
                 router.navTo("RecordResultListReport");
                 
             },
+             ShowDebitNote: function () {
+                debugger;
+                let isAdmin = false;
+                 const loginModel = this.getOwnerComponent().getModel("UserModel");
+                let GMC_ = false;
+                debugger;
+                if (loginModel && loginModel != 'undefined' && loginModel.value.length > 0) 
+                    {
+                   // GMC_ = loginModel.value[0].ManagGMC;
+                     //isAdmin = loginModel.value[0].IsAdmin
+                     //   if(isAdmin=true)
+                      //  {
+                            console.log("Clicked");
+                            var router = sap.ui.core.UIComponent.getRouterFor(this);
+                            MessageToast.show("Redirecting to DebitNote.....")
+                            router.navTo("DebitNoteLayout");
+                       // }
+                       // else
+                       // {
+                             //  var router = sap.ui.core.UIComponent.getRouterFor(this);
+                             //   router.navTo("LoginPage");
+                              //  MessageToast.show("Not a valid user.....")
+                             //   MessageToast.show("Not a valid user.....")
+                             //   MessageToast.show("Not a valid user.....")
+                             //   MessageToast.show("Not a valid user.....")
+                              //  MessageToast.show("Not a valid user.....")
+                            //MessageToast.show("Not Authorise to access GMC.....")
+                      //  }
+                    }
+            },
             ShowRecordResult: function () {
                 console.log("Clicked");
               let router=sap.ui.core.UIComponent.getRouterFor(this);
@@ -82,6 +214,12 @@ sap.ui.define([
               let router=sap.ui.core.UIComponent.getRouterFor(this);
                 MessageToast.show("Redirecting to InspectionReport.....")
                 router.navTo("InspectionLotReport");
+            },
+              ShowDispatchQuality: function () {
+                console.log("Clicked");
+              let router=sap.ui.core.UIComponent.getRouterFor(this);
+                MessageToast.show("Redirecting to InspectionReport.....")
+                router.navTo("DispatchQualityList");
             },
             ShowRecordResultSAP: function () {
                 console.log("Clicked");

@@ -184,6 +184,7 @@
                     type="Emphasized"
                     id="CADS_Button"
                     text="{i18n>submit}"
+                    enabled="{EntryFormDataSourceModel>/EnableSubmit}"
                     press="onSave"
                 />
                  <Button

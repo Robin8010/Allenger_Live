@@ -11,6 +11,7 @@ sap.ui.define([
         return genericentryform.extend("modconfcontroller.DeviceTaggingform", {
 
             onInit: function () {
+                debugger;
                 genericentryform.prototype.onInit.apply(this, arguments);
                
                // var EnableModel = { Enable: ""};
@@ -54,6 +55,17 @@ sap.ui.define([
                 this.getView().setModel(oModelSaveRequest, "RecordResultDeviceSaveRequest");
             },
             handleUIOperation: async function () {
+                debugger;
+                 const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                   let Status = viewModel.getProperty("/Status")    ;
+                   if(Status && Status != "undefined" && Status != "Posted")
+                   {
+                   viewModel.setProperty("/EnableSubmit",true);     
+                   }
+                   else
+                   {
+                    viewModel.setProperty("/EnableSubmit",false);    
+                   }
                 const formMode = this.getFormMode();
                 if (formMode === "2") {
                     this.handleFormInEditMode();
@@ -146,20 +158,42 @@ sap.ui.define([
                         this.getView().setModel(oModel, "SetEnable");
 
                         // Update value
-                        let viewModel1 = this.getView().getModel("SetEnable");
-                        viewModel1.setProperty("/Enable", true);  
+                         let Status = viewModel.getProperty("/Status")    ;
+                            if(Status && Status != "undefined" && Status != "Posted")
+                            {
+                                    let viewModel1 = this.getView().getModel("SetEnable");
+                                    viewModel1.setProperty("/Enable", true);  
+                            }
+                        else
+                        {
+                              let viewModel1 = this.getView().getModel("SetEnable");
+                                    viewModel1.setProperty("/Enable", false);  
+                        }
                     }
                     else
                     {
                         //Enable false after save
+                          let Status = viewModel.getProperty("/Status")    ;
                        var EnableModel = { Enable: false }; // better initialize as boolean
                         let oModel = new sap.ui.model.json.JSONModel(EnableModel);
                         this.getView().setModel(oModel, "SetEnable");
 
                         // Update value
-                        let viewModel1 = this.getView().getModel("SetEnable");
-                        viewModel1.setProperty("/Enable", false);  
+                       if(Status && Status != "undefined" && Status != "Posted")
+                            {
+                                    let viewModel1 = this.getView().getModel("SetEnable");
+                                    viewModel1.setProperty("/Enable", true);  
+                            }
+                        else
+                        {
+                              let viewModel1 = this.getView().getModel("SetEnable");
+                                    viewModel1.setProperty("/Enable", false);  
+                        }
                     }
+
+
+                    
+                  
                 }
                 catch (error) {
                     MessageToast.show(error);

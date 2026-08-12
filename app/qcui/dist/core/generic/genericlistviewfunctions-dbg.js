@@ -179,7 +179,7 @@ sap.ui.define([
 
             },
 
-            showCfl: function (sCflId, sModelName, sPath, onConfirmCallback, onCancelCallback) {
+            showCfl1: function (sCflId, sModelName, sPath, onConfirmCallback, onCancelCallback) {
 
                 let oDisplayColumnList = [];
                 let oColumn;
@@ -216,17 +216,7 @@ sap.ui.define([
                     oDisplayColumnList.push(oDisplayColumn);
                 });
 
-                // build Column Cells
-                // this.getCflDataColumnList().forEach(oColumnText => {
-                //     if (oColumnText == "Edit") {
-                //         oColumn = new sap.m.Button({ icon: "sap-icon://navigation-right-arrow", press: this.onPressOfListViewEditButton.bind(this) });
-                //     }
-                //     else {
-                //         oColumn = new sap.m.Text({ text: "{" + sModelName + ">" + oColumnText + "}" });
-                //     }
-
-                //     oColumnList.push(oColumn);
-                // });
+                
                 this.getCflDataColumnList().forEach(oColumnObj => {
                     if (typeof oColumnObj === 'object' && oColumnObj !== null) {
 
@@ -273,7 +263,7 @@ sap.ui.define([
                             })
                     },
 
-                    search: async function (oEvent) {
+                    search1: async function (oEvent) {
 
                         var sValue = oEvent.getParameter("value");
                         var oBinding = oEvent.getSource().getBinding("items");
@@ -304,7 +294,7 @@ sap.ui.define([
 
                     },
 
-                    confirm: function (oEvent) {
+                    confirm1: function (oEvent) {
 
                         var oBinding = oEvent.getSource().getBinding("items");
                         oBinding.filter([]);
@@ -374,7 +364,308 @@ sap.ui.define([
             },
 
 
+showCfl: async function (sCflId, sModelName, sPath, onConfirmCallback, onCancelCallback) {
 
+    let oDisplayColumnList = [];
+    let oColumn;
+    let oColumnList = [];
+    let oController = this;
+
+    let oInput = sap.ui.getCore().byId(sCflId);
+
+    // =========================
+    // LOAD COMPLETE DATA FIRST
+    // =========================
+    try {
+
+        let oModel = this.getView().getModel(sModelName);
+
+        // force full data loading
+        await new Promise((resolve, reject) => {
+
+            oModel.read("/" + sPath, {
+                urlParameters: {
+                    "$top": "10000"
+                },
+                success: function () {
+                    resolve();
+                },
+                error: function (oError) {
+                    reject(oError);
+                }
+            });
+
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+
+    // =========================
+    // BUILD DISPLAY COLUMNS
+    // =========================
+    this.getCflDisplayColumns().forEach(sDisplayColumnText => {
+
+        let oLabel = new sap.m.Label({
+            text: sDisplayColumnText,
+        });
+
+        let oIcon = new sap.ui.core.Icon({
+            src: "sap-icon://filter",
+            color: sap.ui.core.IconColor.Default,
+            activeColor: sap.ui.core.IconColor.Positive,
+            press: function () {
+
+                let columnIndex = oDisplayColumnList.indexOf(oDisplayColumn);
+
+                oController.setCflSearchProperty(
+                    oController.getCflDataColumnList()[columnIndex]
+                );
+
+            }
+        });
+
+        let oHBox = new sap.m.HBox({
+            items: [oLabel, oIcon]
+        });
+
+        let oDisplayColumn = new sap.m.Column({
+            header: oHBox
+        });
+
+        oDisplayColumnList.push(oDisplayColumn);
+
+    });
+
+    // =========================
+    // BUILD DATA COLUMNS
+    // =========================
+    this.getCflDataColumnList().forEach(oColumnObj => {
+
+        if (typeof oColumnObj === 'object' && oColumnObj !== null) {
+
+            oColumn = oColumnObj;
+
+        }
+        else if (typeof oColumnObj === 'string' && oColumnObj !== null) {
+
+            if (oColumnObj == "Edit") {
+
+                oColumn = new sap.m.Button({
+                    icon: "sap-icon://navigation-right-arrow",
+                    press: this.onPressOfListViewEditButton.bind(this)
+                });
+
+            }
+            else if (oColumnObj == "Print") {
+
+                oColumn = new sap.m.Button({
+                    icon: "sap-icon://print",
+                    press: this.onPressOfListViewPrintButton.bind(this)
+                });
+
+            }
+            else {
+
+                oColumn = new sap.m.Text({
+                    text: "{" + sModelName + ">" + oColumnObj + "}"
+                });
+
+            }
+        }
+
+        var oHBox = new sap.m.HBox({
+            items: [oColumn],
+            alignContent: sap.m.FlexAlignContent.Left,
+            alignItems: sap.m.FlexAlignItems.Left,
+        });
+
+        oColumnList.push(oHBox);
+
+    });
+
+    // =========================
+    // BUILD DIALOG
+    // =========================
+    var oDialog = new sap.m.TableSelectDialog({
+
+        title: this.getCflTitle(),
+
+        columns: oDisplayColumnList,
+
+        growing: true,
+        growingThreshold: 10000,
+
+        items: {
+            path: sModelName + ">/" + sPath,
+            parameters: {
+                "$top": 10000
+            },
+            template:
+                new sap.m.ColumnListItem({
+                    cells: oColumnList
+                })
+        },
+
+        // =========================
+        // SEARCH
+        // =========================
+        search: async function (oEvent) {
+
+            var sValue = oEvent.getParameter("value");
+            var oBinding = oEvent.getSource().getBinding("items");
+
+            if (sValue.length > 0) {
+
+                var oFilter = new sap.ui.model.Filter({
+                    path: oController.getCflSearchProperty(),
+                    test: function (value) {
+
+                        return value !== null &&
+                            value !== undefined &&
+                            value.toString().toLowerCase()
+                                .includes(sValue.toLowerCase());
+
+                    }
+                });
+
+                oBinding.filter([oFilter]);
+
+                // backend search if local data not found
+                if (oBinding.iLength == 0) {
+
+                    let filter =
+                        oController.getCflListViewDataSourceURL() +
+                        "&$top=10000&$filter=contains(" +
+                        oController.getCflSearchProperty() +
+                        ",'" + sValue + "')";
+
+                    await oController.createNewModelUsingAPI(
+                        oController.getCflListViewDataSourceURLType(),
+                        filter,
+                        oController.getCflListViewDataSourceURL(),
+                        oController.getCflListViewDataSourceURLReqData(),
+                        oController.getCflListViewDataSourceModelName()
+                    );
+
+                }
+
+            }
+            else {
+
+                oBinding.filter([]);
+
+            }
+
+        },
+
+        // =========================
+        // CONFIRM
+        // =========================
+        confirm: function (oEvent) {
+
+            var oBinding = oEvent.getSource().getBinding("items");
+            oBinding.filter([]);
+
+            if (
+                oController.getCflValueFor().length > 0 &&
+                oController.getCflValueFrom().length > 0
+            ) {
+
+                let oCflValueFor = oController.getCflValueFor();
+                let oCflValueFrom = oController.getCflValueFrom();
+
+                let oValue =
+                    oEvent.getParameter("selectedContexts")[0]
+                        .getObject()[oCflValueFrom];
+
+                oController.getView()
+                    .getModel(oController.getEntryFormDataSourceModelName())
+                    .setProperty(oCflValueFor, oValue);
+
+            }
+
+            if (
+                oController.getCflValueFor().length == 0 &&
+                oController.getCflValueFrom().length == 0 &&
+                oController.getCflDisplayFor().length > 0 &&
+                oController.getCflDisplayFrom().length > 0
+            ) {
+
+                let oCflDisplayFor = oController.getCflDisplayFor();
+                let oCflDisplayFrom = oController.getCflDisplayFrom();
+                let oCflDisplayHidden = oController.getCflDisplayHidden();
+
+                let oValue =
+                    oEvent.getParameter("selectedContexts")[0]
+                        .getObject()[oCflDisplayFrom];
+
+                sap.ui.getCore()
+                    .byId(oCflDisplayFor)
+                    .setValue(oValue);
+
+                if (
+                    oCflDisplayHidden !== undefined &&
+                    oCflDisplayHidden !== null
+                ) {
+
+                    sap.ui.getCore()
+                        .byId(oCflDisplayFor)
+                        .data(
+                            "data-displayHidden",
+                            oEvent.getParameter("selectedContexts")[0]
+                                .getObject()[oCflDisplayHidden]
+                        );
+
+                }
+
+            }
+
+            if (oEvent.getParameter("selectedContexts").length == 1) {
+
+                oController.setCflObject(
+                    oEvent.getParameter("selectedContexts")[0].getObject()
+                );
+
+            }
+
+            if (oEvent.getParameter("selectedContexts").length > 1) {
+
+                oController.setCflObjectList(
+                    oEvent.getParameter("selectedContexts")
+                );
+
+            }
+
+            oDialog.destroy();
+
+            if (onConfirmCallback) {
+                onConfirmCallback();
+            }
+
+        },
+
+        cancel: function () {
+
+            if (onCancelCallback) {
+                onCancelCallback();
+            }
+
+        }
+
+    });
+
+    // =========================
+    // SET MODEL
+    // =========================
+    oDialog.setModel(
+        this.getView().getModel(sModelName),
+        sModelName
+    );
+
+    return oDialog.open();
+
+},
 
 
             buildList: function () {

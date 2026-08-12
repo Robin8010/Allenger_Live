@@ -23,6 +23,7 @@
   "UsageDecisionFollowupAction": "",
   "CreatedBy": "",
  "Employeeworker": "",
+
  
   
   "SalesOrder":"",
@@ -34,7 +35,9 @@
       "Status": "",
        "MechnicalUser":"",
         "ElectrialUser":"",
-        "DateOfT":"",
+          "ElectrialDate"  : null,
+          "MechnicalDate" : null,
+        "DateOfT":null,
       "UsageDecisionStockType": "",
       "StorageLocation": "",
       "InspectionPlanStatus": null

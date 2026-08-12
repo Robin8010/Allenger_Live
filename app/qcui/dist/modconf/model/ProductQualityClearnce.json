@@ -7,6 +7,15 @@
             "ElectricalQA": null,
             "FinalApprovalBy": null,
             "FinalClearBy": null,
+            "FinalClearByDate": null,
+            "FinalApprovalByDate": null,
+            "ElectricalDate": null,
+            "MechanicalDate": null,
+            "ControledNo": null,
+            "PADate": null,
+            "PSDate": null,
+            "PEByDate": null,
+            
             "ID": "",
             "Inspection": null,
             "MachineModel": null,
@@ -17,9 +26,13 @@
             "ManufacturingCodeRevision": null,
             "MechanicalQA": null,
             "OrderType": null,
-            "ProductSpecilist": null,
+             "SpecialInstruction":"",
+            "DesirethengiveDetails":"",
+            "PersanAUthorizedforInspection": null,
+            "ProductSpecilistApproval": null,
             "ProductionOrder": null,
             "Serial": null,
+            "PackingEnsuredBy": null,
             "createdAt": null,
             "createdBy": null,
             "deviation": null,
@@ -29,18 +42,18 @@
             "LineItem": [
                             {
                               "DocumentNum": "",
-                              "IsDocumentAtteched": false,
-                              "IsApplicable": false
+                              "IsDocumentAtteched": false
+                            
                             }
                         ],
   "List": [
     {
       "ID": "0",
-      "Name": "Yes"
+      "Code": "Yes"
     },
     {
       "ID": "1",
-      "Name": "No"
+      "Code": "No"
     }
   ],
   "ElectrialcalUserList": [

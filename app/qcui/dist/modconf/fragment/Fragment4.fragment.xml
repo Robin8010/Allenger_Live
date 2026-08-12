@@ -7,10 +7,10 @@
          <f:SimpleForm backgroundDesign="Solid"
                 editable="true"
                 layout="ResponsiveGridLayout"
-                maxContainerCols="3"
-                labelSpanXL="2"
-                labelSpanL="2"
-                labelSpanM="2"
+                 maxContainerCols="3"
+                labelSpanXL="4"
+                labelSpanL="4"
+                labelSpanM="4"
                 labelSpanS="12"
                 adjustLabelSpan="false"
                 emptySpanXL="4"
@@ -23,13 +23,13 @@
                       <Label
                             id="FinalClearanceBy"
                             text="{i18n>Final Clearance By}"
-                            required="true"
+                         
                             class="m-mast-lev"
                         /> 
                        <Input
                             id="_FinalClearBy"
                             value="{EntryFormDataSourceModel>/FinalClearBy}"
-                            required="true"
+                             maxLength="35"
                             enabled="true"
                             class="m-mast-input"
                         />                     
@@ -38,19 +38,82 @@
                         <Label
                             id="FinalApprovalBy"
                             text="{i18n>Final Approval By}"
-                            required="true"
+                           
                             class="m-mast-lev"
                         /> 
                         <Input
                             id="_FinalApprovalBy"
                             value="{EntryFormDataSourceModel>/FinalApprovalBy}"
-                            required="true"
+                             maxLength="35"
                             enabled="true"
                             class="m-mast-input"
                         />
-                         
-                          
+                         <Label
+                            id="PackingEnsuredBy"
+                            text="{i18n>Packing Ensured By}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_PackingEnsuredBy"
+                            value="{EntryFormDataSourceModel>/PackingEnsuredBy}"
+                             maxLength="35"
+                            enabled="true"
+                            class="m-mast-input"
+                        />
 
+                            <Label
+                            id="PackingEnsuredByDate"
+                            text="{i18n>Packing Ensured By Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                       <DatePicker
+                            id="_PENSDate"
+                            value="{EntryFormDataSourceModel>/PEByDate}"
+                           enabled="true"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
+                          <core:Title text="" />
+
+                             <Label
+                            id="FinalClearanceByDate"
+                            text="{i18n>Final Clearance By Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+
+                         <DatePicker
+                            id="_FinalClearByDate"
+                            value="{EntryFormDataSourceModel>/FinalClearByDate}"
+                           enabled="true"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
+                                         
+                        
+                      
+                        <Label
+                            id="FinalApprovalByDate"
+                            text="{i18n>Final Approval By Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                           <DatePicker
+                            id="_FinalApprovalByDate"
+                            value="{EntryFormDataSourceModel>/FinalApprovalByDate}"
+                           enabled="true"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
+                      
                 </f:content>
             </f:SimpleForm>
 

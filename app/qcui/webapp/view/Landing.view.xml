@@ -49,14 +49,20 @@
                     <ImageContent id="ic7" src="sap-icon://decision" />
                 </TileContent>
             </GenericTile>
-<!--
-              <GenericTile id="gt78" visible="true" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Serial wise Report"
-                subheader="Qc Report" press="ShowReport" url="https://www.sap.com/">
+
+              <GenericTile id="gt8" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="DebitNote"
+                subheader="DebitNote" press="ShowDebitNote"  >
                 <TileContent id="tc8">
-                    <ImageContent id="ic8" src="sap-icon://decision" />
+                    <ImageContent id="ic8" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
                 </TileContent>
             </GenericTile>
--->
+              <GenericTile id="gt9" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Dispatch Quality"
+                subheader="Dispatch Quality" press="ShowDispatchQuality"  >
+                <TileContent id="tc9">
+                    <ImageContent id="ic9" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile>
+
 	</ScrollContainer>    
     </Page>
 </mvc:View>

@@ -4,6 +4,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:select="sap.m.Select"
     xmlns:core="sap.ui.core"
     class="d-flex justify-content-center"
 >
@@ -303,13 +304,13 @@
                                     text="{EntryFormDataSourceModel>InspectionAgency}"
                                 />
                                
-                                <ComboBox  width="100px"
+                                <Select  width="100px"
                                     id="rrpStatus"
                                     required="true"
                                     valueState="None"
                                     change="onComboSelection"
                                     visible="true"
-                                    editable="{EntryFormDataSourceModel>StatusEnableDisable}"
+                                    enabled="{EntryFormDataSourceModel>StatusEnableDisable}"
                                     selectedKey="{EntryFormDataSourceModel>Status}"
                                     items="{EntryFormDataSourceModel>/ParameterStatusList}"
                                 > 
@@ -317,7 +318,7 @@
                                         key="{EntryFormDataSourceModel>StatusId}"
                                         text="{EntryFormDataSourceModel>StatusDesc}"
                                     />
-                                </ComboBox>
+                                </Select>
                                 <TextArea                                    
                                     id="il_Remarks11"
                                     value="{EntryFormDataSourceModel>Remarks1}" 
@@ -342,6 +343,7 @@
                 <Button
                     type="Emphasized"
                     id="CADS_Button"
+                    enabled="{EntryFormDataSourceModel>/BtnEnabled}"
                     text="{i18n>submit}"
                     press="onSave"
                 />

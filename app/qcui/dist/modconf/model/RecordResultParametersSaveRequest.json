@@ -5,6 +5,8 @@
     "SerialBatchNumber": "",
     "Status": "Draft",
     "InspectionPlanStatus": null,
+     "ISO": null,
+     "InspectionPlanDesc":"",
     
     "ParametersDetails": [
         {

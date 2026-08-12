@@ -1,6 +1,7 @@
 {
       "ID": "",
       "Enable":"true",
+      "EnableSubmit":"true",
       "RecordResultDeviceTagging": [
             {
                   "RowNumber": 1,

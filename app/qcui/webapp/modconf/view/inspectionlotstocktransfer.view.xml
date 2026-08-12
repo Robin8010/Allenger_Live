@@ -137,6 +137,19 @@
                             required="true"
                             enabled="false"
                             class="m-mast-input"
+                        />    
+                        <Label
+                            id="remarkslbl"
+                            text="{i18n>remarks}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="inremarks"
+                            value="{EntryFormDataSourceModel>/remarks}"
+                            required="true"
+                            enabled="{EntryFormDataSourceModel>/Enableremarks}"
+                            class="m-mast-input"
                         />           
                 </f:content>
             </f:SimpleForm>

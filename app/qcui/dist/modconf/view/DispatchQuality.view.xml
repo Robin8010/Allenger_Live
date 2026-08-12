@@ -1,0 +1,568 @@
+<mvc:View
+     xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+      xmlns:f="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    controllerName="modconfcontroller.DispatchQuality">
+
+         <Page title="Dispatch Quality" showNavButton="true" navButtonPress="navBack">
+ 
+        <!-- Filter Bar -->
+  <VBox id="Filter" class="sapUiSmallMargin">
+     
+       <f:SimpleForm
+    id="_.ProductQualityList"
+    layout="ResponsiveGridLayout"
+    editable="true"
+    columnsL="2"
+    columnsM="1"
+    labelSpanL="4"
+    labelSpanM="4">
+
+  <Input
+        id="SalesOrder"
+        width="100%"
+        value="{EntryFormDataSourceModel>/SalesOrder}"
+        showValueHelp="true"
+        valueHelpRequest="cflForSalesOrder"
+        placeholder="Sales Order" />
+<Input
+        id="Material"
+        width="100%"
+        value="{EntryFormDataSourceModel>/Material}"
+        showValueHelp="true"
+        valueHelpRequest="cflForMaterial"
+        placeholder="Material" />
+      
+    <Input
+        id="InspvdectionLot"
+        width="100%"
+        value="{EntryFormDataSourceModel>/InspectionLot}"
+        showValueHelp="true"
+        valueHelpRequest="cflForInspectionLot"
+        placeholder="Inspection Lot" />
+
+    <Input
+        id="ManufacturingOrder"
+        width="100%"
+        value="{EntryFormDataSourceModel>/Production}"
+        showValueHelp="true"
+        valueHelpRequest="cflForProduction"
+        placeholder="ManufacturingOrder" />
+
+    <Input
+        id="SerialNumber"
+        width="100%"
+        value="{EntryFormDataSourceModel>/SerialNum}"
+        showValueHelp="true"
+        valueHelpRequest="cflForSerial"
+        placeholder="SerialNumber" />
+
+        <HBox width="100%" justifyContent="End">
+    <Button
+        id="Go"
+        type="Emphasized"
+        text="{i18n>Go}"
+        press="Go" />
+</HBox>
+
+</f:SimpleForm>
+
+
+                        
+
+  </VBox>
+       
+     
+
+       <VBox class="sapUiSmallMargin">
+
+         <f:SimpleForm backgroundDesign="Solid"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                maxContainerCols="3"
+                labelSpanXL="4"
+                labelSpanL="4"
+                labelSpanM="4"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="3"
+                emptySpanM="3"
+                emptySpanS="0"
+            >
+                <f:content>
+                <core:Title text="Serial Number" />
+                                        
+                        
+                      
+                        <Label
+                            id="lblSalesOrder"
+                            text="{i18n>SalesOrder}"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtSalesOrder"
+                            value="{EntryFormDataSourceModel>/_SalesOrder}"
+                            
+                            enabled="false"
+                            class="m-mast-input"
+                        />
+                        <Label
+                            id="lblDetailDescription"
+                            text="{i18n>Any Special Configuration /Specification /Accessories required by the customer :-}"
+                            
+                             wrapping="true"
+                            class="m-mast-lev"
+                        /> 
+                          <TextArea
+                            value="{EntryFormDataSourceModel>/SpecialConfiguration}"
+                            growing="true"
+                            growingMaxLines="10"
+                        
+                            placeholder="Enter description..." />
+                          
+                        <Label
+                            id="__lblShippingPoint"
+                            text="{i18n>Shipping Point }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtShippingPoint"
+                            value="{EntryFormDataSourceModel>/ShippingPoint}"
+                            
+                           enabled="false"
+                            class="m-mast-input"
+                        />  
+                        <Label
+                            id="lblDistributionChannel"
+                            text="{i18n>Distribution Channel}"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtDistributionChannel"
+                            value="{EntryFormDataSourceModel>/DistributionChannel}"
+                            
+                           enabled="false"
+                            class="m-mast-input"
+                        />  
+                         <Label
+                            id="IsDeviceregistered"
+                            text="{i18n> Is Device Registered in Eudamed?: }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                       <ComboBox 
+                            id="cmbIsDeviceregistered"
+                           
+                            valueState="None"
+                           
+                            selectedKey="{EntryFormDataSourceModel>/IsDeviceregistered}"
+                            items="{EntryFormDataSourceModel>/List}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>ID}"
+                                text="{EntryFormDataSourceModel>Code}"/>
+                        </ComboBox>
+                         <Label
+                            id="lblIsthereany:"
+                            text="{i18n>Is there any Short Shipment: }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                       <ComboBox 
+                            id="_cmbIsthereany"
+                           
+                            valueState="None"
+                            change="onComboSelection"
+                            selectedKey="{EntryFormDataSourceModel>/Isthereany}"
+                            items="{EntryFormDataSourceModel>/List}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>ID}"
+                                text="{EntryFormDataSourceModel>Code}"/>
+                        </ComboBox>
+
+
+                         <Label
+                            id="lblIfYesmention"
+                            text="{i18n>If Yes, mention detail (Ref. No.) }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtIfYes"
+                            value="{EntryFormDataSourceModel>/RefNo}"
+                            
+                           
+                            class="m-mast-input"
+                        /> 
+                         <Label
+                            id="lblIsthereanydeviation"
+                            text="{i18n>Is there any deviation required: }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                         <ComboBox 
+                            id="_cmbIsthereanydeviation"
+                           
+                            valueState="None"
+                            change="onComboSelection"
+                            selectedKey="{EntryFormDataSourceModel>/thereanydeviation}"
+                            items="{EntryFormDataSourceModel>/List}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>ID}"
+                                text="{EntryFormDataSourceModel>Code}"/>
+                        </ComboBox>
+                       
+                          <Label
+                            id="lblIfYesmentiondeviation"
+                            text="{i18n>If Yes, mention deviation No.  }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtIfYesmentiondeviation"
+                            value="{EntryFormDataSourceModel>/IfYesmentiondeviation}"
+                            
+                            enabled="true"
+                            class="m-mast-input"
+                        /> 
+                          <Label
+                            id="lblTotalnoofpacket"
+                            text="{i18n>Total no. of packets }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        
+                          <Input
+                            id="_txtTotalnoofpackete"
+                            value="{EntryFormDataSourceModel>/Totalnoofpackets}"
+                            type="Number"
+                            enabled="true"
+                            class="m-mast-input"
+                        /> 
+                         <core:Title text="Procurement permission (PP) Detail: " />
+                         
+                                             
+                        <Label
+                            id="lblProductionOrder"
+                            text="{i18n>Document No.  }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                        <Input
+                            id="_txtProductionOrder"
+                            value="{EntryFormDataSourceModel>/DocumentNo}"
+                            
+                         enabled="false"
+                            class="m-mast-input"
+                        />
+                        <Label
+                            id="lblIssueDate"
+                            text="{i18n>Issue Date }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                         <DatePicker
+                            id="dtIssueDate"
+                            value="{EntryFormDataSourceModel>/IssueDate}"
+                           enabled="false"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
+                        
+                        <Label
+                            id="_lblExpiryDate"
+                            text="{i18n>Expiry Date }"
+                            
+                            class="m-mast-lev"
+                        />
+                          <DatePicker
+                            id="dtExpiryDate"
+                            value="{EntryFormDataSourceModel>/ExpiryDate}"
+                            enabled="false"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        /> 
+                      
+                       
+
+                     
+
+
+                         <Label
+                            id="ProcurementPermission"
+                            text="{i18n>Procurement Permission (PP) from Elora/AERB:}"
+                            
+                            class="m-mast-lev"
+                            
+                        /> 
+                         <ComboBox 
+                            id="_CmbProcurementPermission"
+                           
+                            valueState="None"
+                            change="onComboSelection"
+                            selectedKey="{EntryFormDataSourceModel>/ProcurementPermission}"
+                            items="{EntryFormDataSourceModel>/List}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>ID}"
+                                text="{EntryFormDataSourceModel>Code}"/>
+                        </ComboBox>
+                       
+                           <core:Title text="Approval for Product Dispatch" />
+                               <Label
+                            id="FinalClearedBy"
+                            text="{i18n>FinalCleared By }"
+                            
+                            class="m-mast-lev"
+                            
+                        /> 
+                        
+                         <ComboBox 
+                            id="_CmbFinalClearedBy"
+                           
+                            valueState="None"
+                            change="onComboSelectionForFinalClearedBy"
+                            selectedKey="{EntryFormDataSourceModel>/FinalClearedBy}"
+                            items="{EntryFormDataSourceModel>/FinalList}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>UserName}"
+                                text="{EntryFormDataSourceModel>NameDsc}"/>
+                        </ComboBox>
+
+                         <Label
+                            id="lblFinalClearedDate"
+                            text="{i18n>Final Cleared Date }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                       
+                         <DatePicker
+                            id="txtFinalClearedDate"
+                            value="{EntryFormDataSourceModel>/FinalClearedDate}"
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        /> 
+
+                        <Label
+                            id="FinalApprovedBy"
+                            text="{i18n>FinalApproved By }"
+                            
+                            class="m-mast-lev"
+                            
+                        /> 
+                         <ComboBox 
+                            id="_CmbFinalApprovedBy"
+                           
+                            valueState="None"
+                            change="onComboSelectionForFinalApprovedBy"
+                            selectedKey="{EntryFormDataSourceModel>/FinalApprovedBy}"
+                            items="{EntryFormDataSourceModel>/FinalList}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>UserName}"
+                                text="{EntryFormDataSourceModel>NameDsc}"/>
+                        </ComboBox>
+
+                         <Label
+                            id="lblFinalApprovedDate"
+                            text="{i18n>Final Approved Date }"
+                            
+                            class="m-mast-lev"
+                        /> 
+                         <DatePicker
+                            id="txtFinalApprovedDate"
+                            value="{EntryFormDataSourceModel>/FinalApprovedDate}"
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        /> 
+                       
+
+                           <core:Title text="Dispatch details" />
+                               <Label
+                            id="machinereceivedby"
+                            text="{i18n>Machine Received (By Logistics) }"
+                            
+                            class="m-mast-lev"
+                            
+                        /> 
+                         <ComboBox 
+                            id="_CmbMachineReceivedBy"
+                           
+                            valueState="None"
+                            change="onComboSelectionForMachineReceivedBy"
+                            selectedKey="{EntryFormDataSourceModel>/MachineReceivedBy}"
+                            items="{EntryFormDataSourceModel>/EmpList}">
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>UserName}"
+                                text="{EntryFormDataSourceModel>NameDsc}"/>
+                        </ComboBox>
+
+                         <Label
+                            id="dateofreceived"
+                            text="{i18n> Date }"
+                            
+                            class="m-mast-lev"
+                        />
+                          <DatePicker
+                            id="txtdateofreceived"
+                            value="{EntryFormDataSourceModel>/dateofReceived}"
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        /> 
+
+                         <Label
+                            id="MachineDispatchedby"
+                            text="{i18n>Machine Dispatched By }"
+                            
+                            class="m-mast-lev"
+                            
+                        /> 
+                         <ComboBox 
+                            id="_CmbMachineDispatchedBy"
+                           
+                            valueState="None"
+                            change="onComboSelectionForMachineDispatchedBy"
+                            selectedKey="{EntryFormDataSourceModel>/MachineDispatchedBy}"
+                            items="{EntryFormDataSourceModel>/EmpList}">
+                           
+
+                            <core:Item 
+                                key="{EntryFormDataSourceModel>UserName}"
+                                text="{EntryFormDataSourceModel>NameDsc}"/>
+                        </ComboBox>
+
+                         <Label
+                            id="dateofdispatch"
+                            text="{i18n> Date }"
+                            
+                            class="m-mast-lev"
+                        />
+                          <DatePicker
+                            id="txtdateofdispatch"
+                            value="{EntryFormDataSourceModel>/dateofDispatched}"
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        /> 
+  <core:Title text="CHECKLIST OF DOCUMENTS REQUIRED BEFORE CLEARANCE FOR DISMANTLING: " />
+
+                </f:content>
+            </f:SimpleForm>
+
+           
+        </VBox>
+
+       <VBox >
+       
+        <Table id="_Tbl"  
+  width="100%"
+    growing="true"
+   
+    growingScrollToLoad="true"
+    items="{EntryFormDataSourceModel>/FactSheet}"  
+  class="sapUiSizeCompact"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    showSeparators="All"
+                    showNoData="true"
+                    enableBusyIndicator="true"
+                    alternateRowColors="true"
+                    headerLevel="Auto"                    
+                    backgroundDesign="Translucent">
+  <headerToolbar>
+  <Toolbar >
+  <content>
+    <!--   <SearchField placeholder="GMC Num" width="30%" liveChange="onSearch"></SearchField>
+ <SearchField placeholder="Job Work Po" width="30%" liveChange="onSearchWithName"></SearchField>
+    <ToolbarSpacer />
+     <Button type="Accept" enabled="{ENBmodel>/Enable}" text="Addnew" press="Addnew"></Button>-->
+
+  
+
+  </content>
+  </Toolbar>
+  </headerToolbar>
+							<columns>
+          
+								<Column>
+									<Label text="Document Name"/>
+								</Column>
+								<Column>
+									<Label text="Select"/>
+								</Column>
+							
+							
+               
+							</columns>
+							<items>
+								<ColumnListItem>
+								<cells>
+                                        <Text text="{EntryFormDataSourceModel>DocumentName}"/>
+                                        <CheckBox selected="{EntryFormDataSourceModel>CheckBox}" />
+                                       
+                                       
+                                   
+									
+                	</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+       </VBox>
+
+      <footer>
+            <Toolbar class="d-flex justify-content-center btn-sav">
+                <ToolbarSpacer />
+              
+              <Button
+                    type="Emphasized"
+                    id="_Print"
+                    text="{i18n>Print}"
+                    press="OnPrint"
+                />
+                <Button
+                    type="Emphasized"
+                    id="_save"
+                    text="{i18n>Save}"
+                    press="onSave"
+                />
+                
+                <Button
+                    type="Emphasized"
+                    id="_cancel"
+                    text="{i18n>Cancel}"
+                    press="onCancel"
+                />
+            </Toolbar>
+        </footer>
+
+   
+       
+
+    </Page>
+
+
+    
+
+            
+              
+        
+
+       
+    
+</mvc:View>

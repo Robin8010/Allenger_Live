@@ -1,3 +1,6 @@
+
+
+
 sap.ui.define([
     "core/generic/genericentryform",
     "sap/m/MessageToast",
@@ -8,6 +11,7 @@ sap.ui.define([
         "use strict";
         var _RoleInfo = null, _LoginInfo;
         var oBusyIndicator;
+        let userID = null;
         return genericentryform.extend("modconfcontroller.inspectionlotstocktransfer", {
 
             onInit: function () {
@@ -18,6 +22,7 @@ sap.ui.define([
             },
             onBeforeShow: async function (oEvent) {
                 debugger
+                 this.isValidUser();
                 this.identifyFormMode(oEvent);
                 await this.initialize();
                 await this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultDecisionHead(ID = " + this.getListViewEditPropertyValue() + ")?$expand=RecordResultDecisionDetail($orderby=SerialBatchNumber)");
@@ -113,6 +118,7 @@ sap.ui.define([
                             viewModel.setProperty("/StockTypeEditable", false);
                             viewModel.setProperty("/SorageLocationEditable", false);
                             viewModel.setProperty("/PostDateEnabled", false);
+                             viewModel.setProperty("/Enableremarks", false);
                         }
                     }
                     viewModel.setProperty("/PostButton", value);
@@ -356,6 +362,7 @@ sap.ui.define([
                     if (isDataValidated) {
                         await this.RemovesUncheckedSerialNumbers();
                         let trgObject = await this.PrepareObjectForSaveTransfer();
+                        debugger;
                         console.log("Target Object:", trgObject);
                         const formMode = this.getFormMode();
                         var myHeaders = new Headers();
@@ -392,6 +399,13 @@ sap.ui.define([
                                 if (response.ok) {
                                     isPostedSuccessfully = true;
                                     MessageToast.show("Draft saved.");
+                                    debugger
+                                    let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
+                                      const { RecordResultDecisionDetail = [] } = viewModel.getData();
+                                     // await RecordResultDecisionDetail.forEach(async (element, index) => {
+                                      //          
+                                          //      await this.UpdateRecordResultRowLevelDecesionStatus(element.SerialBatchNumberID, "Posted", index);
+                                         //   });
                                 } else {
                                     MessageToast.show("Error in saving draft.. Check log.");
                                     isPostedSuccessfully = false;
@@ -418,6 +432,12 @@ sap.ui.define([
             DataValidationsForSave: async function () {
                 let oModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 var usageDecisionStockType = oModel.getProperty("/UsageDecisionStockType");
+                var remarks = oModel.getProperty("/remarks");
+                if(!remarks || remarks == "undefined" || remarks == "")
+                {
+                    MessageToast.show("Enter Remarks");
+                    return false;
+                }
                 if (!usageDecisionStockType || usageDecisionStockType == "undefined" || usageDecisionStockType == "") {
                     MessageToast.show("Select Stock Type");
                     return false;
@@ -446,7 +466,7 @@ sap.ui.define([
                 }
                 return true;
             },
-isDevicesTag: async function () {
+           isDevicesTag: async function () {
 
     let viewmodel = this.getView().getModel(this.getEntryFormDataSourceModelName());
 
@@ -455,43 +475,76 @@ isDevicesTag: async function () {
     let serial = "";
 
     for (const element of RecordResultDecisionDetail) {
-
+debugger
         const Serial = element.SerialBatchNumber;
-
+        const Status = element.PostData;
+        if(Status === true)
+        {
         const Device = await this._getdevices(Serial);
 
-        if (Device === 1) {
+        // Device not tagged
+            if (Device === 1) {
 
-            serial = Serial;
+                serial = Serial;
 
-            MessageToast.show("Device not tag with serial - " + serial);
+                // Ask user Yes / No
+                const proceed = await new Promise((resolve) => {
+                    sap.m.MessageBox.confirm(
+                        "Device not tagged with serial - " + serial + ". Do you want to continue?",
+                        {
+                            title: "Confirmation",
+                            actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                            emphasizedAction: sap.m.MessageBox.Action.YES,
 
-            return false;
+                            onClose: function (sAction) {
+                                if (sAction === sap.m.MessageBox.Action.YES) {
+                                    resolve(true);
+                                } else {
+                                    resolve(false);
+                                }
+                            }
+                        }
+                    );
+                });
+
+                // YES → continue validation
+                if (proceed) {
+                    continue;
+                }
+
+                // NO → stop save
+                return false;
+            }
         }
     }
 
     return true;
 },
 
-_getdevices: async function (Serial) {
+            _getdevices: async function (Serial) {
 
-    await this.createNewModelUsingAPI(
-        "GET",
-        `/odata/v4/device-group-list-report-services/DeviceGroupListReport?$filter=SerialBatchNumber eq '${Serial}'&$format=json`,
-        "",
-        "DeviceList"
-    );
+                await this.createNewModelUsingAPI(
+                    "GET",
+                    `/odata/v4/device-group-list-report-services/DeviceGroupListReport?$filter=SerialBatchNumber eq '${Serial}'&$format=json`,
+                    "",
+                    "DeviceList"
+                );
 
-    let _model = this.getView().getModel("DeviceList");
+                let _model = this.getView().getModel("DeviceList");
 
-    const { value = [] } = _model.getData();
+                let aDevices = _model.getProperty("/value");
 
-    if (value.length > 0) {
-        return 0;
-    } else {
-        return 1;
-    }
-},
+                let aFilteredDevices = aDevices.filter(item =>
+                    item.DeviceGroup &&
+                    item.DeviceGroup.trim() !== ""
+                );
+if(aFilteredDevices.length>0)
+                        {                
+                         return 0;
+                        } else {
+                    return 1;
+                }
+            },
             PrepareObjectForSaveTransfer: async function () {
                 try {
                     let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
@@ -506,6 +559,7 @@ _getdevices: async function (Serial) {
                             SerialBatchNumber: element.SerialBatchNumber,
                             Quantity: element.Quantity,
                             Status: element.Status
+                            
                         }
                         serialData.push(serialDt);
                         count = count + 1;
@@ -525,7 +579,9 @@ _getdevices: async function (Serial) {
                         "Status": viewModel.getProperty("/Status"),
                         "UsageDecisionStockType": viewModel.getProperty("/UsageDecisionStockType"),
                         "StorageLocation": viewModel.getProperty("/StorageLocation"),
+                        "remarks":viewModel.getProperty("/remarks"), 
                         "RecordResultDecisionDetail": serialData
+
                     }
                     console.log(stockTransferRequestData);
                     const requestData = JSON.stringify(stockTransferRequestData);
@@ -666,9 +722,45 @@ _getdevices: async function (Serial) {
                     MessageToast.show(error);
                 }
             },
+              isValidUser: function () {
+                // let loginInfo=this.getLoginInfo();
+                // let userid = loginInfo.UserID;
+
+                const loginModel = this.getOwnerComponent().getModel('UserModel');
+                if (!loginModel || loginModel === 'undefined') {
+                    var router = sap.ui.core.UIComponent.getRouterFor(this);
+                    router.navTo("RouteLogin");
+                    MessageToast.show("Not a valid user.");
+                }
+                else
+                {
+                    userID = loginModel.value[0].UserName;
+                }
+            },
             UpdateRecordResultRowLevelPostingStatus: async function (id, status, rowIndex) {
+                debugger;
+                   const today = new Date();
+                 const formattedDate = today.toISOString().split('T')[0];
                 const dataJson = {
-                    Status: "Posted"
+                    Status: "Posted",
+                    UDUserName:userID,
+                    UDPostingDate:formattedDate,
+                };
+                await this.createNewModelUsingAPI(
+                    'PATCH',
+                    `odata/v4/record-result-sap/RecordResultSerialBatchDetail(ID=${id})`,
+                    dataJson,
+                    'UpdatedSerialStatus'
+                );
+            },
+            UpdateRecordResultRowLevelDecesionStatus: async function (id, status, rowIndex) {
+                debugger;
+                   const today = new Date();
+                 const formattedDate = today.toISOString().split('T')[0];
+                const dataJson = {  
+                      Status: "Posted",                 
+                    UDUserName:userID,
+                    UDPostingDate:formattedDate,
                 };
                 await this.createNewModelUsingAPI(
                     'PATCH',

@@ -6,6 +6,9 @@
   "Status": "Pending",
   "SearchRecord": "",
   "modifiedAt":"",
+  "BtnEnabled": true,
+    "ISO": null,
+    "InspectionPlanDesc":"",
 
   "ParametersDetails": [
     {

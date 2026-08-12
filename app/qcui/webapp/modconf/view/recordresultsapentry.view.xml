@@ -10,8 +10,8 @@
     <Page
         id="recordresultsapf"
         title="Record Result Form"
-        showNavButton="true"
-        navButtonPress="onPressOfEntryFormCancelButton"
+       
+       
     >
         <VBox>
             <f:SimpleForm backgroundDesign="Solid"
@@ -43,6 +43,8 @@
                             enabled="{EntryFormDataSourceModel>/InspectionLotEnabled}"
                             class="m-mast-input"
                             showValueHelp="true"
+                              growing="true"
+                            growingScrollToLoad="true"
                             valueHelpRequest="cflForInspectionLot"     
                             placeholder="Select Inspection Lot"
                             change="ChangeInspectionLot"                       
@@ -303,10 +305,20 @@
                                 labelFor="MechnicalUser"
                             />
                         </Column>
-                        <Column >
+                      <!--  <Column >
                         <Label text="Date of Testing"
                         labelFor="Dateof Testing" >
-                        
+                        </Label>
+                        </Column>
+                        -->
+                        <Column >
+                        <Label text="Mechnical Date of Testing"
+                        labelFor="Mechnical Date of Testing" >
+                        </Label>
+                        </Column>
+                        <Column >
+                        <Label text="Electrial Date of Testing"
+                        labelFor="Electrial Date of Testing" >
                         </Label>
                         </Column>
                          <Column>
@@ -347,6 +359,7 @@
                         <ColumnListItem vAlign="Middle">
                             <cells>
                                 <Text
+                                width="100px"
                                     id="il_SrNo"
                                     text="{EntryFormDataSourceModel>RowNumber}"
                                 />
@@ -354,7 +367,7 @@
                                     id="il_SerialBatchNumber"
                                     text="{EntryFormDataSourceModel>SerialBatchNumber}"
                                 />
-                                 <ComboBox 
+                                 <Select 
                                     id="cmbElectrical"
                                     required="true"
                                     valueState="None"
@@ -367,9 +380,9 @@
                                         key="{EntryFormDataSourceModel>ID}"
                                         text="{EntryFormDataSourceModel>UserName}"
                                     />
-                                </ComboBox>
+                                </Select>
 
-                                 <ComboBox 
+                                 <Select 
                                     id="cmbMechnical"
                                     required="true"
                                     valueState="None"
@@ -382,8 +395,8 @@
                                         key="{EntryFormDataSourceModel>ID}"
                                         text="{EntryFormDataSourceModel>UserName}"
                                     />
-                                </ComboBox> 
-                                 <DatePicker
+                                </Select> 
+                              <!--   <DatePicker
                                     id="dtTDate"
                                 value="{EntryFormDataSourceModel>DateOfT}"
                                     required="true"
@@ -392,82 +405,63 @@
                                     displayFormat="yyyy-MM-dd" 
                                     class="customDisbaleColour"
                                 />  
+                                -->
+                                  <DatePicker
+                                    id="MdtTDate"
+                                value="{EntryFormDataSourceModel>MechnicalDate}"
+                                    required="true"
+                                                          
+                                    valueFormat="yyyy-MM-dd" 
+                                    displayFormat="yyyy-MM-dd" 
+                                    class="customDisbaleColour"
+                                />  
+                                  <DatePicker
+                                    id="EdtTDate"
+                                value="{EntryFormDataSourceModel>ElectrialDate}"
+                                    required="true"
+                                                          
+                                    valueFormat="yyyy-MM-dd" 
+                                    displayFormat="yyyy-MM-dd" 
+                                    class="customDisbaleColour"
+                                />  
                                 <Text
-                                    id="il_Quantity"
+                                    id="ila_Quantity"
                                     text="{EntryFormDataSourceModel>Quantity}"
                                 />
                                 <Input 
-                                    id="rrStatus"
+                                    id="rarStatus"
                                     enabled="false"
                                     value="{EntryFormDataSourceModel>Status}"
                                 ></Input>
-                                <!-- <ComboBox
-                                    id="rrStockType"
-                                    required="true"
-                                    valueState="None"
-                                    visible="true"
-                                    editable="{EntryFormDataSourceModel>StockTypeEditable}"
-                                    selectedKey="{EntryFormDataSourceModel>UsageDecisionStockType}"
-                                    items="{EntryFormDataSourceModel>/UsageDecisionStockTypeList}"
-                                > 
-                                    <core:Item 
-                                        key="{EntryFormDataSourceModel>StockTypeId}"
-                                        text="{EntryFormDataSourceModel>StockTypeDesc}"
-                                    />
-                                </ComboBox>
-                                 <ComboBox
-                                    id="rrStorageLocation"
-                                    required="true"
-                                    valueState="None"
-                                    visible="true"
-                                    editable="{EntryFormDataSourceModel>SorageLocationEditable}"
-                                    selectedKey="{EntryFormDataSourceModel>StorageLocation}"
-                                    items="{EntryFormDataSourceModel>/StorageLocationList}"
-                                > 
-                                    <core:Item 
-                                        key="{EntryFormDataSourceModel>StorageLocation}"
-                                        text="{EntryFormDataSourceModel>StorageLocationName}"
-                                    />
-                                </ComboBox> -->
-                                <!-- <ComboBox
-                                    id="rrStatus"
-                                    required="true"
-                                    valueState="None"
-                                    visible="true"
-                                    editable="false"
-                                    selectedKey="{EntryFormDataSourceModel>Status}"
-                                    items="{path: 'EntryFormDataSourceModel>/StatusList',templateShareable: true}"
-                                > 
-                                    <core:Item 
-                                        key="{EntryFormDataSourceModel>StatusId}"
-                                        text="{EntryFormDataSourceModel>StatusDesc}"
-                                    />
-                                </ComboBox> -->
+                              
                             </cells>
                             <cells>
                                 <Button  
                                     visible="{EntryFormDataSourceModel>AddParameters}" 
-                                    width="35px" 
+                                  
                                     icon="sap-icon://open-command-field" 
                                     type="Success"
                                     fieldHelpDisplay="Parameters"
                                     press="onPressParameters"/>
-                                 <Button  
+                                     <Button
+                    type="Emphasized"
+                    
+                    id="_recordResultSAP_Device"
+                    text="{i18n>DeviceTag}"
+                    press="onDeviceTagging"
+                   
+                />
+                                <!-- <Button  
                                     visible="false" 
-                                    width="35px" 
+                                  
                                     icon="sap-icon://copy" 
                                     type="Success"
                                     fieldHelpDisplay="Parameters"
                                     press="onPressCopyParameters"/>
+                                    -->
                             </cells>
                             <cells>
-                                <Button
-                    type="Emphasized"
-                    id="_recordResultSAP_Device"
-                    text="{i18n>Device Tagging}"
-                    press="onDeviceTagging"
-                   
-                />
+                               
                             </cells>
                         </ColumnListItem>
                     </items>

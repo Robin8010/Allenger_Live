@@ -32,8 +32,7 @@
   "SearchRecord": "",
   "CreatedBy": "",
   "Employeeworker": "",
-  "MechnicalUser":"",
-  "ElectrialUser":"",
+  
   
   "SalesOrder":"",
   "SerialBatchDetails": [
@@ -45,6 +44,10 @@
       "Status": "Pending",
        "Mechnical": true,
      "Electrial": true,
+     "MechnicalUser":"",
+    "ElectrialUser":"",
+        "ElectrialDate"  : null,
+   "MechnicalDate" : null,
      "DateOfT":"",
       "UsageDecisionStockType": "VMENGE04",
       "StorageLocation": "9022",

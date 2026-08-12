@@ -9,5 +9,9 @@
     "ManageUserDecision": false,
     "IsElectrial":false,
     "IsMechnical":false,
+    "IsDebitNote":false,
+    "DispatchQuality":false,
+    "QualityAssurance":false,
+    "IsRecordResultreport":false,
     "modifiedAt":""
 }

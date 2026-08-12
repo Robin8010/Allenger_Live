@@ -1,3 +1,5 @@
+
+
 sap.ui.define([
     "core/generic/genericentryform",
     "sap/m/MessageToast",
@@ -7,6 +9,8 @@ sap.ui.define([
     function (genericentryform, MessageToast, MessageBox, FormMode) {
         "use strict";
         var _RoleInfo = null, _LoginInfo;
+        let userID;
+        let _isApprovedUser = false;
 
         return genericentryform.extend("modconfcontroller.recordresultsapentryform", {
 
@@ -20,28 +24,15 @@ sap.ui.define([
                 this.identifyFormMode(oEvent);
                 await  this.initialize();
                 this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSAPHead(ID = " + this.getListViewEditPropertyValue() + ")?$expand=SerialBatchDetails($orderby=SerialBatchNumber)");
-                  const formMode = this.getFormMode();
-                  debugger;
-                if(formMode=="2")
-                {
-                    debugger
-                let _model=    this.getView().getModel(this.getEntryFormDataSourceModelName());
-                _model.setProperty("/ReasonforDesireEnavle",false)     
-                let abc=this.getListViewEditPropertyValue();
-                    if(this.getListViewEditPropertyValue()=="")
-                    {
-                       var router = sap.ui.core.UIComponent.getRouterFor(this);
-                            MessageToast.show("Data could nor loaded due to connectivity.....")
-                            router.navTo("RouterNameRecordResultSAPViewForm");
-                    }
-                    else
-                    {
-                       
-                    }
-                }
-                await this.showEntryForm();
-                await   this.handleUIOperation();
-                await   this.CheckDeviceGroup();
+               
+                    const formMode = this.getFormMode();
+                   
+                    await this.showEntryForm();
+                    await   this.handleUIOperation();
+                    await   this.CheckDeviceGroup();
+                
+               
+               
             },
             initialize: async function () {
                 this.setPageId("recordresultsapf");
@@ -93,7 +84,7 @@ sap.ui.define([
                // viewModel.setProperty(`/Mechnical`, value);
               //  viewModel.setProperty(`/Electrial`, value);
                 viewModel.setProperty(`/PostDateEnabled`, value);
-
+debugger
                 const status = viewModel.getProperty(`/Status`);
                 if (status || status == "undefined" || status == "Draft") {
                     viewModel.setProperty(`/SubmitButtonEnabled`, !value);
@@ -307,12 +298,16 @@ sap.ui.define([
             },
             cflForInspectionLot: async function () {
                 try {
+                    debugger
                     await this.createNewModelUsingAPI(
                         'GET',
-                        `/sap/opu/odata4/sap/zune_sb_insplotrelstatus_api/srvd_a2x/sap/zune_sd_insplotrelstatus_api/0001/ZUNE_CDS_INSPLOTRELSTATUS?$format=json`,
+                        `/sap/opu/odata4/sap/zune_sb_insplotrelstatus_api/srvd_a2x/sap/zune_sd_insplotrelstatus_api/0001/ZUNE_CDS_INSPLOTRELSTATUS?$top=10000&$format=json`,
                         '',
                         this.getCflListViewDataSourceModelName()
                     );
+                    debugger
+                   // CflListViewDataSourceModel
+                    //this.CflListViewDataSourceModel.setSizeLimit(10000);
                     this.setCflDisplayColumns(['Inspection Lot']);
                     this.setCflDataColumns(['InspectionLot']);
                     this.setCflValueAndDisplay('Inspection Lot', 'InspectionLot', '', '');
@@ -370,7 +365,7 @@ sap.ui.define([
                             viewModel.setProperty(`/Plant`, inspectionData.Plant);
                             viewModel.setProperty(`/ManufacturingOrder`, inspectionData.ManufacturingOrder);
                             viewModel.setProperty(`/SerialNumber`, "");
-                            viewModel.setProperty(`/Employeeworker`, inspectionData.YY1_Employeeworker2_ILH);
+                            viewModel.setProperty(`/Employeeworker`, inspectionData.YY1_ProductionWorkerN1_ILH);
                             await this.CheckMaterialManageBy(inspectionData.Material);
                             viewModel.setProperty(`/Quantity`, inspectionData.InspectionLotQuantity);
                             const manageBy = viewModel.getProperty(`/ManagedBy`);
@@ -427,7 +422,12 @@ sap.ui.define([
                                 "Quantity": 1,
                                 "Status": "Draft",
                                 "AddParameters": false,
-                                "CopyParameters": false
+                                "CopyParameters": false,
+                                 "MechnicalUser": "",
+                                "ElectrialUser": "",
+                                "ElectrialDate"  : null,
+                                "MechnicalDate" : null
+                               
                             };
                             this.addRowInObj('SerialBatchDetails', newRow, 'RowNumber');
                         }
@@ -532,7 +532,7 @@ sap.ui.define([
                 try {
                     debugger;
                   
-                        if (this.DataValidationsForSave()) {
+                        if (await this.DataValidationsForSave()) {
                             let isRecordAdded = false;
                             const formMode = this.getFormMode();
                             if (formMode === "3") {
@@ -559,7 +559,7 @@ sap.ui.define([
                                 const modelData = this.getView().getModel(this.getEntryFormDataSourceModelName()).getData();
                                 let trgObject = this.getView().getModel("recordResultSaveRequest").getData();
                                 console.log("Target Object:", trgObject);
-
+debugger;
                                 this.transferObjectValues(modelData, trgObject);
                                 await this.onPressOfEntryFormSaveButton(trgObject);
                                 let response = this.getApiResponseObject();;
@@ -579,11 +579,40 @@ sap.ui.define([
                     MessageBox.show(error.message);
                 }
             },
-            DataValidationsForSave: function () {
+            DataValidationsForSave:async function () {
                 var LineNum = 0;
 
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 const _quantity = viewModel.getProperty(`/Quantity`);
+                  const Desired = viewModel.getProperty(`/ReasonforDesire`);
+                   const Material = viewModel.getProperty(`/Material`);
+
+  await this.createNewModelUsingAPI(
+                'GET',
+                 `/sap/opu/odata/sap/ZUNE_SB_P_C_V3/ZUNE_C_PRODUCT_FINAL?$filter=PartCode eq '${Material}'`,
+                '',
+                'PartData'
+            );
+           debugger;  
+          const partModel=this.getView().getModel('PartData')
+          const PartData=partModel.getProperty("/d/results");
+
+          
+          if(PartData.length>0)
+          {
+            const partObject=PartData[0];
+            const ManufacturingCode=partObject.ManufacturingCode;
+           if (ManufacturingCode == "Desired") {
+
+                if (Desired == "") {
+
+                    MessageToast.show("Desired can not blank...");
+                    return false;
+                }
+            }
+          }
+
+
                 //const modelName = this.getEntryFormDataSourceModelName();
                 const { SerialBatchDetails = [] } = viewModel.getData();
                 LineNum = SerialBatchDetails.length;
@@ -591,6 +620,10 @@ sap.ui.define([
                     MessageToast.show("Lot quantity and serial should be equal...");
                     return false;
                 }
+
+                ////
+                
+                ////
 
 
                 var inspectionLot = viewModel.getProperty("/InspectionLot");
@@ -613,12 +646,15 @@ sap.ui.define([
                 // }
                 return true;
             },
-            onCancel: function () {
+
+            onCancel:async function () {
+               
                 var router = sap.ui.core.UIComponent.getRouterFor(this);
                 MessageToast.show("Redirecting to SAP Record Result.....")
                 router.navTo("RouterNameRecordResultSAPViewForm");
             },
             onPressParameters1: function (oEvent) {
+                debugger
                 var oButton = oEvent.getSource();
 
                 // Step 2: Get the binding context of the row containing the button
@@ -638,6 +674,7 @@ sap.ui.define([
                 const inspectionDate = viewModel.getProperty("/PostDate");
                 let oModel = this.getView().getModel('sysModel');
                 //alert(JSON.stringify(oModel));
+                debugger
                 oModel.setProperty('/route/routeData/lastUniqueId', this.getListViewEditPropertyValue());
                 oModel.setProperty('/route/routeData/plant', plant);
                 oModel.setProperty('/route/routeData/material', materialCocde);
@@ -654,6 +691,7 @@ sap.ui.define([
             },
             onPressParameters: function (oEvent) {
     try {
+        debugger
         const oButton = oEvent.getSource();
         const oBindingContext = oButton.getBindingContext(this.getEntryFormDataSourceModelName());
 
@@ -994,6 +1032,10 @@ sap.ui.define([
                     var router = sap.ui.core.UIComponent.getRouterFor(this);
                     router.navTo("RouteLogin");
                     MessageToast.show("Not a valid user.");
+                }
+                 else
+                {
+                    userID = loginModel.value[0].UserName;
                 }
             },
             CheckDeviceGroup: async function () {

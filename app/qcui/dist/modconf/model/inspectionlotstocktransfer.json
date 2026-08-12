@@ -4,6 +4,8 @@
   "Status": "Draft",
   "UsageDecisionStockType": "",
   "StorageLocation": "",
+  "remarks": "",
+  "Enableremarks": true,
   "CreatedBy": "",
   "PostButton": false,
   "SaveButton": true,

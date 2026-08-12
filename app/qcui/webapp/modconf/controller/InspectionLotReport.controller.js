@@ -1,3 +1,5 @@
+
+
 sap.ui.define([
 	  "core/generic/genericentryform",
     "sap/m/MessageToast",
@@ -7,7 +9,8 @@ sap.ui.define([
 ], 
  function (genericentryform, MessageToast, MessageBox, Controller) {
 	"use strict";
-
+// Paste ABOVE your Controller.extend line
+var NOTO_SANS_BASE64 = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ZW4+CiAgPG1ldGEgY2hhcnNldD11dGYtOD4KICA8bWV0YSBuYW1lPXZpZXdwb3J0IGNvbnRlbnQ9ImluaXRpYWwtc2NhbGU9MSwgbWluaW11bS1zY2FsZT0xLCB3aWR0aD1kZXZpY2Utd2lkdGgiPgogIDx0aXRsZT5FcnJvciA0MDQgKE5vdCBGb3VuZCkhITE8L3RpdGxlPgogIDxzdHlsZT4KICAgICp7bWFyZ2luOjA7cGFkZGluZzowfWh0bWwsY29kZXtmb250OjE1cHgvMjJweCBhcmlhbCxzYW5zLXNlcmlmfWh0bWx7YmFja2dyb3VuZDojZmZmO2NvbG9yOiMyMjI7cGFkZGluZzoxNXB4fWJvZHl7bWFyZ2luOjclIGF1dG8gMDttYXgtd2lkdGg6MzkwcHg7bWluLWhlaWdodDoxODBweDtwYWRkaW5nOjMwcHggMCAxNXB4fSogPiBib2R5e2JhY2tncm91bmQ6dXJsKC8vd3d3Lmdvb2dsZS5jb20vaW1hZ2VzL2Vycm9ycy9yb2JvdC5wbmcpIDEwMCUgNXB4IG5vLXJlcGVhdDtwYWRkaW5nLXJpZ2h0OjIwNXB4fXB7bWFyZ2luOjExcHggMCAyMnB4O292ZXJmbG93OmhpZGRlbn1pbnN7Y29sb3I6Izc3Nzt0ZXh0LWRlY29yYXRpb246bm9uZX1hIGltZ3tib3JkZXI6MH1AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOjc3MnB4KXtib2R5e2JhY2tncm91bmQ6bm9uZTttYXJnaW4tdG9wOjA7bWF4LXdpZHRoOm5vbmU7cGFkZGluZy1yaWdodDowfX0jbG9nb3tiYWNrZ3JvdW5kOnVybCgvL3d3dy5nb29nbGUuY29tL2ltYWdlcy9icmFuZGluZy9nb29nbGVsb2dvLzF4L2dvb2dsZWxvZ29fY29sb3JfMTUweDU0ZHAucG5nKSBuby1yZXBlYXQ7bWFyZ2luLWxlZnQ6LTVweH1AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4tcmVzb2x1dGlvbjoxOTJkcGkpeyNsb2dve2JhY2tncm91bmQ6dXJsKC8vd3d3Lmdvb2dsZS5jb20vaW1hZ2VzL2JyYW5kaW5nL2dvb2dsZWxvZ28vMngvZ29vZ2xlbG9nb19jb2xvcl8xNTB4NTRkcC5wbmcpIG5vLXJlcGVhdCAwJSAwJS8xMDAlIDEwMCU7LW1vei1ib3JkZXItaW1hZ2U6dXJsKC8vd3d3Lmdvb2dsZS5jb20vaW1hZ2VzL2JyYW5kaW5nL2dvb2dsZWxvZ28vMngvZ29vZ2xlbG9nb19jb2xvcl8xNTB4NTRkcC5wbmcpIDB9fUBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKC13ZWJraXQtbWluLWRldmljZS1waXhlbC1yYXRpbzoyKXsjbG9nb3tiYWNrZ3JvdW5kOnVybCgvL3d3dy5nb29nbGUuY29tL2ltYWdlcy9icmFuZGluZy9nb29nbGVsb2dvLzJ4L2dvb2dsZWxvZ29fY29sb3JfMTUweDU0ZHAucG5nKSBuby1yZXBlYXQ7LXdlYmtpdC1iYWNrZ3JvdW5kLXNpemU6MTAwJSAxMDAlfX0jbG9nb3tkaXNwbGF5OmlubGluZS1ibG9jaztoZWlnaHQ6NTRweDt3aWR0aDoxNTBweH0KICA8L3N0eWxlPgogIDxhIGhyZWY9Ly93d3cuZ29vZ2xlLmNvbS8+PHNwYW4gaWQ9bG9nbyBhcmlhLWxhYmVsPUdvb2dsZT48L3NwYW4+PC9hPgogIDxwPjxiPjQwNC48L2I+IDxpbnM+VGhhdOKAmXMgYW4gZXJyb3IuPC9pbnM+CiAgPHA+VGhlIHJlcXVlc3RlZCBVUkwgPGNvZGU+L3Mvbm90b3NhbnMvdjM2L28tMElJcFFseDNRVWxDNUE0UE5iNVEudHRmPC9jb2RlPiB3YXMgbm90IGZvdW5kIG9uIHRoaXMgc2VydmVyLiAgPGlucz5UaGF04oCZcyBhbGwgd2Uga25vdy48L2lucz4K";
     let ReportHeader_Y;
 let PageHeader_Y;
 let Line_Y;
@@ -42,7 +45,18 @@ let _LineTotal=0;
 
                  this.setListViewFilterColumn("stglvSerial", "SerialNumber", "Cfl", "eq", "String", "SerialNumber", "cflForSerial");
             },
-
+            _loadNotoSansFont: function () {
+                return fetch("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap")
+                    .then(() => {
+                        // Fetch the actual TTF directly from Google Fonts CDN
+                        return fetch("https://fonts.gstatic.com/s/notosans/v36/o-0IIpQlx3QUlC5A4PNb5Q.ttf");
+                    })
+                    .then(res => res.arrayBuffer())
+                    .then(buf => {
+                        const binary = String.fromCharCode(...new Uint8Array(buf));
+                        return btoa(binary);
+                    });
+            },
              
 
               cflForSerial: async function () {
@@ -166,7 +180,7 @@ isValidUser: function () {
            
            await this.createNewModelUsingAPI(
                 'GET',
-                 `/odata/v4/inspection-qcreport/InspectionQcReport?$filter=SerialBatchNumber eq '${SerialBatchNumber}'&$orderby=lineid`,
+                 `/odata/v4/inspection-qcreport2/InspectionQcReport2?$filter=SerialBatchNumber eq '${SerialBatchNumber}'&$orderby=lineid`,
                 '',
                 'reportdata'
             );
@@ -224,6 +238,11 @@ isValidUser: function () {
                             unit: "mm",
                             format: "a4"
                             });
+                        // ✅ Font loaded from embedded variable — no fetch, no async, no error
+                        doc.addFileToVFS("NotoSans-Regular.ttf", NOTO_SANS_BASE64);
+                        doc.addFont("NotoSans-Regular.ttf", "NotoSans", "normal");
+                        doc.setFont("NotoSans");
+                        doc.setFontSize(7); // reset your default size after font change
 
                             const oModel = this.getView().getModel('reportdata'); // original model
                 const data = oModel.getProperty("/value");
@@ -260,7 +279,7 @@ isValidUser: function () {
                     //const oGMCModel = this.getView().getModel("DeviceList");
                     const value1=    DeviceListForreport.getProperty("/value");
 
-
+debugger
                             const reportHeaderY = this.ReportHeader(doc, value,PartData,productionData);
                             const lineStartY    = this.PageHeader(doc, value, reportHeaderY);
 
@@ -268,9 +287,34 @@ isValidUser: function () {
                         const DevicesY= this.LineSection(doc, value, lineStartY);
 
                         const DeviceHeaderLineY= this.DeviceHeader(doc, value, DevicesY);
-                        const DeviceLineSection= this.DeviceLineSection(doc, value1, DeviceHeaderLineY);
+                        debugger
+                        const DeviceLineSection= this.DeviceLineSection(doc, value1, DeviceHeaderLineY,value);
                         this.foooter(doc, value,productionData, DeviceLineSection);
 
+                        const pageCount = doc.getNumberOfPages();
+ doc.setFontSize(8);
+                        for (let i = 1; i <= pageCount; i++) {
+                            doc.setPage(i);
+                             doc.setFontSize(10);
+                               doc.setFont("Arial", "normal");
+                            doc.text(
+                                `Page ${i} of ${pageCount}`,
+                                180,              // X position (center-ish)
+                                doc.internal.pageSize.height - 10 // bottom of page
+                            );
+                              doc.text(
+                               "This report is electronically authenticated and no signature is required",
+                                50,              // X position (center-ish)
+                                doc.internal.pageSize.height - 15 // bottom of page
+                            );
+                              doc.setFontSize(16);
+                               doc.setFont("Arial", "bold");
+                              doc.text(
+                               "Controlled copy",
+                                80,              // X position (center-ish)
+                                doc.internal.pageSize.height - 10 // bottom of page
+                            );
+                        }
 
                             /*
                             this.ReportHeader(doc,value);
@@ -306,12 +350,13 @@ isValidUser: function () {
     doc.line(140, y, 140, y+15); ////Line vartival
      doc.setFont("Arial", "normal");
        doc.setFontSize(7);
-    doc.text("AMSL/F/QC/985Rev.No.26.Eff.Date:- 07.01.2026)", 145, y+10);
+       
+    doc.text(`${value[0].ISO|| ""}`, 145, y+10);
     doc.line(140, y+7.5 , doc.internal.pageSize.getWidth() - 5, y+7.5);/// Horijontal line3 for third section
 
     doc.setFont("Arial", "bold");
      doc.setFontSize(14);
-    doc.text("Digiscan Compact - QC Report (E)", 70, y+20);
+    doc.text(`${value[0].InspectionPlanDesc|| ""}`, 70, y+20);
 
     ///////
      doc.setFont("Arial", "normal");
@@ -343,32 +388,48 @@ isValidUser: function () {
             doc.text(formattedDate, 60, y + 45);
 
 
-               //Right Side Content
-             //  doc.text("Sales Order", 120, y+25);
-              // doc.text(`${value[0].SalesOrder|| ""}`, 145, y+25);
+             
                 doc.text("Part code ", 120, y+30);
               doc.text(`${value[0].Material|| ""}`, 145, y+30);
-                doc.text("Part Description", 120, y+35);
-               doc.text(`${PartData[0].PartCodeDescription|| ""}`, 145, y+35);
-               doc.text("Machine Model", 120, y+40);
-               doc.text(`${PartData[0].MachineModel|| ""}`, 145, y+40);
-               doc.text("Machine Series", 120, y+45);
-               doc.text(`${PartData[0].MachineSeries|| ""}`, 145, y+45);
-               doc.text("Manufacturing code ", 120, y+50);
-               doc.text(`${PartData[0].ManufacturingCode|| ""}`, 145, y+50);
-               doc.text("Manufacturing ", 120, y+55);
-               doc.text("code Revision", 120, y+58);
-               doc.text(`${PartData[0].ManufacturingCodeRevision || ""}`, 145, y+55);
-               doc.text("If code is Desired ", 120, y+63);
-               doc.text("then give Details:- ", 120, y+66);
-              // doc.text(`${value[0].SupplierInvoiceIDByInvcgParty}`, 230, y+18);
-                doc.line(5, y, 5, y+70);
-                doc.line(doc.internal.pageSize.getWidth() - 5, y, doc.internal.pageSize.getWidth() - 5, y+70);
+              
+
+               doc.text("Machine Model", 120, y+35);
+               doc.text(`${PartData[0].MachineModel|| ""}`, 145, y+35);
+
+
+               doc.text("Machine Series", 10, y+50);
+               doc.text(`${PartData[0].MachineSeries|| ""}`, 60, y+50);
+
+               doc.text("Manufacturing code ", 120, y+40);
+               doc.text(`${PartData[0].ManufacturingCode|| ""}`, 145, y+40);
+               doc.text("Manufacturing ", 120, y+45);
+               doc.text("code Revision", 120, y+48);
+               doc.text(`${PartData[0].ManufacturingCodeRevision || ""}`, 145, y+45);
+               doc.text("If code is Desired ", 120, y+53);
+               doc.text("then give Details:- ", 120, y+56);
+               doc.text(`${value[0].ReasonforDesire|| ""}`, 145, y+53);
+                //doc.line(5, y, 5, y+70);
+
+                  doc.text("Part Description", 10, y+60);
+              // doc.text(`${PartData[0].PartCodeDescription|| ""}`, 145, y+55);
+debugger
+             const desireDetails = PartData[0].YY1_ProductDetailDescr_PRD || "";
+        const desireLines = doc.splitTextToSize(desireDetails, 150); // Adjust width as needed
+
+        let desireY = y + 60 ;
+
+        desireLines.forEach((line) => {
+            doc.text(line, 50, desireY);
+            desireY += 4; // Line spacing
+            y=y+4;
+        });
+        doc.line(doc.internal.pageSize.getWidth() - 5, 10, doc.internal.pageSize.getWidth() - 5, y+70);
+         doc.line(5, 10, 5, y+70);
           
 
     // ✅ RETURN WHERE NEXT SECTION SHOULD START
     return y+70;
-   // this.PageHeader(doc, value, y)
+
 },
 
 
@@ -388,19 +449,19 @@ isValidUser: function () {
                 doc.text("Characteristics", 92, Py);
                 doc.text("Range", 110, Py);
                 doc.text("Device Group", 125, Py);
-                doc.text("Observed Value", 152, Py);
-                doc.text("UOM", 173, Py);
+                doc.text("Observed Value", 165, Py);
+                doc.text("UOM", 183, Py);
              
-                doc.text("Status", 186, Py);
+                doc.text("Status", 194, Py);
                 
             doc.line(5, Py-4, 5, Py-5 +  12);
             doc.line(17, Py-4, 17, Py-5 +  12); // Vertical line between "Material" and "Quantity"
             doc.line(90, Py-4 , 90, Py-5 +  12 ); // Vertical line between "Quantity" and "UOM"
             doc.line(107, Py-4 , 107, Py-5 +  12);
             doc.line(124, Py-4 , 124, Py-5 +  12 );
-            doc.line(150, Py-4 , 150, Py-5 +  12 );
-            doc.line(172, Py-4 , 172, Py-5 +  12 );
-             doc.line(185, Py-4 , 185, Py-5 +  12 );
+            doc.line(160, Py-4 , 160, Py-5 +  12 );
+            doc.line(182, Py-4 , 182, Py-5 +  12 );
+             doc.line(193, Py-4 , 193, Py-5 +  12 );
              doc.line(doc.internal.pageSize.getWidth() - 5, Py-4, doc.internal.pageSize.getWidth() - 5, Py-5 +  12);
            
 
@@ -410,77 +471,180 @@ isValidUser: function () {
     // ✅ RETURN START Y FOR LINE ITEMS
     return Py + 3;
 },
-    LineSection: function (doc, value, startY) {
+  LineSection: function (doc, value, startY) {
 
-    let LineY = startY;
+   // resetFont(doc);
+    var LineY = startY;
+    var pageHeight = doc.internal.pageSize.getHeight();
+    var bottomMargin = 30;
+    var textLineHeight = 3;
+    var minRowHeight = 4;
 
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const bottomMargin = 30;
-    const textLineHeight = 3;
-    const minRowHeight = 4;
+    // ============================================================
+    // STEP 1: Group data by ParentParameterName
+    // Result: [ { parent: "...", children: [ {...}, {...} ] }, ... ]
+    // ============================================================
+    var groups = [];
+    var parentMap = {};
+    var parentOrder = [];
 
-    for (let i = 0; i < value.length; i++) {//ItemCode
-        const text = value[i].ParameterName?.trim() || value[i].ParentParameterName;
-        const descLines = doc.splitTextToSize(
-            (text || ""),
-            60
-        );
+    for (var i = 0; i < value.length; i++) {
+        var row = value[i];
+        var parentKey = row.ParentParameterName || row.ParameterName || "Unknown";
 
-        const rowHeight = Math.max(
-            descLines.length * textLineHeight,
+        if (!parentMap[parentKey]) {
+            parentMap[parentKey] = {
+                parent: parentKey,
+                parentRow: row,       // use first child's row for parent-level data
+                children: []
+            };
+            parentOrder.push(parentKey);
+        }
+
+        // Only add as child if ParameterName is different from ParentParameterName
+        if (row.ParameterName && row.ParameterName !== row.ParentParameterName) {
+            parentMap[parentKey].children.push(row);
+        }
+    }
+
+    // Build ordered groups array
+    for (var p = 0; p < parentOrder.length; p++) {
+        groups.push(parentMap[parentOrder[p]]);
+    }
+
+    // ============================================================
+    // STEP 2: Render each group
+    // ============================================================
+    var parentCounter = 0;
+
+    for (var g = 0; g < groups.length; g++) {
+        var group = groups[g];
+        var parentRow = group.parentRow;
+        parentCounter++;
+
+        // ---- PARENT ROW ----
+        var parentText = (group.parent);
+        var parentDescLines = doc.splitTextToSize(parentText, 60);
+
+        var parentDeviceText = (parentRow.DeviceGroup || "");
+        var parentDeviceLines = doc.splitTextToSize(parentDeviceText, 40);
+
+        var parentRowHeight = Math.max(
+            parentDescLines.length * textLineHeight,
+            parentDeviceLines.length * textLineHeight,
             minRowHeight
         );
 
-        // ===== PAGE BREAK (CORRECT WAY) =====
-        if (LineY + rowHeight > pageHeight - bottomMargin) {
+        // Page break check for parent
+        if (LineY + parentRowHeight > pageHeight - bottomMargin) {
             doc.addPage();
-
-          //  const reportY = this.ReportHeader(doc, value);
+           // resetFont(doc);
             LineY = this.PageHeader(doc, value, 10);
         }
 
-        const rowStartY = LineY;
+        var rowStartY = LineY;
 
-        descLines.forEach((line, idx) => {
+        // Sr. No. — bold style for parent (just the number, e.g. "1")
+        doc.text(parentCounter.toString(), 8, rowStartY);
+
+        // Parameter Name (parent)
+        parentDescLines.forEach(function (line, idx) {
             doc.text(line, 21, rowStartY + idx * textLineHeight);
         });
 
-        doc.text((i + 1).toString(), 8, rowStartY);
-       // doc.text(`${value[i].ParameterName}`, 20, rowStartY);
+        // Device Group
+        parentDeviceLines.forEach(function (line, idx) {
+            doc.text(line, 125, rowStartY + idx * textLineHeight);
+        });
+debugger
+        // Other columns for parent row
+       const getValue = (value) => (value?.toString().trim() || "");
 
-        doc.text(`${(value[i].Attribute|| "" )}`, 95, rowStartY,);
-       
-        doc.text(`${value[i].Lowervalue|| "" || ""}`, 109, rowStartY);
-        doc.text("-", 115, rowStartY);
-        doc.text(`${value[i].Uppervalue|| "" || ""}`, 116, rowStartY);
-
-        doc.text(`${(value[i].DeviceGroup|| "")}` , 125, rowStartY,);
-        doc.text(`${(value[i].Observation|| "" )}`, 152, rowStartY,);
-        doc.text(`${(value[i].UOM || "")}`, 173, rowStartY,);
-        doc.text(`${(value[i].Status|| "" )}`, 186, rowStartY,);
-       
-
-        doc.line(5, rowStartY + rowHeight + 2,
-                 doc.internal.pageSize.getWidth() - 5,
-                 rowStartY + rowHeight + 2);
+doc.text(getValue(parentRow.Attribute),    95,  rowStartY);
+doc.text(getValue(parentRow.Lowervalue),   108, rowStartY);
+doc.text("-",                              115, rowStartY);
+doc.text(getValue(parentRow.Uppervalue),   116, rowStartY);
+doc.text(getValue(parentRow.Observation),  162, rowStartY);
+doc.text(getValue(parentRow.UOM),          183, rowStartY);
+doc.text(getValue(parentRow.Status),       194, rowStartY);
 
 
-                  // Vertical lines (grow with row)
-        // -----------------------------
-        [
-            5,17, 90, 107, 124, 150,
-            172,185,doc.internal.pageSize.getWidth() - 5
-        ].forEach(x => {
-            doc.line(
-                x,
-                rowStartY - 4,
-                x,
-                rowStartY + rowHeight + 2
-            );
+        // Horizontal line
+        doc.line(5, rowStartY + parentRowHeight + 2,
+            doc.internal.pageSize.getWidth() - 5,
+            rowStartY + parentRowHeight + 2);
+
+        // Vertical lines
+        [5, 17, 90, 107, 124, 160, 182, 193,
+            doc.internal.pageSize.getWidth() - 5
+        ].forEach(function (x) {
+            doc.line(x, rowStartY - 4, x, rowStartY + parentRowHeight + 2);
         });
 
+        LineY += parentRowHeight + 6;
 
-        LineY += rowHeight + 6;
+        // ---- CHILD ROWS ----
+        for (var c = 0; c < group.children.length; c++) {
+            var child = group.children[c];
+            var childSrNo = parentCounter + "." + (c + 1);  // e.g. 1.1, 1.2
+
+            var childText = (child.ParameterName || "");
+            var childDescLines = doc.splitTextToSize(childText, 55); // slightly narrower for indent
+
+            var childDeviceText = (child.DeviceGroup || "");
+            var childDeviceLines = doc.splitTextToSize(childDeviceText, 40);
+
+            var childRowHeight = Math.max(
+                childDescLines.length * textLineHeight,
+                childDeviceLines.length * textLineHeight,
+                minRowHeight
+            );
+
+            // Page break check for child
+            if (LineY + childRowHeight > pageHeight - bottomMargin) {
+                doc.addPage();
+               // resetFont(doc);
+                LineY = this.PageHeader(doc, value, 10);
+            }
+
+            var childRowStartY = LineY;
+
+            // Sr. No. for child (e.g. "1.1")
+            doc.text(childSrNo, 8, childRowStartY);
+
+            // ParameterName indented slightly more than parent
+            childDescLines.forEach(function (line, idx) {
+                doc.text(line, 23, childRowStartY + idx * textLineHeight); // 23 vs 21 for indent
+            });
+
+            // Device Group
+            childDeviceLines.forEach(function (line, idx) {
+                doc.text(line, 125, childRowStartY + idx * textLineHeight);
+            });
+
+            // Other columns
+            doc.text((child.Attribute),    95,  childRowStartY);
+            doc.text((child.Lowervalue),   108, childRowStartY);
+            doc.text("-",                           115, childRowStartY);
+            doc.text((child.Uppervalue),   116, childRowStartY);
+            doc.text((child.Observation),  162, childRowStartY);
+            doc.text((child.UOM),          183, childRowStartY);  // ✅ Ω → Ohm
+            doc.text((child.Status),       194, childRowStartY);
+
+            // Horizontal line
+            doc.line(5, childRowStartY + childRowHeight + 2,
+                doc.internal.pageSize.getWidth() - 5,
+                childRowStartY + childRowHeight + 2);
+
+            // Vertical lines
+            [5, 17, 90, 107, 124, 160, 182, 193,
+                doc.internal.pageSize.getWidth() - 5
+            ].forEach(function (x) {
+                doc.line(x, childRowStartY - 4, x, childRowStartY + childRowHeight + 2);
+            });
+
+            LineY += childRowHeight + 6;
+        }
     }
 
     return LineY;
@@ -519,7 +683,7 @@ isValidUser: function () {
 
     return Py + 3;
 },
- DeviceLineSection: function (doc, value11, startY) {
+ DeviceLineSection: function (doc, value11, startY,value111) {
 debugger
     let LineY = startY;
     const oGMCModel = this.getView().getModel("DeviceList");
@@ -571,15 +735,12 @@ debugger;
 
         LineY += rowHeight + 6;
     }
-
+    debugger
+doc.text("Remarks :", 15, LineY,); 
+doc.text(`${(value111[0].TransferUDRemarks|| "" )}`, 35, LineY,); 
+LineY +=  5;
     return LineY;
-},
-
-        
-       
-
-      
-               
+},              
         foooter:function(doc,value,productionData,Footer_Y)
         {
             let _footer=5;
@@ -632,30 +793,55 @@ let sdate="";
               doc.text("Name", 50, FooterY + 25);
               doc.text(`${(value[0].ElectrialUserName || "" )}`, 65, FooterY + 25);
               
-               doc.text("Singnature", 100, FooterY + 25);
+               doc.text("Signature", 100, FooterY + 25);
                 doc.text("Date", 150, FooterY + 25);
+                 //doc.text("Date", 150, FooterY + 25);
+                 if (value[0].ElectrialDate != null && value[0].ElectrialDate != "")
+                {
+                        doc.text(
+                new Date(value[0].ElectrialDate).toLocaleDateString('en-GB'),
+                165,
+                FooterY + 25
+                );
+             }
 
                  doc.text("Mechanical Inspector-", 15, FooterY + 35);
               doc.text("Name", 50, FooterY + 35);
               doc.text(`${(value[0].MechnicalUserName  || "")}`, 65, FooterY + 35);
 
-               doc.text("Singnature", 100, FooterY + 35);
+               doc.text("Signature", 100, FooterY + 35);
                 doc.text("Date", 150, FooterY + 35);
-
+                debugger
+                if (value[0].MechnicalDate != null && value[0].MechnicalDate != "")
+                {
+               doc.text(
+                    new Date(value[0].MechnicalDate).toLocaleDateString('en-GB'),
+                    165,
+                    FooterY + 35
+                    );
+            }
                 doc.text("Final Inspector-", 10, FooterY + 45);
               doc.text("Name", 50, FooterY + 45);
-               doc.text(`${(value[0].UDUser  || "")}`, 65, FooterY + 45);
-               doc.text("Singnature", 100, FooterY + 45);
+               doc.text(`${(value[0].InventoryTransferUserName  || "")}`, 65, FooterY + 45);
+               doc.text("Signature", 100, FooterY + 45);
                 doc.text("Date", 150, FooterY + 45);
                  //doc.text(`${(value[0].UDPostingDate  || "")}`, 65, FooterY + 45);
 
-                 const UDPostingDate = value[0].UDPostingDate
-                    ? new Date(value[0].UDPostingDate).toLocaleDateString("en-GB")
+                 const InventoryTransferPostingDate = value[0].InventoryTransferPostingDate
+                    ? new Date(value[0].InventoryTransferPostingDate).toLocaleDateString("en-GB")
                     : "";
 
-                    doc.text(UDPostingDate, 165, FooterY + 45);
+                    doc.text(InventoryTransferPostingDate, 165, FooterY + 45);
+                    doc.line(5, FooterY+47 , doc.internal.pageSize.getWidth() - 5, FooterY+47);
+                   
+                 //doc.line(5, FooterY+50 , doc.internal.pageSize.getWidth() - 5, FooterY+50);
 
-                 doc.line(5, FooterY+47 , doc.internal.pageSize.getWidth() - 5, FooterY+47);
+                
+                 doc.page = doc.internal.getNumberOfPages();
+                
+               
+
+               
     }
     else
     {

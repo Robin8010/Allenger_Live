@@ -41,3 +41,16 @@ service DeviceGroupListReportServices{
 service InspectionQCreport{
     entity InspectionQcReport as projection on allengersDatabase.InspectionQcReport;
 }
+service InspectionQCreport2{
+    entity InspectionQcReport2 as projection on allengersDatabase.InspectionQcReport2;
+}
+service FormStatusServices{
+    entity FormStatus as projection on allengersDatabase.FormStatus;
+}  
+service dispatchService{
+    entity DispatchQuality as projection on allengersDatabase.DispatchQuality;
+    entity FactSheetLine as projection on allengersDatabase.FactSheetLine;
+}
+service GetElectrialUserServices{
+    entity GetElectrialUser as projection on allengersDatabase.GetElectrialUser;
+}

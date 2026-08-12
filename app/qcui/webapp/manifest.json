@@ -117,6 +117,7 @@
             "LandingIndex"
           ]
         },
+        
         {
           "name": "RouteNameUserMasterConfiguration",
           "pattern": "RouteNameUserMasterConfiguration",
@@ -255,6 +256,27 @@
           "cache": false
         },
          {
+          "name": "DebitNoteLayout",
+          "pattern": "DebitNoteLayout",
+          "target": [
+            "DebitNoteLayoutList"
+          ]
+        },
+         {
+          "name": "DispatchQuality",
+          "pattern": "DispatchQuality",
+          "target": [
+            "DispatchQuality"
+          ]
+        },
+         {
+          "name": "DispatchQualityList",
+          "pattern": "DispatchQualityList",
+          "target": [
+            "DispatchQualityList"
+          ]
+        },
+         {
           "name": "ProductQualityAssuranceList",
           "pattern": "ProductQualityAssuranceList",
           "target": [
@@ -290,6 +312,29 @@
           "viewId": "ProductQualityAssurance",
           "viewName": "ProductQualityAssurance",
           "viewPath": "modconfview"
+        },
+         "DispatchQuality": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DispatchQuality",
+          "viewName": "DispatchQuality",
+          "viewPath": "modconfview"
+        },
+        "DispatchQualityList": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DispatchQualityList",
+          "viewName": "DispatchQualityList",
+          "viewPath": "modconfview"
+        },
+          "DebitNoteLayoutList": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "DebitNoteListForm",
+          "viewName": "DebitNoteListForm",
+          "viewPath" : "modconfview"
         },
         "TargetInspectionLotReport":{
           "viewType": "XML",

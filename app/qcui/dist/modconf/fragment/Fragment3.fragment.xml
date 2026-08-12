@@ -23,12 +23,7 @@ xmlns:f="sap.ui.layout.form"
   <headerToolbar>
   <Toolbar >
   <content>
-    <!--   <SearchField placeholder="GMC Num" width="30%" liveChange="onSearch"></SearchField>
- <SearchField placeholder="Job Work Po" width="30%" liveChange="onSearchWithName"></SearchField>
-    <ToolbarSpacer />
-     <Button type="Accept" enabled="{ENBmodel>/Enable}" text="Addnew" press="Addnew"></Button>-->
-
-  
+    
 
   </content>
   </Toolbar>
@@ -42,23 +37,16 @@ xmlns:f="sap.ui.layout.form"
 									<Label text="Click if Document Atteched"/>
 								</Column>
 							
-								<Column width="30%">
-									<Label text="Click if Not Application"/>
-								</Column>
+							
                
 							</columns>
 							<items>
 								<ColumnListItem>
 								<cells>
                   	         <Text text="{EntryFormDataSourceModel>DocumentNum}"/>
-										 <CheckBox
-                                        selected="{= ${EntryFormDataSourceModel>IsDocumentAtteched} === 'true' || ${EntryFormDataSourceModel>IsDocumentAtteched} === true }"
-                                    />
-                                  <CheckBox
-                                       
-                                       selected="{= ${EntryFormDataSourceModel>IsApplicable} === 'true' || ${EntryFormDataSourceModel>IsApplicable} === true }"
-                                    />
-									
+										 <CheckBox   select=".onCheckBoxSelect"
+                           selected="{EntryFormDataSourceModel>IsDocumentAtteched}" />
+
                 	</cells>
 								</ColumnListItem>
 							</items>

@@ -1,7 +1,9 @@
 {
   "userDetails": {
     "username": "",
-    "password": ""
+    "password": "",
+    "RecordResult":"",
+    "RecordResultDecesion":""
   },
   "loginInfo": {
     "UserID": "",

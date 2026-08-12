@@ -7,6 +7,16 @@
             "ElectricalQA": null,
             "FinalApprovalBy": null,
             "FinalClearBy": null,
+            "FinalClearByDate": null,
+            "FinalApprovalByDate": null,
+             "SpecialInstruction":"",
+            "DesirethengiveDetails":"",
+             "ElectricalDate": null,
+            "MechanicalDate": null,
+            "PADate": null,
+            "PSDate": null,
+            "ControledNo": null,
+            
             "ID": "",
             "Inspection": null,
             "MachineModel": null,
@@ -17,20 +27,22 @@
             "ManufacturingCodeRevision": null,
             "MechanicalQA": null,
             "OrderType": null,
-            "ProductSpecilist": null,
+             "PersanAUthorizedforInspection": null,
+            "ProductSpecilistApproval": null,
             "ProductionOrder": null,
             "Serial": null,
             "createdAt": null,
             "createdBy": null,
             "deviation": null,
+            "PackingEnsuredBy": null,
+            "PEByDate": null,
             "deviationNo": null,
             "modifiedAt": null,
             "modifiedBy": null,
             "LineItem": [
                             {
                               "DocumentNum": "",
-                              "IsDocumentAtteched": false,
-                              "IsApplicable": false
+                              "IsDocumentAtteched": false
                             }
                         ]
     }                        

@@ -563,12 +563,32 @@ sap.ui.define(
         return oRouteData;
       },
 
+       
+
       setCustomData: function (oCustomData) {
         let oModel;
 
         oModel = this.getView().getModel('sysModel');
         //alert(JSON.stringify(oModel));
         oModel.setProperty('/customData', oCustomData);
+
+        this.getView().setModel(oModel, 'sysModel');
+      },
+     getFormID: function () {
+        let oModel;
+        let oRouteData;
+        oModel = this.getView().getModel('sysModel');
+
+        oRouteData = oModel.getProperty('/RecordResult');
+
+        return oRouteData;
+      },
+        setFormID: function (oCustomData) {
+        let oModel;
+
+        oModel = this.getView().getModel('sysModel');
+        //alert(JSON.stringify(oModel));
+        oModel.setProperty('/RecordResult', oCustomData);
 
         this.getView().setModel(oModel, 'sysModel');
       },

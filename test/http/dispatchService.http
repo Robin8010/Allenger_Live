@@ -1,0 +1,175 @@
+@server=http://localhost:4004
+@username=alice
+@password=
+
+
+### DispatchQuality
+# @name DispatchQuality_GET
+GET {{server}}/odata/v4/dispatch/DispatchQuality
+Authorization: Basic {{username}}:{{password}}
+
+
+### DispatchQuality
+# @name DispatchQuality_POST
+POST {{server}}/odata/v4/dispatch/DispatchQuality
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "18834274-0934-4f2b-9152-e9a89ad8eb77",
+  "InspectionLot": "InspectionLot-18834274",
+  "Production": "Production-18834274",
+  "SerialNum": "SerialNum-18834274",
+  "SalesOrder": "SalesOrder-18834274",
+  "Material": "Material-18834274",
+  "_SalesOrder": "_SalesOrder-18834274",
+  "SpecialConfiguration": "SpecialConfiguration-18834274",
+  "ShippingPoint": "ShippingPoint-18834274",
+  "DistributionChannel": "DistributionChannel-18834274",
+  "Isthereany": "Isthereany-18834274",
+  "CertificateNo": "CertificateNo-18834274",
+  "thereanydeviation": "thereanydeviation-18834274",
+  "IfYesmentiondeviation": "IfYesmentiondeviation-18834274",
+  "Totalnoofpackets": "Totalnoofpackets-18834274",
+  "DocumentNo": "DocumentNo-18834274",
+  "ExpiryDate": "ExpiryDate-18834274",
+  "IssueDate": "IssueDate-18834274",
+  "Machinewil": "Machinewil-18834274",
+  "FactSheet": [
+    {
+      "ID": "26813130-c8bb-44d9-8995-f63649e6adc1",
+      "CheckBox": true,
+      "DocumentName2": "DocumentName2-26813130",
+      "CheckBox2": true,
+      "createdAt": "2023-04-27T00:00:00.000Z",
+      "createdBy": "createdBy.fyp56@example.net",
+      "modifiedAt": "2016-10-23T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.fyp56@example.com"
+    },
+    {
+      "ID": "26813131-4089-4ed8-9532-8c3e603f1f08",
+      "CheckBox": false,
+      "DocumentName2": "DocumentName2-26813131",
+      "CheckBox2": false,
+      "createdAt": "2014-03-15T00:00:00.000Z",
+      "createdBy": "createdBy.fyp57@example.com",
+      "modifiedAt": "2016-05-05T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.fyp57@example.org"
+    }
+  ],
+  "createdAt": "2023-07-06T00:00:00.000Z",
+  "createdBy": "createdBy.b7oma@example.com",
+  "modifiedAt": "2012-10-19T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.b7oma@example.com"
+}
+
+
+### DispatchQuality
+# @name DispatchQuality_PATCH
+PATCH {{server}}/odata/v4/dispatch/DispatchQuality/18834274-0934-4f2b-9152-e9a89ad8eb77
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "18834274-0934-4f2b-9152-e9a89ad8eb77",
+  "InspectionLot": "InspectionLot-18834274",
+  "Production": "Production-18834274",
+  "SerialNum": "SerialNum-18834274",
+  "SalesOrder": "SalesOrder-18834274",
+  "Material": "Material-18834274",
+  "_SalesOrder": "_SalesOrder-18834274",
+  "SpecialConfiguration": "SpecialConfiguration-18834274",
+  "ShippingPoint": "ShippingPoint-18834274",
+  "DistributionChannel": "DistributionChannel-18834274",
+  "Isthereany": "Isthereany-18834274",
+  "CertificateNo": "CertificateNo-18834274",
+  "thereanydeviation": "thereanydeviation-18834274",
+  "IfYesmentiondeviation": "IfYesmentiondeviation-18834274",
+  "Totalnoofpackets": "Totalnoofpackets-18834274",
+  "DocumentNo": "DocumentNo-18834274",
+  "ExpiryDate": "ExpiryDate-18834274",
+  "IssueDate": "IssueDate-18834274",
+  "Machinewil": "Machinewil-18834274",
+  "FactSheet": [
+    {
+      "ID": "26813130-c8bb-44d9-8995-f63649e6adc1",
+      "CheckBox": true,
+      "DocumentName2": "DocumentName2-26813130",
+      "CheckBox2": true,
+      "createdAt": "2023-04-27T00:00:00.000Z",
+      "createdBy": "createdBy.fyp56@example.net",
+      "modifiedAt": "2016-10-23T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.fyp56@example.com"
+    },
+    {
+      "ID": "26813131-4089-4ed8-9532-8c3e603f1f08",
+      "CheckBox": false,
+      "DocumentName2": "DocumentName2-26813131",
+      "CheckBox2": false,
+      "createdAt": "2014-03-15T00:00:00.000Z",
+      "createdBy": "createdBy.fyp57@example.com",
+      "modifiedAt": "2016-05-05T00:00:00.000Z",
+      "modifiedBy": "modifiedBy.fyp57@example.org"
+    }
+  ],
+  "createdAt": "2023-07-06T00:00:00.000Z",
+  "createdBy": "createdBy.b7oma@example.com",
+  "modifiedAt": "2012-10-19T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.b7oma@example.com"
+}
+
+
+### DispatchQuality
+# @name DispatchQuality_DELETE
+DELETE {{server}}/odata/v4/dispatch/DispatchQuality/18834274-0934-4f2b-9152-e9a89ad8eb77
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+### FactSheetLine
+# @name FactSheetLine_GET
+GET {{server}}/odata/v4/dispatch/FactSheetLine
+Authorization: Basic {{username}}:{{password}}
+
+
+### FactSheetLine
+# @name FactSheetLine_POST
+POST {{server}}/odata/v4/dispatch/FactSheetLine
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "26813130-c8bb-44d9-8995-f63649e6adc1",
+  "CheckBox": true,
+  "DocumentName2": "DocumentName2-26813130",
+  "CheckBox2": true,
+  "createdAt": "2023-04-27T00:00:00.000Z",
+  "createdBy": "createdBy.fyp56@example.net",
+  "modifiedAt": "2016-10-23T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.fyp56@example.com"
+}
+
+
+### FactSheetLine
+# @name FactSheetLine_PATCH
+PATCH {{server}}/odata/v4/dispatch/FactSheetLine/26813130-c8bb-44d9-8995-f63649e6adc1
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "26813130-c8bb-44d9-8995-f63649e6adc1",
+  "CheckBox": true,
+  "DocumentName2": "DocumentName2-26813130",
+  "CheckBox2": true,
+  "createdAt": "2023-04-27T00:00:00.000Z",
+  "createdBy": "createdBy.fyp56@example.net",
+  "modifiedAt": "2016-10-23T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.fyp56@example.com"
+}
+
+
+### FactSheetLine
+# @name FactSheetLine_DELETE
+DELETE {{server}}/odata/v4/dispatch/FactSheetLine/26813130-c8bb-44d9-8995-f63649e6adc1
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}

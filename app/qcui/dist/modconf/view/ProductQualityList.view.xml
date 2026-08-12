@@ -39,10 +39,11 @@
     growing="true"
     growingScrollToLoad="true"
     items="{QC>/value}"  
-  class="sapUiSizeCompact"
+      class="sapUiSizeCompact"
                     sticky="ColumnHeaders,HeaderToolbar"
                     showSeparators="All"
                     showNoData="true"
+                    growingThreshold="5"
                     enableBusyIndicator="true"
                     alternateRowColors="true"
                     headerLevel="Auto"                    
@@ -50,7 +51,7 @@
   <headerToolbar>
   <Toolbar >
   <content>
-    <SearchField placeholder="GMC Num" width="30%" liveChange="onSearch"></SearchField>
+    <SearchField placeholder="Search here" width="30%" liveChange="onSearch"></SearchField>
    <!-- <SearchField placeholder="Job Work Po" width="30%" liveChange="onSearchWithName"></SearchField>-->
     <ToolbarSpacer />
      <Button type="Accept"  text="Addnew" press="Addnew"></Button>
@@ -83,7 +84,7 @@
                   <!--  <Text width="150vh" text="{GMC>ID}"/>-->
                   	<Text text="{QC>Serial}"/>
 										<Text text="{QC>MachinePartCode}"/>
-										<Text  text="{QC>InspectionLot}"/>
+										<Text  text="{QC>Inspection}"/>
                     <Button text="Edit" type="Accept" press="onEditPress" ></Button>
 									</cells>
 								</ColumnListItem>

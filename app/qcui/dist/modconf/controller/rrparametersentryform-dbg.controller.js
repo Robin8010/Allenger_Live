@@ -9,6 +9,10 @@ sap.ui.define([
     function (genericentryform, MessageToast, MessageBox, FormMode) {
         "use strict";
         var _RoleInfo = null, _LoginInfo;
+          let userID;
+          let _ID;
+          let SerialId;
+        let _isApprovedUser = false;
 
         return genericentryform.extend("modconfcontroller.rrparametersentryform", {
 
@@ -24,36 +28,47 @@ sap.ui.define([
                // this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSerialBatchDetail(ID=" + this.getListViewEditPropertyValue() + ")?$expand=ParametersDetails,ParametersDetails($orderby=ParentParameterCode asc, ParameterCode asc)");//ParentParameter
                 this.setEntryFormDataSourceURLForEditMode("/odata/v4/record-result-sap/RecordResultSerialBatchDetail(ID=" + this.getListViewEditPropertyValue() + ")?$expand=ParametersDetails,ParametersDetails($orderby=lineid asc)");
                   const formMode = this.getFormMode();
-                if(formMode=="2")
-                                { 
-                                    let abc=this.getListViewEditPropertyValue();
-                                    if(this.getListViewEditPropertyValue()=="")
-                                    {
+                   await this.hanldePreviousData();
+              let IsLockedForRR=await    this._IsLockedForRR(this.SerialId);
+                    if(IsLockedForRR!=true)
+                    {
+                        setTimeout(() => {
+    // 2-second delay action here
+    console.log("Redirect or stop navigation now");
 
-                                        var router = sap.ui.core.UIComponent.getRouterFor(this);
-                                        MessageToast.show("Data could nor loaded due to connectivity.....")
-                                        this.router.navTo("RouterNameRecordResultSAPEntryForm");
-                                            
-                                    }
-                                    else
-                                    {
-                                        
-                                    }
-                                }
-               await this.hanldePreviousData();
-                debugger;
-                  await this.getView().loaded();  // ensures UI fully ready
-                await this.showEntryForm();
-               // await new Promise(resolve => setTimeout(resolve, 200));
-                this.handleUIOperation();
+    var router = sap.ui.core.UIComponent.getRouterFor(this);
+    router.navTo("RouterNameRecordResultSAPViewForm");
+
+}, 2000);
+/*
+                            MessageToast.show("Screen already lock by the user -"+userID+"");
+                                MessageToast.show("Screen already lock by the user -"+userID+"");
+                                    MessageToast.show("Screen already lock by the user -"+userID+"");
+                                    MessageToast.show("Screen already lock by the user -"+userID+"");
+                                var router = sap.ui.core.UIComponent.getRouterFor(this);
+                            router.navTo("RouterNameRecordResultSAPViewForm");
+*/
+                    }
+                    else
+                    {
+                        
+                        debugger;
+                        await this.getView().loaded();  // ensures UI fully ready
+                        await this.showEntryForm();
+                    // await new Promise(resolve => setTimeout(resolve, 200));
+                        this.handleUIOperation();
+
+                      
+                    }
 
             },
 
            
             initialize: async function () {
+                
                 this.setPageId("rrparametersf");
                 this.setFormTitle("Record Result Parameters");
-                this.setBackwardRoute("RouterNameRecordResultSAPViewForm");
+                //this.setBackwardRoute("RouterNameRecordResultSAPViewForm");
 
                 this.setEntryFormDataSourceURLForNewMode("");
 
@@ -101,7 +116,111 @@ sap.ui.define([
                 //alert(JSON.stringify(oModel));
                 const customerMasterID = oModel.getProperty('/route/routeData/lastUniqueId');
                 this.setCustomerMasterIDProperty(customerMasterID);
+                //this.SerialId=customerMasterID;
+                this.SerialId=this.getListViewEditPropertyValue();
             },
+            _IsLockedForRR: async function (Serial) {
+
+    let response = await this.populateFormStatus(
+        "Get",
+        "/odata/v4/form-status-services/FormStatus?$filter=FormId eq 'RR' and SerialNumber eq '" + Serial + "'",
+        ""
+    );
+
+    let data = response.value;
+
+    // CASE 1: No record → treat as free
+    if (!data || data.length === 0) {
+        this._lockFormCreate(Serial);
+        _isApprovedUser = true;
+        return true;
+    }
+
+    let record = data[0];
+
+    // CASE 2: Not locked → lock it
+    if (record.IsLockedForRR !== true) {
+        this._lockFormUpdate(record.ID, Serial);
+        _isApprovedUser = true;
+        return true;
+    }
+
+    // CASE 3: Locked by same user
+    if (record.RRUserName === userID) {
+        _isApprovedUser = true;
+        return true;
+    }
+
+    // CASE 4: Locked by another user
+    _isApprovedUser = false;
+
+    sap.m.MessageToast.show(
+        "Screen is locked by user: " + record.RRUserName
+    );
+
+    return false;
+},
+ _lockFormCreate:async function(Serial) {
+
+    let payload = {
+        FormId: "RR",
+        SerialNumber: Serial,
+        IsLockedForRR: true,
+        RRLockedDateTime: new Date(),
+        RRUserName: userID
+    };
+
+    await this.populateFormStatus(
+        "Post",
+        "/odata/v4/form-status-services/FormStatus",
+        payload
+    );
+},
+ _lockFormUpdate:async function(ID, Serial) {
+
+    let payload = {
+        IsLockedForRR: true,
+        SerialNumber: Serial,
+        RRLockedDateTime: new Date(),
+        RRUserName: userID
+    };
+
+    await this.populateFormStatus(
+        "Patch",
+        "/odata/v4/form-status-services/FormStatus(" + ID + ")",
+        payload
+    );
+},
+ unlockForm: async function(Serial) {
+
+    let response = await this.populateFormStatus(
+        "Get",
+        "/odata/v4/form-status-services/FormStatus?$filter=FormId eq 'RR' and SerialNumber eq '" + Serial + "'",
+        ""
+    );
+
+    let data = response.value;
+
+    if (!data || data.length === 0) return;
+
+    let record = data[0];
+
+    // Only unlock if same user
+    if (record.RRUserName === userID) {
+
+        let payload = {
+            IsLockedForRR: false,
+            RRUserName: null,
+            RRLockedDateTime: null
+        };
+
+        await this.populateFormStatus(
+            "Patch",
+            "/odata/v4/form-status-services/FormStatus(" + record.ID + ")",
+            payload
+        );
+    }
+},
             RemovesDetailsRows: async function () {
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 const modelName = this.getEntryFormDataSourceModelName();
@@ -113,8 +232,8 @@ sap.ui.define([
             LoadInspectionPlanData: async function () {
                 debugger;
                 let oModel = this.getView().getModel('sysModel');
+                let Model = this.getView().getModel(this.getEntryFormDataSourceModelName());
                 
-                //alert(JSON.stringify(oModel));
                 const plant = oModel.getProperty('/route/routeData/plant');
                  debugger
                 const material = oModel.getProperty('/route/routeData/material');
@@ -129,10 +248,14 @@ sap.ui.define([
                     'InspectionPlanData'
                 );
                 debugger;
+                debugger;
                 let checkDataExists = false;
                 const responseData = this.getView().getModel('InspectionPlanData').getData();
                 if (responseData && responseData != "undefined") {
-                    const inspectionPlanData = responseData.value;
+                     const inspectionPlanData = responseData.value;
+                    Model.setProperty("/ISO", inspectionPlanData[0].ISO);
+                    Model.setProperty("/InspectionPlanDesc", inspectionPlanData[0].InspectionPlanDesc);
+                   
                     if (inspectionPlanData && inspectionPlanData != "undefined") {
                         for (let i = 0; i < inspectionPlanData.length; i++) {
                             var obj = inspectionPlanData[i];
@@ -182,53 +305,69 @@ sap.ui.define([
                     MessageToast.show("Error in fetching parameter details. check log.");
                 }
             },
-            HandleLiveChanges: function (oEvent) {
-                var oButton = oEvent.getSource();
-              
-               // var oContext = oTextArea.getBindingContext(this.getEntryFormDataSourceModelName());
-                var oBindingContext = oButton.getBindingContext(this.getEntryFormDataSourceModelName());
-                console.log("Binding Context:", oBindingContext);
-                  var oModel = oBindingContext.getModel();
-                let oRowObject = oBindingContext.getProperty("Attribute");
-                if (oRowObject == "Range") {
-                    var _oInput = oEvent.getSource();
-                   // var val = _oInput.getValue();
-                  //  val = val.replace(/[^\d]/g, '');
-                   // _oInput.setValue(val);
-debugger;
-                     var oTextArea = oEvent.getSource();
-                   // var oContext = oTextArea.getBindingContext("EntryFormDataSourceModel");
-                        var fromRange = parseFloat(oBindingContext.getProperty("Lowervalue"));
-                        var toRange = parseFloat(oBindingContext.getProperty("Uppervalue"));
-                    var observation = parseFloat(oTextArea.getValue());
-                    if(observation!="")
-                    {
-                    if (observation < fromRange || observation > toRange) 
-                        {
-                            var sStatusPath = oBindingContext.getPath() + "/Status";
-                            oModel.setProperty(sStatusPath, "Rejected");
-                            this.onComboSelection();
-                        }
-                        else if (observation => fromRange || observation <= toRange) 
-                        {
-                            var sStatusPath = oBindingContext.getPath() + "/Status";
-                            oModel.setProperty(sStatusPath, "Accepted");
-                        }
-                        else
-                        {
-                            var sStatusPath = oBindingContext.getPath() + "/Status";
-                            oModel.setProperty(sStatusPath, "Pending");
-                        }
-                }
+          HandleLiveChanges: function (oEvent) {
+
+    var oButton = oEvent.getSource();
+
+    var oBindingContext = oButton.getBindingContext(this.getEntryFormDataSourceModelName());
+
+    console.log("Binding Context:", oBindingContext);
+
+    var oModel = oBindingContext.getModel();
+
+    let oRowObject = oBindingContext.getProperty("Attribute");
+
+    if (oRowObject == "Range") {
+
+          var oTextArea = oEvent.getSource();
+
+    // Allow only numbers
+    var sValue = oTextArea.getValue().replace(/[^0-9.-]/g, '');
+
+    oTextArea.setValue(sValue);
+
+        //var oTextArea = oEvent.getSource();
+
+        var fromRange = parseFloat(oBindingContext.getProperty("Lowervalue"));
+
+        var toRange = parseFloat(oBindingContext.getProperty("Uppervalue"));
+
+        var observation = parseFloat(oTextArea.getValue());
+
+        if (!isNaN(observation)) {
+
+            var sStatusPath = oBindingContext.getPath() + "/Status";
+
+            if (observation < fromRange || observation > toRange) {
+
+                oModel.setProperty(sStatusPath, "Rejected");
+
+                this.onComboSelection(oEvent);
+
+            } else if (observation >= fromRange && observation <= toRange) {
+
+                oModel.setProperty(sStatusPath, "Accepted");
+
+            } else {
+
+                oModel.setProperty(sStatusPath, "Pending");
             }
-                //MessageToast.show(oRowObject);
-            },
+        }
+    }
+},
            handleFormInEditMode: function () {
     debugger;
 
     const viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
 
     let _Status = viewModel.getProperty("/Status");
+    if(_Status=="Posted")
+    {
+        viewModel.setProperty("/BtnEnabled", false);
+    }
+    else{
+        viewModel.setProperty("/BtnEnabled", true);
+    }
 
     const { ParametersDetails = [] } = viewModel.getData();
 
@@ -442,6 +581,7 @@ debugger;
                                 //     this.router.navTo("RouterNameRecordResultSAPEntryForm");
                                 //     //this.router.navTo(this.getBackwardRoute());
                                 // }
+                                this.unlockForm(this.getListViewEditPropertyValue());
                                 this.setRouteData("2", this.getCustomerMasterIDProperty());
                                 this.setListViewEditPropertyValue(this.getCustomerMasterIDProperty())
                                 this.router.navTo("RouterNameRecordResultSAPEntryForm");
@@ -555,6 +695,14 @@ debugger;
 }
 ,
             onCancel: function () {
+                this.unlockForm(this.getListViewEditPropertyValue());
+                this.setRouteData("2", this.getCustomerMasterIDProperty());
+                this.setListViewEditPropertyValue(this.getListViewEditPropertyValue())
+                this.router.navTo("RouterNameRecordResultSAPEntryForm");
+            },
+            onPressOfEntryFormCancelButton:function()
+            {
+this.unlockForm(this.getListViewEditPropertyValue());
                 this.setRouteData("2", this.getCustomerMasterIDProperty());
                 this.setListViewEditPropertyValue(this.getCustomerMasterIDProperty())
                 this.router.navTo("RouterNameRecordResultSAPEntryForm");
@@ -724,6 +872,10 @@ debugger;
                     var router = sap.ui.core.UIComponent.getRouterFor(this);
                     router.navTo("RouteLogin");
                     MessageToast.show("Not a valid user.");
+                }
+                  else
+                {
+                    userID = loginModel.value[0].UserName;
                 }
             }
         });

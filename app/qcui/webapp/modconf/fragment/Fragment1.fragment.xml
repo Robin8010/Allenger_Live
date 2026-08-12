@@ -26,15 +26,19 @@
                             required="true"
                             class="m-mast-lev"
                         /> 
-                        <RadioButtonGroup selectedKey="{EntryFormDataSourceModel>/OrderType}" columns="3" selectedIndex="0">
+                    <RadioButtonGroup
+                    enabled="false"
+    id="rbgOrderType"
+    columns="2"
+    selectedIndex="{= ${EntryFormDataSourceModel>/OrderType} === 'YBM1' ? 0 : 1 }"
+    select=".onOrderTypeSelect">
 
-                            <buttons>
-                                <RadioButton text="Make to Stock"/>
-                                <RadioButton text="Make to Order"/>
-                                
-                            </buttons>
+    <buttons>
+        <RadioButton text="Make to Stock"/>
+        <RadioButton text="Make to Order"/>
+    </buttons>
 
-                        </RadioButtonGroup>                     
+</RadioButtonGroup>                
                         
                       
                         <Label
@@ -52,7 +56,7 @@
                         />
                         <Label
                             id="lblDetailDescription"
-                            text="{i18n>Managed By}"
+                            text="{i18n>Detailed Description}"
                             required="true"
                             class="m-mast-lev"
                         /> 
@@ -99,7 +103,7 @@
                             id="_txtCertificateType"
                             value="{EntryFormDataSourceModel>/CertificateType}"
                             required="true"
-                          
+                           enabled="false"
                             class="m-mast-input"
                         />  
                          <Label
@@ -129,20 +133,38 @@
                             class="m-mast-input"
                         />  
                          <core:Title text="" />
+
                            <Label
+                            id="lblcnt"
+                            text="{i18n>Control Number }"
+                           
+                            class="m-mast-lev"
+                        /> 
+                        
+                          <Input
+                            id="_txtcontrolNumber"
+                            value="{EntryFormDataSourceModel>/ControledNo}"
+                            
+                            enabled="true"
+                            class="m-mast-input"
+                        />
+
+                          <Label
                             id="lblMachineType"
                             text="{i18n>Machine Type }"
-                            required="true"
+                           
                             class="m-mast-lev"
                         /> 
                         
                           <Input
                             id="_txtMachineType"
                             value="{EntryFormDataSourceModel>/MachineType}"
-                            required="true"
+                          
                             enabled="false"
                             class="m-mast-input"
                         />
+
+                        
                                              
                         <Label
                             id="lblProductionOrder"
@@ -153,7 +175,7 @@
                         <Input
                             id="_txtProductionOrder"
                             value="{EntryFormDataSourceModel>/ProductionOrder}"
-                            required="true"
+                          
                             enabled="false"
                             class="m-mast-input"
                         />
@@ -215,6 +237,23 @@
                            
                             class="m-mast-input"
                             change="ValidateQuantity"
+                           
+                        /> 
+
+                           <Label
+                            id="IfcodeisDesirethengiveDetails"
+                            text="If code is Desire then give Details:- "
+                            required="true"
+                            class="m-mast-lev"
+                           
+                        /> 
+                        <Input
+                            id="ttxtIfcodeisDesirethengiveDetails"
+                            value="{EntryFormDataSourceModel>/DesirethengiveDetails}"
+                           
+                           
+                            class="m-mast-input"
+                           
                            
                         /> 
                           

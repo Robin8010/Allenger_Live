@@ -1,0 +1,75 @@
+{
+      "ID": "",
+      "InspectionLot":"",
+       "Production":"",
+        "SerialNum":"",
+        "SalesOrder":"",
+         "Material":"",
+         "_SalesOrder":"",
+         "SpecialConfiguration":"",
+         "ShippingPoint":"",
+         "DistributionChannel":"",
+         "Isthereany":"",
+         "RefNo":"",
+         "thereanydeviation":"",
+         "IfYesmentiondeviation":"",
+         "MachineReceivedBy":"",
+          "MachineReceivedByName":"",
+         "dateofReceived":null,
+         "IsDeviceregistered":"",
+         "MachineDispatchedBy":"",
+         "MachineDispatchedByName":"",
+         "dateofDispatched":null,
+         "Totalnoofpackets":"0.00",
+         "DocumentNo":"",
+            "ExpiryDate":"",
+            "IssueDate":"",
+            "Machinewil":"",
+            "ProcurementPermission":"",
+            "FinalApprovedBy":"",
+            "FinalClearedBy":"",
+              "FinalApprovedByName":"",
+            "FinalClearedByName":"",
+              "FinalApprovedDate":"",
+            "FinalClearedDate":"", 
+              "CustomerCode": ""  ,
+            "CustomerName":  "",
+            "CityName"  : "",
+            "Region":  "",
+           
+                                    
+"FinalList": [
+    {
+       "UserName": "",
+      "NameDsc": ""
+    }
+   ],
+   "EmpList": [
+    {
+       "UserName": "",
+      "NameDsc": ""
+    }
+   ],
+   "List":[
+      {
+            "ID": "0",
+            "Code": "Yes"
+      },
+       {
+            "ID": "1",
+            "Code": "No"
+      }
+
+   ],
+            "FactSheet":
+            [
+                  {
+                  "DocumentName" : "",
+                  "CheckBox"       : false
+               
+                  }
+            ]
+                    
+
+     
+}

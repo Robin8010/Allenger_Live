@@ -9,45 +9,55 @@
          <Page title="Product Quality Assurance" showNavButton="true" navButtonPress="navBack">
  
         <!-- Filter Bar -->
-        <Toolbar>
-  <Input
-                            id="InspvdectionLot"
-                            value="{EntryFormDataSourceModel>/InspectionLot}"
-                         width="60%"
-                    class="sapUiLargeMarginEnd"
-                            showValueHelp="true"
-                            valueHelpRequest="cflForInspectionLot"
-                            placeholder="Select Inspection Lot"
-                        />
-                         <Input
-                            id="ManufacturingOrder"
-                            value="{EntryFormDataSourceModel>/Production}"
-                         width="60%"
-                    class="sapUiLargeMarginEnd"
-                            showValueHelp="true"
-                            valueHelpRequest="cflForProduction"
-                            placeholder="Select Production oredr"
-                        />
-                         <Input
-                            id="SerialNumber"
-                            value="{EntryFormDataSourceModel>/SerialNum}"
-                         width="60%"
-                        class="sapUiLargeMarginEnd"
-                            showValueHelp="true"
-                            valueHelpRequest="cflForSerial"
-                            placeholder="Select Serial"
-                        />
-                        <ToolbarSpacer ></ToolbarSpacer>
-                        <ToolbarSpacer ></ToolbarSpacer>
-                       <Button
-                            type="Emphasized"
-                            id="Go"
-                            text="{i18n>Go}"
-                            press="Go"
-                        />
-</Toolbar>
+  <VBox id="_Filter" class="sapUiSmallMargin">
+     
+       <f:SimpleForm
+    id="_.ProductQualityList"
+    layout="ResponsiveGridLayout"
+    editable="true"
+    columnsL="2"
+    columnsM="1"
+    labelSpanL="4"
+    labelSpanM="4">
 
-  
+    <Input
+        id="InspvdectionLot"
+        width="100%"
+        value="{EntryFormDataSourceModel>/Inspection}"
+        showValueHelp="true"
+        valueHelpRequest="cflForInspectionLot"
+        placeholder="Inspection Lot" />
+
+    <Input
+        id="ManufacturingOrder"
+        width="100%"
+        value="{EntryFormDataSourceModel>/Production}"
+        showValueHelp="true"
+        valueHelpRequest="cflForProduction"
+        placeholder="ManufacturingOrder" />
+
+    <Input
+        id="SerialNumber"
+        width="100%"
+        value="{EntryFormDataSourceModel>/SerialNum}"
+        showValueHelp="true"
+        valueHelpRequest="cflForSerial"
+        placeholder="SerialNumber" />
+
+        <HBox width="100%" justifyContent="End">
+    <Button
+        id="Go"
+        type="Emphasized"
+        text="{i18n>Go}"
+        press="Go" />
+</HBox>
+
+</f:SimpleForm>
+
+
+                        
+
+  </VBox>
        
      
 
@@ -66,6 +76,12 @@
             <Toolbar class="d-flex justify-content-center btn-sav">
                 <ToolbarSpacer />
               
+              <Button
+                    type="Emphasized"
+                    id="_Print"
+                    text="{i18n>Print}"
+                    press="OnPrint"
+                />
                 <Button
                     type="Emphasized"
                     id="_save"

@@ -81,6 +81,8 @@
                             <Column><Label text="InspectionLot"/></Column>
                             <Column><Label text="Material"/></Column>
                             <Column><Label text="SerialBatchNumber"/></Column>
+                            <Column><Label text="SerialStatus"/></Column>
+                            <Column><Label text="LotStatus"/></Column>
                             <Column><Label text="DeviceGroupID"/></Column>
                             <Column><Label text="DeviceGroup"/></Column>
                             <Column hAlign="End"><Label text="Action"/></Column>
@@ -92,6 +94,8 @@
                                     <Text text="{DeviceList>InspectionLot}"/>
                                     <Text text="{DeviceList>Material}"/>
                                     <Text text="{DeviceList>SerialBatchNumber}"/>
+                                    <Text text="{DeviceList>SerialStatus}"/>
+                                    <Text text="{DeviceList>LotStatus}"/>
                                     <Text text="{DeviceList>DeviceGroupID}"/>
                                     <Text text="{DeviceList>DeviceGroup}"/>
                                     <Button icon="sap-icon://print" type="Transparent" press="OnPrint"/>

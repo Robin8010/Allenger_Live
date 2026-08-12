@@ -89,7 +89,7 @@ sap.ui.define([
 			var filters=[];
 			if(sQuery)
 			{
-				var filter1 = new sap.ui.model.Filter({path:"JobworkPo",operator:sap.ui.model.FilterOperator.Contains,value1:sQuery});
+				var filter1 = new sap.ui.model.Filter({path:"Serial",operator:sap.ui.model.FilterOperator.Contains,value1:sQuery});
 				filters=[filter1];
 				var finalFilter = new sap.ui.model.Filter({filters:filters, and:false});
 		}
@@ -102,7 +102,7 @@ sap.ui.define([
 		var filters=[];
 		if(sQuery)
 		{
-			var filter1 = new sap.ui.model.Filter({path:"Name",operator:sap.ui.model.FilterOperator.Contains,value1:sQuery});
+			var filter1 = new sap.ui.model.Filter({path:"Serial",operator:sap.ui.model.FilterOperator.Contains,value1:sQuery});
 			filters=[filter1];
 			var finalFilter = new sap.ui.model.Filter({filters:filters, and:false});
 	}

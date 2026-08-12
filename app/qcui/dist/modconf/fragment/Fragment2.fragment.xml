@@ -25,42 +25,71 @@
                         <Label
                             id="ElectricalQA"
                             text="{i18n>Electrical QA}"
-                            required="true"
+                           
                             class="m-mast-lev"
                         /> 
                         <Input
                             id="_ElectricalQA"
                             value="{EntryFormDataSourceModel>/ElectricalQA}"
-                            required="true"
+                           
                             enabled="false"
                             class="m-mast-input"
+                        />
+                          <Label
+                            id="ElectricalDate"
+                            text="{i18n>Electrical Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                        <DatePicker
+                            id="_ElectricalDate"
+                            value="{EntryFormDataSourceModel>/ElectricalDate}"
+                           enabled="false"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
                         />
                         
                            <Label
                             id="MechanicalQA"
                             text="{i18n>Mechanical QA}"
-                            required="true"
+                            
                             class="m-mast-lev"
                         /> 
                         
                           <Input
                             id="_MechanicalQA"
                             value="{EntryFormDataSourceModel>/MechanicalQA}"
-                            required="true"
+                           
                             enabled="false"
                             class="m-mast-input"
                         />
-
+                        <Label
+                            id="MechanicalDate"
+                            text="{i18n>Mechanical Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                        <DatePicker
+                            id="_MechanicalDate"
+                            value="{EntryFormDataSourceModel>/MechanicalDate}"
+                           enabled="false"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
                          <Label
                             id="deviation"
                             text="Is there any deviation required: "
-                            required="true"
+                           
                             class="m-mast-lev"
                            
                         />  
                         <ComboBox 
                             id="_cmbElectrical"
-                            required="true"
+                           
                             valueState="None"
                             change="onComboSelection"
                             selectedKey="{EntryFormDataSourceModel>/deviation}"
@@ -68,7 +97,7 @@
 
                             <core:Item 
                                 key="{EntryFormDataSourceModel>ID}"
-                                text="{EntryFormDataSourceModel>Name}"/>
+                                text="{EntryFormDataSourceModel>Code}"/>
                         </ComboBox>
                            
                            
@@ -83,7 +112,7 @@
                         <Input
                             id="_deviationNo"
                             value="{EntryFormDataSourceModel>/deviationNo}"
-                            required="true"
+                           
                             enabled="true"
                            
                             class="m-mast-input"
@@ -96,31 +125,75 @@
                                              
                         <Label
                             id="ElectricalPerson"
-                            text="{i18n>Electrical Person Authorized }"
+                            text="{i18n>Person Authorized for inspection  of Export Machine. }"
                             required="true"
                             class="m-mast-lev"
                         /> 
                         <Input
                             id="_ElectricalPerson"
-                            value="{EntryFormDataSourceModel>/ElectricalPerson}"
+                            value="{EntryFormDataSourceModel>/PersanAUthorizedforInspection}"
                             required="true"
                             enabled="true"
                             class="m-mast-input"
                         />
+                        <Label
+                            id="Date"
+                            text="{i18n> Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                        <DatePicker
+                            id="_Date"
+                            value="{EntryFormDataSourceModel>/PADate}"
+                           enabled="true"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
                            <Label
                             id="ProductSpecilist"
-                            text="{i18n>Product Specilist Approval}"
+                            text="{i18n>Product Specialist Approval (For Machine under Pre Yellow/Yellow Certificate)}"
                             required="true"
                             class="m-mast-lev"
                         /> 
                         
                           <Input
                             id="_ProductSpecilist"
-                            value="{EntryFormDataSourceModel>/ProductSpecilist}"
+                            value="{EntryFormDataSourceModel>/ProductSpecilistApproval}"
                             required="true"
                             enabled="true"
                             class="m-mast-input"
                         />
+
+                         <Label
+                            id="PSDate"
+                            text="{i18n> Date}"
+                           
+                            class="m-mast-lev"
+                        /> 
+                        <DatePicker
+                            id="_PSDate"
+                            value="{EntryFormDataSourceModel>/PSDate}"
+                           enabled="true"
+                           
+                            valueFormat="yyyy-MM-dd" 
+                            displayFormat="yyyy-MM-dd" 
+                            class="customDisbaleColour"
+                        />
+                         <Label
+                            id="SpecialInstruction"
+                            text="{i18n>Special Instruction}"
+                            required="true"
+                            class="m-mast-lev"
+                        /> 
+                        
+                           <TextArea
+                            value="{EntryFormDataSourceModel>/SpecialInstruction}"
+                            growing="true"
+                            growingMaxLines="10"
+                        
+                            placeholder="Enter description..." />
 
                            
       

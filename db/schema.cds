@@ -6,14 +6,18 @@ using {
 namespace allengersBTP;
 
 entity UserMaster : cuid,managed {
-    UserName           : String;
-    NameDsc            :String;
-    Password           : String;
-    IsAdmin            : Boolean;
-    IsMechnical        : Boolean;
-    IsElectrial        : Boolean;
-    ManageRecordResult : Boolean;
-    ManageUserDecision : Boolean;
+    UserName                : String;
+    NameDsc                 :String;
+    Password                : String;
+    IsAdmin                 : Boolean;
+    IsMechnical             : Boolean;
+    IsElectrial             : Boolean;
+    ManageRecordResult      : Boolean;
+    ManageUserDecision      : Boolean;
+    IsDebitNote             : Boolean;
+    IsRecordResultreport    : Boolean;
+    DispatchQuality         : Boolean;
+    QualityAssurance        : Boolean;
 }
 
 entity RecordResultHead : cuid {
@@ -46,6 +50,17 @@ entity RecordResultDetail : cuid {
     RecordResultHead : Association to RecordResultHead;
 }
 
+entity FormStatus : cuid {
+    ID_Number            :Int32;
+    SerialNumber          : String;
+    FormId               : String;
+    IsLockedForRR        : Boolean;
+    IsLockedForDS        : Boolean;
+    RRUserName          : String;
+    DSUserName          : String;
+    RRLockedDateTime : Timestamp;
+    DSLockedDateTime : Timestamp;
+}
 entity RecordResultSAPHead : cuid {
     InspectionLot               : String;
     Material                    : String;
@@ -70,12 +85,10 @@ entity RecordResultSAPHead : cuid {
     Employeeworker              : String;
     Remarks                     :String;
     CreatedBy                   : String;
-    LastChangedAt               :Timestamp;
-    
+    LastChangedAt               :Timestamp;   
     UDPostingDate               : Date;
     UDUser                      : String;
     SalesOrder                  : String;
-
     SerialBatchDetails          : Composition of many RecordResultSerialBatchDetail
                                       on SerialBatchDetails.RecordResultSAPHead = $self;
     RecordResultDecisionHead    : Composition of many RecordResultDecisionHead
@@ -86,10 +99,17 @@ entity RecordResultSAPHead : cuid {
 entity RecordResultSerialBatchDetail : cuid,managed {
     SerialBatchNumber         : String;
     Quantity                  : Decimal;
+    ISO                       : String;
+    InspectionPlanDesc        :String;
     Status                    : String;
+    remarks                   : String;
     ElectrialUser             : String;
+    ElectrialDate             : Date;
     MechnicalUser             : String;
+    MechnicalDate             : Date;
     DateOfT                   : String;
+    UDPostingDate             : Date;
+    UDUserName                : String;
     UsageDecisionStockType    : String;
     StorageLocation           : String;
     InspectionPlanStatus      : String;
@@ -142,6 +162,7 @@ entity RecordResultDecisionHead : cuid,managed {
     PostDate                   : Date;
     Quantity                   : Decimal;
     Status                     : String;
+    remarks                    : String;
     UsageDecisionStockType     : String;
     StorageLocation            : String;
     RecordResultSAPHead        : Association to RecordResultSAPHead;
@@ -183,6 +204,7 @@ entity ProductQualityClearance : cuid, managed {
     DetailDescription         : String;
     Serial                    : String;
     Inspection                : String;
+    ControledNo                : String;
     CertificateType           : String;
     CertificateNo             : String;
     CertificationType         : String;
@@ -194,12 +216,23 @@ entity ProductQualityClearance : cuid, managed {
     ManufacturingCodeRevision : String;
     ElectricalQA              : String;
     MechanicalQA              : String;
+    ElectricalDate:             Date;
+    MechanicalDate:             Date;
+    PersanAUthorizedforInspection: String;
+    ProductSpecilistApproval: String;
+    PADate:                     Date;
+    PSDate:                     Date;
     deviation                 : String;
     deviationNo               : String;
     ElectricalPerson          : String;
-    ProductSpecilist          : String;
+    PackingEnsuredBy          : String; 
+    PEByDate:                  Date;
     FinalClearBy              : String;
     FinalApprovalBy           : String;
+    FinalClearByDate          :String;
+    FinalApprovalByDate       :String;   
+      SpecialInstruction:        String;
+            DesirethengiveDetails: String;
     LineItem                  : Composition of many LineInfo
                                     on LineItem.ProductQualityHead = $self;
 
@@ -224,6 +257,56 @@ entity InventoryTransferSerialBatchDetail : cuid {
     StorageLocation          : String;
     InventoryTransferSAPHead : Association to InventoryTransferSAPHead;
 }
+entity DispatchQuality : cuid,managed {
+   InspectionLot:               String;
+       Production:               String;
+        SerialNum:                  String;
+        SalesOrder:                 String;
+         Material:                  String;
+         _SalesOrder:                String;
+         SpecialConfiguration:      String;
+         ShippingPoint:             String;
+         DistributionChannel:       String;
+         Isthereany:                String;
+         RefNo:                     String;
+         ExtraField:                String;
+         ExtraField2:                String;
+         thereanydeviation:         String;
+         IfYesmentiondeviation:     String;
+         Totalnoofpackets:          Decimal;
+         DocumentNo:                String;
+            ExpiryDate:             String;
+        IssueDate:                  String;
+            Machinewil:             String;
+            ProcurementPermission: String;
+            FinalApprovedBy:        String;
+            FinalClearedBy:         String;
+            FinalApprovedDate:        String;
+            FinalClearedDate:         String;
+              FinalApprovedByName:        String;
+            FinalClearedByName:         String;
+            CustomerCode:             String;
+            CustomerName:             String;
+            CityName            : String;
+            SpecialInstruction:        String;
+            Region:                 String;
+            MachineReceivedBy:String;
+            MachineReceivedByName:String;
+             MachineDispatchedByName:String;
+            dateofReceived:String;
+            MachineDispatchedBy:String;
+            dateofDispatched:String;
+            IsDeviceregistered:String;
+           
+            FactSheet:              Composition of many FactSheetLine
+                                        on FactSheet.DispatchQualityHead = $self;
+}
+entity FactSheetLine : cuid,managed {
+     DispatchQualityHead : Association to DispatchQuality;
+    DocumentName : String;
+    CheckBox       : Boolean;
+   
+}   
 
 entity DeviceGroupList       as
     select from RecordResultSAPHead as T0
@@ -249,8 +332,8 @@ entity DeviceGroupListReport as
         on T0.ID = T1.RecordResultSAPHead.ID
     join RecordResultParametersDetail as T2
         on T1.ID = T2.RecordResultSerialBatchDetail.ID
-    join RecordResultDeviceTagging as T3
-        on T1.ID = T3.RecordResultSerialBatchDetail.ID
+   left join RecordResultDeviceTagging as T3
+        on T1.ID = T3.RecordResultSerialBatchDetail.ID and  T3.DeviceSelect = true
     left join RecordResultDecisionHead as t4 on T1.ID=t4.RecordResultSAPHead.ID
     left join RecordResultDecisionDetail as T5 on t4.ID=T5.RecordResultDecisionHead.ID
     {
@@ -258,6 +341,7 @@ entity DeviceGroupListReport as
         T0.Status as LotStatus,
         T1.Status as SerialStatus,
             T0.InspectionLot,
+            
             T0.Material,
             T1.SerialBatchNumber,
             T3.DeviceID          as DeviceGroupID,
@@ -267,8 +351,8 @@ entity DeviceGroupListReport as
             t4.Status as UDStatus,
             T5.Status as Serial_StockTransfer
     }
-    where
-        DeviceSelect = true
+
+      
     group by  
         T1.ID,
         T0.InspectionLot,
@@ -292,8 +376,6 @@ entity InspectionQcReport    as
     join RecordResultParametersDetail as T2
         on T1.ID = T2.RecordResultSerialBatchDetail.ID
 
-    // join RecordResultDeviceTagging as T3 on T1.ID = T3.RecordResultSerialBatchDetail.ID
-     //join RecordResultDecisionHead as T6 on T0.ID = T6.RecordResultSAPHead.ID
     left join UserMaster as T4
         on T4.ID = T1.ElectrialUser
     left join UserMaster as T5
@@ -325,7 +407,13 @@ entity InspectionQcReport    as
             T1.DateOfT,
             T0.UDPostingDate,
             T0.UDUser,
-            T0.CreatedBy
+            T0.CreatedBy,
+            ElectrialUser  ,        
+            T1.ElectrialDate    ,         
+            T1.MechnicalDate    ,         
+            T1.UDPostingDate  AS InventoryTransferPostingDate     ,      
+            T1.UDUserName  AS InventoryTransferUserName     ,
+            T1.remarks        
     }
 //where DeviceSelect=true
     /*
@@ -355,3 +443,104 @@ entity InspectionQcReport    as
         T0.UDUser,
         T0.CreatedBy;
 */
+
+
+entity InspectionQcReport2 as
+    select from RecordResultSAPHead as T0 join RecordResultSerialBatchDetail as T1 on T0.ID = T1.RecordResultSAPHead.ID
+    join RecordResultParametersDetail as T2  on T1.ID = T2.RecordResultSerialBatchDetail.ID
+    left join RecordResultDeviceTagging as T3  on T1.ID = T3.RecordResultSerialBatchDetail.ID  and T3.DeviceSelect = true
+    left join RecordResultDecisionHead as T4  on T0.ID = T4.RecordResultSAPHead.ID
+    left join RecordResultDecisionDetail as T5  on T4.ID = T5.RecordResultDecisionHead.ID  and T5.SerialBatchNumber = T1.SerialBatchNumber
+     left join UserMaster as T6  on T6.ID = T1.ElectrialUser  
+     left join UserMaster as T7   on T7.ID = T1.MechnicalUser
+     left join UserMaster as T8  on T8.UserName = T1.UDUserName
+    {
+        // ── Primary Key ──────────────────────────────────────
+        key T2.ID,
+
+        // ── Inspection Lot Header (T0) ────────────────────────
+        T0.InspectionLot,
+        T1.InspectionPlanDesc,
+        T0.Material,
+        T0.ManufacturingOrder,
+        T0.ReasonforDesire,
+        T0.Employeeworker,
+        T0.Status               as LotStatus,
+
+        // ── Serial / Batch (T1) ───────────────────────────────
+        T1.SerialBatchNumber,
+        T1.ISO,
+        T1.Status               as SerialStatus,
+        T1.DateOfT,
+        T6.NameDsc        as ElectrialUserName,
+        T1.ElectrialDate,
+        T7.NameDsc        as MechnicalUserName,
+        T1.MechnicalDate,
+        T1.UDPostingDate,
+        T8.NameDsc        as InventoryTransferUserName,
+
+        // ── Parameters (T2) ───────────────────────────────────
+        // lineid drives the correct sort order
+        T2.lineid,
+
+        // Parent row — shown as Sr No: 1, 2, 3
+        T2.ParentParameterCode,
+        T2.ParentParameterName,
+
+        // Child row — shown as Sr No: 1.1, 1.2, 1.3
+        T2.ParameterCode,
+        T2.ParameterName,
+
+        // Inspection data columns
+        T2.Attribute,
+        T2.AttributeID,
+        T2.Lowervalue,
+        T2.Uppervalue,
+        T2.UOM,                 // ← contains Ω (Ohm) symbol
+        T2.Observation,
+        T2.Status,              // Accepted / Rejected
+        T2.DeviceGroup,
+        T2.DeviceGroupID,
+        T2.InstrumentId,
+        T2.InstrumentDesc,
+        T2.Remarks1,
+        T2.Remarks2,
+
+        // ── Device Tagging (T3) ───────────────────────────────
+        T3.DeviceID,
+        T3.DeviceDescription    as DeviceDesc,
+        T3.DeviceGroup          as TagDeviceGroup,
+        T3.DSerial,
+
+        // ── Usage Decision (T4) ───────────────────────────────
+        T4.Status               as UDStatus,
+        T4.remarks              as TransferUDRemarks,
+
+        // ── Decision Detail (T5) ──────────────────────────────
+        T5.Status               as Serial_StockTransfer,
+        T5.SerialBatchNumber    as DecisionSerialBatchNumber,
+
+        // ── Posting Date from T1 ─────────────────────────────
+        T1.UDPostingDate        as InventoryTransferPostingDate
+    }
+    // ✅ Order by lineid so parent always comes before its children
+    order by
+        T1.SerialBatchNumber asc,
+        T2.lineid            asc;
+
+
+    entity GetElectrialUser as
+    select from RecordResultSAPHead as T0 join RecordResultSerialBatchDetail as T1 on T0.ID = T1.RecordResultSAPHead.ID
+     left join UserMaster as T6  on T6.ID = T1.ElectrialUser  
+       left join UserMaster as T7   on T7.ID = T1.MechnicalUser
+     
+    {
+        // ── Primary Key ──────────────────────────────────────
+        key T6.UserName,
+        
+        T1.SerialBatchNumber,
+        T1.ISO,
+        T6.NameDsc as ElectrialUserName,
+        T7.NameDsc as MechnicalUserName,
+        T7.UserName as MechnicalUser
+    }

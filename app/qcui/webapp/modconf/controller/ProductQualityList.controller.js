@@ -76,8 +76,9 @@ sap.ui.define([
 			var filters=[];
 			if(sQuery)
 			{
-				var filter1 = new sap.ui.model.Filter({path:"JobworkPo",operator:sap.ui.model.FilterOperator.Contains,value1:sQuery});
-				filters=[filter1];
+				var filter1 = new sap.ui.model.Filter({path:"Serial",operator:sap.ui.model.FilterOperator.Contains,value1:sQuery});
+				var filter2 = new sap.ui.model.Filter({ path: "Inspection", operator: sap.ui.model.FilterOperator.Contains, value1: sQuery });
+				filters=[filter1, filter2];
 				var finalFilter = new sap.ui.model.Filter({filters:filters, and:false});
 		}
 		var otable = this.byId("Tbl");
@@ -99,10 +100,10 @@ sap.ui.define([
 },
 navBack: function() {
 		
-		history.go(-1);
+		///history.go(-1);
 			
-			//var router = sap.ui.core.UIComponent.getRouterFor(this);
-           // router.navTo("RouteIndex");
+			var router = sap.ui.core.UIComponent.getRouterFor(this);
+            router.navTo("LandingPageIndex");
 		},
 
 
