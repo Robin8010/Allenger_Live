@@ -180,7 +180,7 @@ isValidUser: function () {
            
            await this.createNewModelUsingAPI(
                 'GET',
-                 `/odata/v4/inspection-qcreport2/InspectionQcReport2?$filter=SerialBatchNumber eq '${SerialBatchNumber}'&$orderby=lineid`,
+                 `/odata/v4/inspection-qcreport2/InspectionQcReport2?$filter=SerialBatchNumber eq '${SerialBatchNumber}'&$orderby=lineid&$top=10000`,
                 '',
                 'reportdata'
             );
@@ -247,30 +247,7 @@ isValidUser: function () {
                             const oModel = this.getView().getModel('reportdata'); // original model
                 const data = oModel.getProperty("/value");
 
-                // Create unique combination key
-                /*
-                const uniqueData = Array.from(
-                new Map(
-                    data
-                    .filter(item => item.DeviceGroup && item.DeviceGroup.trim() !== "") // 👈 filter here
-                    .map(item => [
-                        item.DeviceGroup + "|" + item.DeviceID + "|" + item.SerialBatchNumber,
-                        {
-                        DeviceGroup: item.DeviceGroup,
-                        DeviceID: item.DeviceID,
-                        SerialBatchNumber: item.SerialBatchNumber
-                        }
-                    ])
-                ).values()
-                );
-
-
-                // Create new model
-                const oDistinctModel = new sap.ui.model.json.JSONModel({
-                value: uniqueData
-                });
-                */
-
+               
 
                 // Set model
                 //this.getView().setModel(oDistinctModel, "distinctModel");
@@ -297,6 +274,7 @@ debugger
                             doc.setPage(i);
                              doc.setFontSize(10);
                                doc.setFont("Arial", "normal");
+                               doc.setTextColor(0, 0, 0);
                             doc.text(
                                 `Page ${i} of ${pageCount}`,
                                 180,              // X position (center-ish)
@@ -309,25 +287,16 @@ debugger
                             );
                               doc.setFontSize(16);
                                doc.setFont("Arial", "bold");
+                               doc.setTextColor(255, 0, 0); // Red
                               doc.text(
                                "Controlled copy",
                                 80,              // X position (center-ish)
                                 doc.internal.pageSize.height - 10 // bottom of page
                             );
+                            doc.setTextColor(0, 0, 0);
                         }
 
-                            /*
-                            this.ReportHeader(doc,value);
-                            this.PageHeader(doc,value);
-                            this.LineSection(doc,value);
-                            */
-                            //this.foooter(doc,value,Footer);
-                
                     doc.setFontSize(10);
-                    //doc.text(`Generated on: ${new Date().toLocaleString()}`, 150, doc.internal.pageSize.height-20);
-
-                    // Save/download PDF
-                    //window.open(doc);
                     doc.save("SimpleReport.pdf");
                 }
                 else
@@ -337,7 +306,7 @@ debugger
         },
 
          ReportHeader: function (doc, value,PartData,productionData) {
-    
+    debugger;
             let y = 10;
 
     doc.setFont("Arial", "bold");
@@ -356,7 +325,9 @@ debugger
 
     doc.setFont("Arial", "bold");
      doc.setFontSize(14);
-    doc.text(`${value[0].InspectionPlanDesc|| ""}`, 70, y+20);
+    doc.text(`${value[0].InspectionPlanDesc|| ""}`, doc.internal.pageSize.getWidth()/2, y+20, {
+        align: "center"
+    });
 
     ///////
      doc.setFont("Arial", "normal");
@@ -381,11 +352,11 @@ debugger
                doc.text(`${value[0].SerialBatchNumber|| ""}`, 60, y+40);
                doc.text("Date of Testing (Inspection start Date)", 10, y+45);
               //doc.text(`${value[0].DateOfT || ""}`, 60, y+45);
-              const formattedDate = value[0].DateOfT
+              const formattedDate = value[0].PostDate
             ? new Date(value[0].DateOfT).toLocaleDateString("en-GB")
             : "";
 
-            doc.text(formattedDate, 60, y + 45);
+            doc.text(value[0].PostDate, 60, y + 45);
 
 
              
@@ -485,32 +456,37 @@ debugger
     // Result: [ { parent: "...", children: [ {...}, {...} ] }, ... ]
     // ============================================================
     var groups = [];
-    var parentMap = {};
-    var parentOrder = [];
+var parentMap = {};
+var parentOrder = [];
 
-    for (var i = 0; i < value.length; i++) {
-        var row = value[i];
-        var parentKey = row.ParentParameterName || row.ParameterName || "Unknown";
+for (var i = 0; i < value.length; i++) {
+    var row = value[i];
+    var parentKey = row.ParentParameterName || row.ParameterName || "Unknown";
 
-        if (!parentMap[parentKey]) {
-            parentMap[parentKey] = {
-                parent: parentKey,
-                parentRow: row,       // use first child's row for parent-level data
-                children: []
-            };
-            parentOrder.push(parentKey);
-        }
+    if (!parentMap[parentKey]) {
+        parentMap[parentKey] = {
+            parent: parentKey,
+            parentRow: row,
+            children: [],
+            childKeys: {}          // NEW: track dedup keys for this parent's children
+        };
+        parentOrder.push(parentKey);
+    }
 
-        // Only add as child if ParameterName is different from ParentParameterName
-        if (row.ParameterName && row.ParameterName !== row.ParentParameterName) {
+    if (row.ParameterName && row.ParameterName !== row.ParentParameterName) {
+        // Use ParameterCode if available (more reliable than name), else fall back to name
+        var childKey = row.ParameterCode || row.ParameterName;
+
+        if (!parentMap[parentKey].childKeys[childKey]) {
+            parentMap[parentKey].childKeys[childKey] = true;
             parentMap[parentKey].children.push(row);
         }
     }
+}
 
-    // Build ordered groups array
-    for (var p = 0; p < parentOrder.length; p++) {
-        groups.push(parentMap[parentOrder[p]]);
-    }
+for (var p = 0; p < parentOrder.length; p++) {
+    groups.push(parentMap[parentOrder[p]]);
+}
 
     // ============================================================
     // STEP 2: Render each group

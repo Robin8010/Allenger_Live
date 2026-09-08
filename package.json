@@ -26,6 +26,12 @@
     "sql": {
       "native_hana_associations": false
     },
+    "query": {
+      "limit": {
+        "default": 10000,
+        "max": 100000
+      }
+    },
     "requires": {
       "destinations": true,
       "auth": "mocked",

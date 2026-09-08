@@ -460,6 +460,7 @@ entity InspectionQcReport2 as
 
         // ── Inspection Lot Header (T0) ────────────────────────
         T0.InspectionLot,
+        T0.PostDate,
         T1.InspectionPlanDesc,
         T0.Material,
         T0.ManufacturingOrder,

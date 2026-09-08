@@ -17,9 +17,9 @@ server:
           url: https://sapui5.hana.ondemand.com
         backend:
             - path: /odata
-              destination: AllengersBTP
+              destination: AllengersBTP_Live
             - path: /sap
-              destination: S4HANA_ALLENGERS_DEV
+              destination: S4HANA_ALLENGERS_Live
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

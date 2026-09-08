@@ -133,36 +133,19 @@
                         <Column>
                             <Label text="Sr No"  />
                         </Column>
-                        <Column>   
-                         <Label tooltip="Parent Parameter Id"
-                                text="Parent Parameter Id"
-                                labelFor="ParentParameterCode"
-                            />
-                        </Column>
-                         <Column  width="25%">
+                        <Column  width="25%">
                             <Label tooltip="Parent Parameter Description"
                                 text="Parent Parameter Description"
                                 labelFor="ParentParameterName"
                             />
-                        </Column> 
-                         
-                         <Column Width="300"
-                             demandPopin="false">
-                            <Label
-                                text="Parameter Id"
-                                labelFor="ParameterCode"
-                                wrapping="true"
-                                
-                            />
                         </Column>
-                       <Column  width="20%">
+                        <Column  width="20%">
                             <Label tooltip="Parameter Description"
                                 text="Parameter Description"
                                 labelFor="ParameterName"
                                
                             />
                         </Column>
-                        
                         <Column>
                             <Label tooltip="Range From"
                                 text="Range From"
@@ -189,12 +172,6 @@
                             />
                         </Column>
                         <Column>
-                            <Label tooltip="DeviceGroupID"
-                                text="DeviceGroupID"
-                                labelFor="DeviceGroupID"
-                            />
-                        </Column>
-                        <Column>
                             <Label tooltip="DeviceGroup"
                                 text="DeviceGroup"
                                 labelFor="DeviceGroup"
@@ -206,13 +183,6 @@
                                 labelFor="Observation"
                             />
                         </Column>
-                        <Column>
-                            <Label tooltip="Inspection Agency "
-                                text="Inspection Agency "
-                                labelFor="InspectionAgency"
-                            />
-                        </Column>
-                         
                         <Column width="40px">
                             <Label
                                 text="Status"
@@ -230,7 +200,37 @@
                                 text="Remarks2"
                                 labelFor="Remarks2"
                             />
-                        </Column>       
+                        </Column>
+                        <Column>
+                            <Label tooltip="Inspection Agency "
+                                text="Inspection Agency "
+                                labelFor="InspectionAgency"
+                            />
+                        </Column>
+                        <Column>   
+                         <Label tooltip="Parent Parameter Id"
+                                text="Parent Parameter Id"
+                                labelFor="ParentParameterCode"
+                            />
+                        </Column>
+                          
+                         
+                         <Column Width="300"
+                             demandPopin="false">
+                            <Label
+                                text="Parameter Id"
+                                labelFor="ParameterCode"
+                                wrapping="true"
+                                
+                            />
+                        </Column>
+                        <Column>
+                            <Label tooltip="DeviceGroupID"
+                                text="DeviceGroupID"
+                                labelFor="DeviceGroupID"
+                            />
+                        </Column>
+                        
                     </columns>
                     <items>
                         <ColumnListItem vAlign="Middle" >
@@ -239,24 +239,13 @@
                                     id="il_SrNo1"
                                     text="{EntryFormDataSourceModel>RowNumber}"
                                 />
-                                <Text
-                                    id="il_PParameterCode1"
-                                    text="{EntryFormDataSourceModel>ParentParameterCode}"
-                                    wrapping="true"
-                                />
+                               
                                  <Text
                                     id="il_PParameterName1"
                                     text="{EntryFormDataSourceModel>ParentParameterName}"
                                     wrapping="true"
                                 />
-                               
-                                
-                                 <Text
-                                    id="il_ParameterCode1"
-                                    text="{EntryFormDataSourceModel>ParameterCode}"
-                                    wrapping="true"
-                                /> 
-                              <Text
+                                <Text
                                     id="il_ParameterName1"
                                     text="{EntryFormDataSourceModel>ParameterName}"
                                     wrapping="true"
@@ -266,7 +255,7 @@
                                     text="{EntryFormDataSourceModel>Lowervalue}"
                                     wrapping="true"
                                 />
-                                 <Text
+                                <Text
                                     id="il_RangeT"
                                     text="{EntryFormDataSourceModel>Uppervalue}"
                                     wrapping="true"
@@ -281,27 +270,18 @@
                                     text="{EntryFormDataSourceModel>Attribute}"
                                     wrapping="true"
                                 />
-                                <Text
-                                    id="il_DeviceGroupID"
-                                    text="{EntryFormDataSourceModel>DeviceGroupID}"
-                                    wrapping="true"
-                                />
-                                <Text
+                                 <Text
                                     id="il_DeviceGroup"
                                     text="{EntryFormDataSourceModel>DeviceGroup}"
                                     wrapping="true"
                                 />
-                                <TextArea
+                                 <TextArea
                                     id="il_Observation1"
                                     value="{EntryFormDataSourceModel>Observation}"
                                     growing="true"
                                     
                                     editable="{EntryFormDataSourceModel>StatusEnableDisable}"
                                     liveChange="HandleLiveChanges"
-                                />
-                                <Text
-                                    id="il_InstrumentId1"
-                                    text="{EntryFormDataSourceModel>InspectionAgency}"
                                 />
                                
                                 <Select  width="100px"
@@ -331,6 +311,31 @@
                                      enabled="{EntryFormDataSourceModel>Remarks2Enable}" 
                                     growing="true"
                                 />
+                                 <Text
+                                    id="il_InstrumentId1"
+                                    text="{EntryFormDataSourceModel>InspectionAgency}"
+                                />
+                                  <Text
+                                    id="il_PParameterCode1"
+                                    text="{EntryFormDataSourceModel>ParentParameterCode}"
+                                    wrapping="true"
+                                />
+                                 <Text
+                                    id="il_ParameterCode1"
+                                    text="{EntryFormDataSourceModel>ParameterCode}"
+                                    wrapping="true"
+                                /> 
+                                <Text
+                                    id="il_DeviceGroupID"
+                                    text="{EntryFormDataSourceModel>DeviceGroupID}"
+                                    wrapping="true"
+                                />
+                               
+                               
+                                
+                               
+                               
+                                
                             </cells>
                         </ColumnListItem>
                     </items>
