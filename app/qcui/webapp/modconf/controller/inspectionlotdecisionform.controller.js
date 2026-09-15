@@ -339,6 +339,7 @@ sap.ui.define([
             },
             PostingUserDecisionToSAPSystem: async function () {
                 try {
+                    debugger
                     let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
                     const inspectionChangeDateTime1 = await this.FetchInspectionLotChanngeTime(viewModel.getProperty("/InspectionLot"));
                     const inspectionChangeDateTime = this.convertDotNetDate(inspectionChangeDateTime1);
@@ -407,10 +408,11 @@ sap.ui.define([
                         debugger;
                         if (isPostedSuccessfully) {
                             MessageToast.show("UD Posted.");
+                            debugger
                             await this.UpdateRecordResultHeaderStatusAfterUD(viewModel.getProperty("/ID"), "UD-Posted");
                         }
                         else {
-                            MessageToast.show("Error posting stock transfer. Check SAP logs");
+                            MessageToast.show("Error posting UD. Check SAP logs");
                         }
                     } catch (error) {
                         console.log(error);
@@ -425,6 +427,7 @@ sap.ui.define([
             },
             UpdateRecordResultHeaderStatusAfterUD: async function (value) {
                 try {
+                    debugger
                     const dataJson = {
                         Status: "UD-Posted"
                     };

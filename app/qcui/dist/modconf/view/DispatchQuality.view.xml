@@ -152,7 +152,8 @@
                         />  
                          <Label
                             id="IsDeviceregistered"
-                            text="{i18n> Is Device Registered in Eudamed?: }"
+                            text="{i18n> In case of EUDAMED is NO the device must not be dispatched in EUROPE.
+EUDAMED registration is applicable only for CE marked machine .] }"
                             
                             class="m-mast-lev"
                         /> 

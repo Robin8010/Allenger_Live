@@ -799,8 +799,10 @@ ReportHeader: function (doc, value) {
     doc.line(5, y, doc.internal.pageSize.getWidth() - 5, y);
     doc.line(5, y + 15, doc.internal.pageSize.getWidth() - 5, y + 15);
     doc.line(40, y, 40, y);
+    doc.line(60, y, 60, y + 15);
     doc.line(150, y, 150, y + 15);
-    doc.setFontSize(9);
+   doc.setFontSize(22);
+     doc.setFont("Arial", "bold");
     doc.text("Allengers", 10, y + 10);
        doc.setFontSize(8);
    // doc.text(`${value.ControledNo || ""}`, 152, y + 10);
@@ -1041,10 +1043,10 @@ LineSection: function (doc, value, startY, dispatchData1, ElectrialUserName) {
     doc.line(doc.internal.pageSize.getWidth() - 5, LineY, doc.internal.pageSize.getWidth() - 5, LineY + 30);
 
    
-      doc.text("This Document is electronically authenticated and no signature is required", 80, LineY + 34);
+      doc.text("This Document is electronically authenticated and no signature is required", 70, LineY + 34);
        doc.setFontSize(12);
     doc.setFont("Arial", "bold");
-      doc.text("CONTROLLED COPY", 95, LineY + 40);
+      doc.text("CONTROLLED COPY", 80, LineY + 40);
     return LineY + 30;
 },
 
