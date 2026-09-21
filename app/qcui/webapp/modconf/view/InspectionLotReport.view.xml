@@ -17,7 +17,7 @@
         showHeader="true"
         showNavButton="true"
         navButtonPress=".navBack"
-        title="Device Group Report"
+        title="BTP Inspection Report"
     >
         <content>
             <f:SimpleForm

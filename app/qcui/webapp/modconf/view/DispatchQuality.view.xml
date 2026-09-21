@@ -6,7 +6,7 @@
     xmlns:core="sap.ui.core"
     controllerName="modconfcontroller.DispatchQuality">
 
-         <Page title="Dispatch Quality" showNavButton="true" navButtonPress="navBack">
+         <Page title="Dispatch Quality Clearance" showNavButton="true" navButtonPress="navBack">
  
         <!-- Filter Bar -->
   <VBox id="Filter" class="sapUiSmallMargin">

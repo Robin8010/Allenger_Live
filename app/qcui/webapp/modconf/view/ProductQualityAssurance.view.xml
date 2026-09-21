@@ -6,7 +6,7 @@
     xmlns:core="sap.ui.core"
     controllerName="modconfcontroller.ProductQualityAssurance">
 
-         <Page title="Product Quality Assurance" showNavButton="true" navButtonPress="navBack">
+         <Page title="Product Quality Clearance" showNavButton="true" navButtonPress="navBack">
  
         <!-- Filter Bar -->
   <VBox id="_Filter" class="sapUiSmallMargin">

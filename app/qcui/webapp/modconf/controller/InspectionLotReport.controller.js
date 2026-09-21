@@ -336,7 +336,7 @@ debugger
     // doc.addImage(Image, "PNG", 10, 12, 40, 12);
      doc.setFontSize(22);
      doc.setFont("Arial", "bold");
-     doc.text("Allenger", 10, y+10);
+     doc.text("Allengers", 10, y+10);
           
              doc.setFontSize(7);
              doc.setFont("Arial", "normal");

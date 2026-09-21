@@ -21,7 +21,7 @@
                 maxContainerCols="2"
                 editable="true"
                 layout="ResponsiveGridLayout"
-                title="ProductQualityist"
+                title="Product Quality Clearance"
                 labelSpanL="4"
                 labelSpanM="4"
                 emptySpanL="0"

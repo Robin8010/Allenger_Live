@@ -99,6 +99,11 @@ sap.ui.define([
                     oModelApp.setProperty("/enableToolHeader", true);
                     //Login Button enable
                     oModelL.setProperty("/buttonEnabled", true);
+debugger
+                     let Desc= loginData.value[0].NameDsc;
+                    let _AppModel=this.getView().getModel('sysModel');
+                    _AppModel.setProperty("/userDetails/UserDsc",Desc);
+                    _AppModel.refresh(true);
                     oModelApp.refresh(true);
                     //App Controll Enable
                     MessageToast.show("Redirecting to home.....");
