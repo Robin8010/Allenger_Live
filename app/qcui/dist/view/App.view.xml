@@ -21,7 +21,7 @@
 					<OverflowToolbarLayoutData priority="NeverOverflow"/>
 				</layoutData>
 			</Image>
-			<Title text="Quality Control" wrapping="false" id="productName">
+			<Title text="BTP QUALITY MANAGEMENT DESHBOARD" wrapping="false" id="productName">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="Disappear"/>
 				</layoutData>
@@ -58,7 +58,7 @@
 					<OverflowToolbarLayoutData group="2"/>
 				</layoutData>
 			</ToolbarSeparator>
-			<Label text="{/someParam}"></Label>
+			<Label design="Bold"  text="{sysModel>/userDetails/UserDsc}" />
 			<OverflowToolbarButton visible="false" icon="sap-icon://action-settings" type="Transparent" text="Settings"/>
 			<Button icon="sap-icon://bell" visible="false" type="Transparent" tooltip="Notification">
 				<layoutData>

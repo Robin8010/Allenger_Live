@@ -359,7 +359,7 @@ debugger
               const formattedDate = value[0].PostDate
             ? new Date(value[0].DateOfT).toLocaleDateString("en-GB")
             : "";
-
+debugger
             doc.text(value[0].PostDate, 60, y + 45);
 
 

@@ -951,7 +951,9 @@ LineSection: function (doc, value, startY, dispatchData1, ElectrialUserName) {
       doc.text("This Document is electronically authenticated and no signature is required", 70, LineY + 34);
        doc.setFontSize(12);
     doc.setFont("Arial", "bold");
+     doc.setTextColor(255, 0, 0); // Red
       doc.text("CONTROLLED COPY", 80, LineY + 40);
+       doc.setTextColor(0, 0, 0);     // Black
     return LineY + 30;
 },
 

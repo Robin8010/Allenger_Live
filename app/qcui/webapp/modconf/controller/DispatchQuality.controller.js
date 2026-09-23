@@ -1035,7 +1035,7 @@ LineSection: function (doc, value, startY, dispatchData1, ElectrialUserName) {
 
     doc.text("Packing Ensured By", 10, LineY + 28);
     doc.text("Name", 52, LineY + 28);
-    doc.text(`${dispatchData1.PackingEnsuredBy || ""}`, 70, LineY + 28);
+    doc.text(`${dispatchData1.PackingEnsuredBy || ""}`, 60, LineY + 28);
     doc.text("Signature", 102, LineY + 28);
     doc.text("Date:", 122, LineY + 28);
     doc.text(`${dispatchData1.PEByDate || ""}`, 135, LineY + 28);
@@ -1046,7 +1046,9 @@ LineSection: function (doc, value, startY, dispatchData1, ElectrialUserName) {
       doc.text("This Document is electronically authenticated and no signature is required", 70, LineY + 34);
        doc.setFontSize(12);
     doc.setFont("Arial", "bold");
+    doc.setTextColor(255, 0, 0); // Red
       doc.text("CONTROLLED COPY", 80, LineY + 40);
+      doc.setTextColor(0, 0, 0);     // Black
     return LineY + 30;
 },
 
@@ -1125,30 +1127,31 @@ DispatchQualityHeader: function (doc, value, Footer_EndY) {
     doc.line(pageWidth - 5, y2, pageWidth - 5, y2 + 17);
     doc.line(5, y2, pageWidth - 5, y2);
 
-    doc.text("Is Device registered in Eudamed:- ", 8, y2 + 3    );
+    doc.text("In case of EUDAMED is NO the device must not be dispatched in EUROPE.  ", 8, y2 + 3    );
+     doc.text("EUDAMED registration is applicable only for CE marked machine ", 8, y2 + 7    );
     if (value.IsDeviceregistered == "0") {
-        doc.text('Yes', 60, y2 + 3);
+        doc.text('Yes', 100, y2 + 3);
     } else if (value.IsDeviceregistered == "1") {
-        doc.text('No', 60, y2 + 3);
+        doc.text('No', 100, y2 + 3);
     }
 
-    doc.text("Is there any Short Shipment:- ", 8, y2 + 7);
+    doc.text("Is there any Short Shipment:- ", 120, y2 + 3);
     if (value.Isthereany == "0") {
-        doc.text('Yes', 60, y2 + 7);
+        doc.text('Yes', 160, y2 + 3);
     } else if (value.Isthereany == "1") {
-        doc.text('No', 60, y2 + 7);
+        doc.text('No', 160, y2 + 3);
     }
-    doc.text("If Yes, mention detail (Ref. No.)   :- ", 100, y2 + 7);
+    doc.text("If Yes, mention detail (Ref. No.)   :- ", 120, y2 + 7);
     doc.text(`${value.RefNo || ""}`, 160, y2 + 7);
 
     doc.text("Is there any deviation required:- ", 8, y2 + 11);
    
     if (value.thereanydeviation == "0") {
-        doc.text('Yes', 60, y2 + 11);
+        doc.text('Yes', 100, y2 + 11);
     } else if (value.thereanydeviation == "1") {
-        doc.text('No', 60, y2 + 11);
+        doc.text('No', 100, y2 + 11);
     }
-    doc.text("If Yes, mention deviation No.    :- ", 100, y2 + 11);
+    doc.text("If Yes, mention deviation No.    :- ", 120, y2 + 11);
     doc.text(`${value.IfYesmentiondeviation || ""}`, 160, y2 + 11);
 
      doc.line(5, y2+13, pageWidth - 5, y2+13);
@@ -1324,7 +1327,12 @@ debugger
      doc.text("This Document is electronically authenticated and no signature is required", 80, LineY + 34);
        doc.setFontSize(12);
     doc.setFont("Arial", "bold");
+     doc.setTextColor(255, 0, 0); // Red
       doc.text("CONTROLLED COPY", 95, LineY + 40);
+    doc.setTextColor(0, 0, 0);     // Black
+      
+    
+  
 
     return LineY + 30;
 }

@@ -36,15 +36,15 @@
                 </TileContent>
             </GenericTile>
 
-             <GenericTile id="gt6" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Record result decision "
-                subheader="List Report" press="Showrecordresult" url="https://www.sap.com/">
+             <GenericTile id="gt6" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="BTP Inspection Report"
+                subheader="BTP Inspection Report" press="Showrecordresult" url="https://www.sap.com/">
                 <TileContent id="tc6">
                     <ImageContent id="ic6" src="sap-icon://decision" />
                 </TileContent>
             </GenericTile>
 
-                <GenericTile id="gt7" visible="true" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Product Quality Assurance"
-                subheader="Product Quality Assurance" press="ShowproductQuality" url="https://www.sap.com/">
+                <GenericTile id="gt7" visible="true" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Product Quality Clearance"
+                subheader="Product Quality Clearance" press="ShowproductQuality" url="https://www.sap.com/">
                 <TileContent id="tc7">
                     <ImageContent id="ic7" src="sap-icon://decision" />
                 </TileContent>
@@ -56,8 +56,8 @@
                     <ImageContent id="ic8" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
                 </TileContent>
             </GenericTile>
-              <GenericTile id="gt9" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Dispatch Quality"
-                subheader="Dispatch Quality" press="ShowDispatchQuality"  >
+              <GenericTile id="gt9" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Dispatch Quality Clearance"
+                subheader="Dispatch Quality Clearance" press="ShowDispatchQuality"  >
                 <TileContent id="tc9">
                     <ImageContent id="ic9" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
                 </TileContent>
