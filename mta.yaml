@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: AllengersQc
 description: Quality Control.
-version: 1.0.197
+version: 1.0.198
 modules:
   - name: AllengersQc-srv
     type: nodejs
