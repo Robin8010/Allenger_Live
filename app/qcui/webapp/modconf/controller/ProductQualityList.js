@@ -10,7 +10,7 @@ sap.ui.define([
 		 let globalVarForUserId = "";
 		  let globalVarForUserName = "";
 		 return genericentryform.extend("modconfcontroller.ProductQualityList", {
-
+//
 	
 		onInit: function () {
 			genericentryform.prototype.onInit.apply(this, arguments); 
