@@ -360,7 +360,7 @@ debugger
             ? new Date(value[0].DateOfT).toLocaleDateString("en-GB")
             : "";
 debugger
-            doc.text(value[0].PostDate, 60, y + 45);
+         //   doc.text(value[0].PostDate, 60, y + 45);
 
 
              
@@ -446,9 +446,8 @@ debugger
     // ✅ RETURN START Y FOR LINE ITEMS
     return Py + 3;
 },
-  LineSection: function (doc, value, startY) {
+LineSection: function (doc, value, startY) {
 
-   // resetFont(doc);
     var LineY = startY;
     var pageHeight = doc.internal.pageSize.getHeight();
     var bottomMargin = 30;
@@ -456,58 +455,106 @@ debugger
     var minRowHeight = 4;
 
     // ============================================================
-    // STEP 1: Group data by ParentParameterName
-    // Result: [ { parent: "...", children: [ {...}, {...} ] }, ... ]
+    // STEP 1: Group data by ParentParameterCode
     // ============================================================
+
     var groups = [];
-var parentMap = {};
-var parentOrder = [];
+    var parentMap = {};
+    var parentOrder = [];
 
-for (var i = 0; i < value.length; i++) {
-    var row = value[i];
-    var parentKey = row.ParentParameterName || row.ParameterName || "Unknown";
+    for (var i = 0; i < value.length; i++) {
 
-    if (!parentMap[parentKey]) {
-        parentMap[parentKey] = {
-            parent: parentKey,
-            parentRow: row,
-            children: [],
-            childKeys: {}          // NEW: track dedup keys for this parent's children
-        };
-        parentOrder.push(parentKey);
-    }
+        var row = value[i];
 
-    if (row.ParameterName && row.ParameterName !== row.ParentParameterName) {
-        // Use ParameterCode if available (more reliable than name), else fall back to name
-        var childKey = row.ParameterCode || row.ParameterName;
+        // Parent Code is the primary grouping key
+        var parentKey =
+            row.ParentParameterCode ||
+            row.ParentParameterName ||
+            row.ParameterCode ||
+            row.ParameterName ||
+            "Unknown";
 
-        if (!parentMap[parentKey].childKeys[childKey]) {
-            parentMap[parentKey].childKeys[childKey] = true;
-            parentMap[parentKey].children.push(row);
+        if (!parentMap[parentKey]) {
+
+            parentMap[parentKey] = {
+                parent: row.ParentParameterName || "",
+                parentCode: row.ParentParameterCode || "",
+                parentRow: row,
+                children: [],
+                childKeys: {}
+            };
+
+            parentOrder.push(parentKey);
+        }
+
+        // ========================================================
+        // CHILD
+        // ========================================================
+
+        if (
+            row.ParameterCode &&
+            row.ParameterCode !== row.ParentParameterCode
+        ) {
+
+            var childKey =
+                row.ParameterCode ||
+                row.ParameterName;
+
+            if (!parentMap[parentKey].childKeys[childKey]) {
+
+                parentMap[parentKey].childKeys[childKey] = true;
+
+                parentMap[parentKey].children.push(row);
+            }
         }
     }
-}
 
-for (var p = 0; p < parentOrder.length; p++) {
-    groups.push(parentMap[parentOrder[p]]);
-}
+    // Convert map into array
+    for (var p = 0; p < parentOrder.length; p++) {
+        groups.push(parentMap[parentOrder[p]]);
+    }
+
 
     // ============================================================
-    // STEP 2: Render each group
+    // STEP 2: Render groups
     // ============================================================
+
     var parentCounter = 0;
 
     for (var g = 0; g < groups.length; g++) {
+
         var group = groups[g];
         var parentRow = group.parentRow;
+
         parentCounter++;
 
-        // ---- PARENT ROW ----
-        var parentText = (group.parent);
-        var parentDescLines = doc.splitTextToSize(parentText, 60);
+        // ========================================================
+        // CHECK:
+        // Does this parent have children?
+        // ========================================================
 
-        var parentDeviceText = (parentRow.DeviceGroup || "");
-        var parentDeviceLines = doc.splitTextToSize(parentDeviceText, 40);
+        var hasChildren = group.children.length > 0;
+
+
+        // ========================================================
+        // PARENT ROW
+        // ========================================================
+
+        var parentText = group.parent || "";
+
+        var parentDescLines =
+            doc.splitTextToSize(parentText, 60);
+
+        // Device Group:
+        // If parent has children => blank
+        var parentDeviceText =
+            hasChildren
+                ? ""
+                : (parentRow.DeviceGroup || "");
+
+        var parentDeviceLines =
+            doc.splitTextToSize(parentDeviceText, 40);
+
 
         var parentRowHeight = Math.max(
             parentDescLines.length * textLineHeight,
@@ -515,64 +562,243 @@ for (var p = 0; p < parentOrder.length; p++) {
             minRowHeight
         );
 
-        // Page break check for parent
-        if (LineY + parentRowHeight > pageHeight - bottomMargin) {
+
+        // ========================================================
+        // Page break
+        // ========================================================
+
+        if (
+            LineY + parentRowHeight >
+            pageHeight - bottomMargin
+        ) {
+
             doc.addPage();
-           // resetFont(doc);
-            LineY = this.PageHeader(doc, value, 10);
+
+            LineY = this.PageHeader(
+                doc,
+                value,
+                10
+            );
         }
+
 
         var rowStartY = LineY;
 
-        // Sr. No. — bold style for parent (just the number, e.g. "1")
-        doc.text(parentCounter.toString(), 8, rowStartY);
 
-        // Parameter Name (parent)
+        // ========================================================
+        // SR NO
+        // ========================================================
+
+        doc.text(
+            parentCounter.toString(),
+            8,
+            rowStartY
+        );
+
+
+        // ========================================================
+        // PARENT NAME
+        // Always show
+        // ========================================================
+
         parentDescLines.forEach(function (line, idx) {
-            doc.text(line, 21, rowStartY + idx * textLineHeight);
+
+            doc.text(
+                line,
+                21,
+                rowStartY + idx * textLineHeight
+            );
+
         });
 
-        // Device Group
+
+        // ========================================================
+        // DEVICE GROUP
+        // Blank if parent has children
+        // ========================================================
+
         parentDeviceLines.forEach(function (line, idx) {
-            doc.text(line, 125, rowStartY + idx * textLineHeight);
+
+            doc.text(
+                line,
+                125,
+                rowStartY + idx * textLineHeight
+            );
+
         });
-debugger
-        // Other columns for parent row
-       const getValue = (value) => (value?.toString().trim() || "");
-
-doc.text(getValue(parentRow.Attribute),    95,  rowStartY);
-doc.text(getValue(parentRow.Lowervalue),   108, rowStartY);
-doc.text("-",                              115, rowStartY);
-doc.text(getValue(parentRow.Uppervalue),   116, rowStartY);
-doc.text(getValue(parentRow.Observation),  162, rowStartY);
-doc.text(getValue(parentRow.UOM),          183, rowStartY);
-doc.text(getValue(parentRow.Status),       194, rowStartY);
 
 
+        // ========================================================
+        // Other columns
+        //
+        // If parent has children => BLANK
+        // If no children => show existing data
+        // ========================================================
+
+        var getValue = function (value) {
+            return value !== null &&
+                   value !== undefined &&
+                   value.toString().trim() !== ""
+                ? value.toString().trim()
+                : "";
+        };
+
+
+        var parentAttribute =
+            hasChildren
+                ? ""
+                : getValue(parentRow.Attribute);
+
+        var parentLower =
+            hasChildren
+                ? ""
+                : getValue(parentRow.Lowervalue);
+
+        var parentUpper =
+            hasChildren
+                ? ""
+                : getValue(parentRow.Uppervalue);
+
+        var parentObservation =
+            hasChildren
+                ? ""
+                : getValue(parentRow.Observation);
+
+        var parentUOM =
+            hasChildren
+                ? ""
+                : getValue(parentRow.UOM)
+                    .replaceAll("Ω", "Ohm");
+
+        var parentStatus =
+            hasChildren
+                ? ""
+                : getValue(parentRow.Status);
+
+
+        // ========================================================
+        // Draw parent columns
+        // ========================================================
+
+        doc.text(
+            parentAttribute,
+            95,
+            rowStartY
+        );
+
+        doc.text(
+            parentLower,
+            108,
+            rowStartY
+        );
+
+        doc.text(
+            "-",
+            115,
+            rowStartY
+        );
+
+        doc.text(
+            parentUpper,
+            116,
+            rowStartY
+        );
+
+        doc.text(
+            parentObservation,
+            162,
+            rowStartY
+        );
+
+        doc.text(
+            parentUOM,
+            183,
+            rowStartY
+        );
+
+        doc.text(
+            parentStatus,
+            194,
+            rowStartY
+        );
+
+
+        // ========================================================
         // Horizontal line
-        doc.line(5, rowStartY + parentRowHeight + 2,
-            doc.internal.pageSize.getWidth() - 5,
-            rowStartY + parentRowHeight + 2);
+        // ========================================================
 
+        doc.line(
+            5,
+            rowStartY + parentRowHeight + 2,
+            doc.internal.pageSize.getWidth() - 5,
+            rowStartY + parentRowHeight + 2
+        );
+
+
+        // ========================================================
         // Vertical lines
-        [5, 17, 90, 107, 124, 160, 182, 193,
+        // ========================================================
+
+        [
+            5,
+            17,
+            90,
+            107,
+            124,
+            160,
+            182,
+            193,
             doc.internal.pageSize.getWidth() - 5
         ].forEach(function (x) {
-            doc.line(x, rowStartY - 4, x, rowStartY + parentRowHeight + 2);
+
+            doc.line(
+                x,
+                rowStartY - 4,
+                x,
+                rowStartY + parentRowHeight + 2
+            );
+
         });
+
 
         LineY += parentRowHeight + 6;
 
-        // ---- CHILD ROWS ----
-        for (var c = 0; c < group.children.length; c++) {
+
+        // ========================================================
+        // CHILD ROWS
+        // ========================================================
+
+        for (
+            var c = 0;
+            c < group.children.length;
+            c++
+        ) {
+
             var child = group.children[c];
-            var childSrNo = parentCounter + "." + (c + 1);  // e.g. 1.1, 1.2
 
-            var childText = (child.ParameterName || "");
-            var childDescLines = doc.splitTextToSize(childText, 55); // slightly narrower for indent
+            var childSrNo =
+                parentCounter + "." + (c + 1);
 
-            var childDeviceText = (child.DeviceGroup || "");
-            var childDeviceLines = doc.splitTextToSize(childDeviceText, 40);
+
+            var childText =
+                child.ParameterName || "";
+
+            var childDescLines =
+                doc.splitTextToSize(
+                    childText,
+                    55
+                );
+
+
+            var childDeviceText =
+                child.DeviceGroup || "";
+
+            var childDeviceLines =
+                doc.splitTextToSize(
+                    childDeviceText,
+                    40
+                );
+
 
             var childRowHeight = Math.max(
                 childDescLines.length * textLineHeight,
@@ -580,48 +806,166 @@ doc.text(getValue(parentRow.Status),       194, rowStartY);
                 minRowHeight
             );
 
-            // Page break check for child
-            if (LineY + childRowHeight > pageHeight - bottomMargin) {
+
+            // ====================================================
+            // Page break
+            // ====================================================
+
+            if (
+                LineY + childRowHeight >
+                pageHeight - bottomMargin
+            ) {
+
                 doc.addPage();
-               // resetFont(doc);
-                LineY = this.PageHeader(doc, value, 10);
+
+                LineY = this.PageHeader(
+                    doc,
+                    value,
+                    10
+                );
             }
+
 
             var childRowStartY = LineY;
 
-            // Sr. No. for child (e.g. "1.1")
-            doc.text(childSrNo, 8, childRowStartY);
 
-            // ParameterName indented slightly more than parent
-            childDescLines.forEach(function (line, idx) {
-                doc.text(line, 23, childRowStartY + idx * textLineHeight); // 23 vs 21 for indent
-            });
+            // ====================================================
+            // Child Sr No
+            // ====================================================
 
-            // Device Group
-            childDeviceLines.forEach(function (line, idx) {
-                doc.text(line, 125, childRowStartY + idx * textLineHeight);
-            });
+            doc.text(
+                childSrNo,
+                8,
+                childRowStartY
+            );
 
-            // Other columns
-            doc.text((child.Attribute),    95,  childRowStartY);
-            doc.text((child.Lowervalue),   108, childRowStartY);
-            doc.text("-",                           115, childRowStartY);
-            doc.text((child.Uppervalue),   116, childRowStartY);
-            doc.text((child.Observation),  162, childRowStartY);
-            doc.text((child.UOM),          183, childRowStartY);  // ✅ Ω → Ohm
-            doc.text((child.Status),       194, childRowStartY);
 
+            // ====================================================
+            // Child Parameter
+            // ====================================================
+
+            childDescLines.forEach(
+                function (line, idx) {
+
+                    doc.text(
+                        line,
+                        23,
+                        childRowStartY +
+                        idx * textLineHeight
+                    );
+
+                }
+            );
+
+
+            // ====================================================
+            // Child Device Group
+            // ====================================================
+
+            childDeviceLines.forEach(
+                function (line, idx) {
+
+                    doc.text(
+                        line,
+                        125,
+                        childRowStartY +
+                        idx * textLineHeight
+                    );
+
+                }
+            );
+
+
+            // ====================================================
+            // Child columns
+            // ====================================================
+
+            doc.text(
+                getValue(child.Attribute),
+                95,
+                childRowStartY
+            );
+
+            doc.text(
+                getValue(child.Lowervalue),
+                108,
+                childRowStartY
+            );
+
+            doc.text(
+                "-",
+                115,
+                childRowStartY
+            );
+
+            doc.text(
+                getValue(child.Uppervalue),
+                116,
+                childRowStartY
+            );
+
+            doc.text(
+                getValue(child.Observation),
+                162,
+                childRowStartY
+            );
+
+
+            var UOM =
+                getValue(child.UOM)
+                    .replaceAll("Ω", "Ohm");
+
+            doc.text(
+                UOM,
+                183,
+                childRowStartY
+            );
+
+
+            doc.text(
+                getValue(child.Status),
+                194,
+                childRowStartY
+            );
+
+
+            // ====================================================
             // Horizontal line
-            doc.line(5, childRowStartY + childRowHeight + 2,
-                doc.internal.pageSize.getWidth() - 5,
-                childRowStartY + childRowHeight + 2);
+            // ====================================================
 
+            doc.line(
+                5,
+                childRowStartY + childRowHeight + 2,
+                doc.internal.pageSize.getWidth() - 5,
+                childRowStartY + childRowHeight + 2
+            );
+
+
+            // ====================================================
             // Vertical lines
-            [5, 17, 90, 107, 124, 160, 182, 193,
+            // ====================================================
+
+            [
+                5,
+                17,
+                90,
+                107,
+                124,
+                160,
+                182,
+                193,
                 doc.internal.pageSize.getWidth() - 5
             ].forEach(function (x) {
-                doc.line(x, childRowStartY - 4, x, childRowStartY + childRowHeight + 2);
+
+                doc.line(
+                    x,
+                    childRowStartY - 4,
+                    x,
+                    childRowStartY + childRowHeight + 2
+                );
+
             });
+
 
             LineY += childRowHeight + 6;
         }
@@ -629,6 +973,7 @@ doc.text(getValue(parentRow.Status),       194, rowStartY);
 
     return LineY;
 },
+  
  DeviceHeader: function (doc, value, startY) {
 
     const pageWidth = doc.internal.pageSize.getWidth();

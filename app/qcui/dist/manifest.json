@@ -122,6 +122,13 @@
 					]
 				},
 				{
+					"name": "LotRemove",
+					"pattern": "LotRemove",
+					"target": [
+						"TargetLotRemove"
+					]
+				},
+				{
 					"name": "RouteNameUserMasterConfiguration",
 					"pattern": "RouteNameUserMasterConfiguration",
 					"target": [
@@ -298,6 +305,14 @@
 					"clearControlAggregation": false,
 					"id": "Landing",
 					"name": "Landing"
+				},
+				"TargetLotRemove": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "InspectionLotRemovefunctionality",
+					"viewName": "InspectionLotRemovefunctionality",
+					"viewPath": "modconfview"
 				},
 				"TargetUserConfiguration": {
 					"viewType": "XML",

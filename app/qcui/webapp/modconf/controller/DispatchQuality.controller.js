@@ -487,36 +487,41 @@ debugger
                 let viewModel = this.getView().getModel(this.getEntryFormDataSourceModelName());
 
                 let Inspection = viewModel.getProperty("/InspectionLot");
-              if(Inspection!="" && Inspection!=undefined)
+             if (Inspection !== "" && Inspection !== undefined) 
                 {
+                   
+
                     await this.createNewModelUsingAPI(
                         'GET',
-                        `/sap/opu/odata/sap/API_INSPECTIONLOT_SRV/A_InspLotSerialNumber?$format=json&$filter=InspectionLot eq '${Inspection}'`,
-                        
+                        `/sap/opu/odata/sap/API_INSPECTIONLOT_SRV/A_InspLotSerialNumber?$filter=InspectionLot eq '${Inspection}'&$format=json`,
                         '',
                         this.getCflListViewDataSourceModelName()
-                    )
+                    );
+                      this.setCflDisplayColumns(["SerialNumber"]);
+                        this.setCflDataColumns(["SerialNumber"]);
+                        this.setCflValueAndDisplay("SerialNumber", "SerialNumber", "", "");
+
+                        this.showCfl(
+                            "SerialNumber",
+                            this.getCflListViewDataSourceModelName(),
+                            "d/results",
+                            this.onConfirmSerial.bind(this)
+                        );
                 }
             else
             {
+                  MessageBox.show("Please select Inspection Lot first...");
+                /*
                     await this.createNewModelUsingAPI(
                         'GET',
                         `/sap/opu/odata/sap/API_INSPECTIONLOT_SRV/A_InspLotSerialNumber?$format=json`,
                         '',
                         this.getCflListViewDataSourceModelName()
                     );  
+                    */
             }
 
-        this.setCflDisplayColumns(["SerialNumber"]);
-        this.setCflDataColumns(["SerialNumber"]);
-        this.setCflValueAndDisplay("SerialNumber", "SerialNumber", "", "");
-
-        this.showCfl(
-            "SerialNumber",
-            this.getCflListViewDataSourceModelName(),
-            "d/results",
-            this.onConfirmSerial.bind(this)
-        );
+      
 
             } catch (error) {
                 MessageBox.show("cflForSerial -: " + error.message);

@@ -63,6 +63,14 @@
                 </TileContent>
             </GenericTile>
 
+             
+              <GenericTile id="gt10" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Inspection Lot"
+                subheader="InspectionLotRemove" press="ShowLotRemove"  >
+                <TileContent id="tc10">
+                    <ImageContent id="ic10" src="test-resources/sap/m/demokit/sample/GenericTileAsLaunchTile/images/SAPLogoLargeTile_28px_height.png" />
+                </TileContent>
+            </GenericTile>
+
 	</ScrollContainer>    
     </Page>
 </mvc:View>

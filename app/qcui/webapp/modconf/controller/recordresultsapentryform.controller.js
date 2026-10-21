@@ -366,9 +366,10 @@ debugger
                             viewModel.setProperty(`/ManufacturingOrder`, inspectionData.ManufacturingOrder);
                             viewModel.setProperty(`/SerialNumber`, "");
                             viewModel.setProperty(`/Employeeworker`, inspectionData.YY1_ProductionWorkerN1_ILH);
-                            await this.CheckMaterialManageBy(inspectionData.Material);
+                            await this.CheckMaterialManageBy(inspectionData.Material,inspectionData.Plant);
                             viewModel.setProperty(`/Quantity`, inspectionData.InspectionLotQuantity);
                             const manageBy = viewModel.getProperty(`/ManagedBy`);
+                            
                             if (manageBy == "None") {
                                 var newRow = {
                                     "RowNumber": 1,
@@ -476,10 +477,10 @@ debugger
                     }
                 }
             },
-            CheckMaterialManageBy: async function (value) {
+            CheckMaterialManageBy: async function (value,Plant) {
                 await this.createNewModelUsingAPI(
                     'GET',
-                    `/sap/opu/odata/sap/API_PRODUCT_SRV/A_Product('${value}')/to_Plant`,
+                    `/sap/opu/odata/sap/API_PRODUCT_SRV/A_Product('${value}')/to_Plant?$filter=Plant eq '${Plant}'`,
                     '',
                     'MaterialData'
                 );

@@ -61,6 +61,7 @@ sap.ui.define([
                 console.log("USER MODEL OBJECT:", user);
 
                 let isAdmin = false;
+                  let isSuser = false;
                 let manageRecordResult = false;
                 let manageUserDecision = false;
                 let DebitNote = false;
@@ -69,6 +70,7 @@ sap.ui.define([
                 let QualityAnalyst = false;
                 if (loginModel && loginModel != 'undefined' && loginModel.value.length > 0) {
                     isAdmin = loginModel.value[0].IsAdmin;
+                    isSuser = loginModel.value[0].UserName;
                     manageRecordResult = loginModel.value[0].ManageRecordResult;
                     manageUserDecision = loginModel.value[0].ManageUserDecision;
                     RecordResultreport = loginModel.value[0].IsRecordResultreport;
@@ -96,6 +98,17 @@ sap.ui.define([
                 }
                 if (Dispatch==true) {
                     this.getView().byId("gt9").setVisible(true);
+                }
+                if(isSuser=="Suser")
+                {
+                     this.getView().byId("gt1").setVisible(true);
+                      this.getView().byId("gt3").setVisible(true);
+                       this.getView().byId("gt5").setVisible(true);
+                        this.getView().byId("gt6").setVisible(true);
+                         this.getView().byId("gt7").setVisible(true);
+                          this.getView().byId("gt8").setVisible(true);
+                           this.getView().byId("gt9").setVisible(true);
+                           this.getView().byId("gt10").setVisible(true);
                 }
                
                
@@ -125,7 +138,8 @@ sap.ui.define([
                 "gt6",
                  "gt7",
                   "gt8",
-                   "gt9"
+                   "gt9",
+                   "gt10"
             ];
 
 
@@ -164,6 +178,13 @@ sap.ui.define([
                 var router = sap.ui.core.UIComponent.getRouterFor(this);
                 MessageToast.show("Redirecting to Product Quality Assurance.....")
                 router.navTo("ProductQualityAssuranceList");
+            },
+            ShowLotRemove:function()
+            {
+                console.log("Clicked");
+                var router = sap.ui.core.UIComponent.getRouterFor(this);
+                MessageToast.show("Redirecting to Inspection Lot Remove screen.....")
+                router.navTo("LotRemove");
             },
             Showrecordresult:function(){
                 debugger;
@@ -250,18 +271,6 @@ sap.ui.define([
                 }
             },
 
-            // handleLinkPress: function () {
-            //  MessageBox.confirm("Your session will be logout.", {
-            //     title: "Confirm",
-            //   actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-            //   onClose: function (oAction) {
-            //       if (oAction === MessageBox.Action.OK) {
-            //          this.deleteLoginInfo();
-            //       var router = sap.ui.core.UIComponent.getRouterFor(this);
-            //     router.navTo("RouteIndexPage");
-            //  }
-            //}.bind(this)
-            // });
-            // }
+          
         });
     });

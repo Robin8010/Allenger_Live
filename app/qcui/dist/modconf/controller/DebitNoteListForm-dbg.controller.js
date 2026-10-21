@@ -369,12 +369,13 @@ debugger;
                     doc.setFontSize(6.5);
                 }
 
-                const LineAmount = Number(value[i].Quantity || 0) * Number(value[i].C_UnitPrice || 0);
+                const LineAmount = Number(value[i].Quantity || 0) * Number(value[i].PORate || 0);
+
                 const TotalTax = Number(value[i].CGSTAmount || 0)
                     + Number(value[i].SGSTAmount || 0)
                     + Number(value[i].IgstAmount || 0);
-                const LineTotal = LineAmount + TotalTax;
-
+                const LineTotal = value[i].Total + TotalTax;
+ debugger;
                 const rowStartY = LineY;
                 const rowVals = [
                     i + 1,
@@ -387,13 +388,15 @@ debugger;
                     value[i].UOM,
                     Number(value[i].Quantity || 0).toFixed(2),
                     Number(value[i].GrQty || 0).toFixed(2),
+                    
                     Number(value[i].ShortQty || 0).toFixed(2),
                     Number(value[i].RejQty || 0).toFixed(2),
-                    Number(value[i].C_UnitPrice || 0).toFixed(2),
+                    Number(value[i].PORate || 0).toFixed(2),
                     Number(value[i].BillRate || 0).toFixed(2),
                     Number(value[i].RateDiff || 0).toFixed(2),
                     //TotalTax.toFixed(2),
                     value[i].Total.toFixed(2),
+                   
                     Number(value[i].CgstRate || 0).toFixed(2),
                     Number(value[i].CGSTAmount || 0).toFixed(2),
                     Number(value[i].SgstRate || 0).toFixed(2),
@@ -439,14 +442,17 @@ debugger;
             const h = value[0] || {};
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
-
+debugger
             // ---- Aggregate totals across all line items ----
             let TotalBeforeTax = 0, TotalCGST = 0, TotalSGST = 0, TotalIGST = 0;
             value.forEach(row => {
-                TotalBeforeTax += Number(row.Quantity || 0) * Number(row.C_UnitPrice || 0);
+                TotalBeforeTax += Number(row.Total||0);
                 TotalCGST += Number(row.CGSTAmount || 0);
                 TotalSGST += Number(row.SGSTAmount || 0);
                 TotalIGST += Number(row.IgstAmount || 0);
+
+
+                 
             });
           
 
@@ -472,16 +478,16 @@ debugger;
             doc.text(remarkLines, 6, Fy + 9);
 
             // ---- Totals block (right) ----
-              const TotalAfterTax = TotalBeforeTax+h.PackingCharges+ h.Freight+ h.OtherCharges+h.CGSTTotal + h.SGSTTotal + h.IgstTotal;
+              const TotalAfterTax = TotalBeforeTax+h.PackingCharges+ h.Freight+ h.OtherCharges+TotalCGST + TotalSGST + TotalIGST;
             const totLabels = [
                 ["Total Amount before Tax", TotalBeforeTax],
                 ["Packing Charges", h.PackingCharges],
                 ["Freight Charges", h.Freight],
                 ["Misc. Charges", h.MiscCharges],
                 ["Other Charges", h.OtherCharges],
-                ["Add: CGST", h.CGSTTotal],
-                ["Add: SGST/UTGST", h.SGSTTotal],
-                ["Add: IGST", h.IgstTotal],
+                ["Add: CGST", TotalCGST],
+                ["Add: SGST/UTGST", TotalSGST],
+                ["Add: IGST", TotalIGST],
                 ["Total Amount after Tax:", TotalAfterTax]
             ];
             const totX = 195;

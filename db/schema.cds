@@ -545,3 +545,5 @@ entity InspectionQcReport2 as
         T7.NameDsc as MechnicalUserName,
         T7.UserName as MechnicalUser
     }
+
+
